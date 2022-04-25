@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.13.2"
+  tag: "v0.13.3"
   pullPolicy: ""
 
 sidecars:
@@ -65,6 +65,8 @@ serviceAccount:
 controller:
   # Default is true. This Component will control CSI Driver deployed on node
   enabled: true
+  # Default is false. Enable provisioner of controller service
+  provisioner: true
   # Pod Numbers
   replicas: 1
   resources:
@@ -101,6 +103,7 @@ node:
     requests:
       cpu: 1000m
       memory: 1Gi
+  storageClassShareMount: false
   # -- Grace period to allow the node pod to shutdown before it is killed
   terminationGracePeriodSeconds: 30
   # -- Affinity for node pods.
@@ -140,6 +143,8 @@ storageClasses:
     configs: ""
     # -- Config for trash days
     trashDays: ""
+    # -- Options of juicefs format/auth, connected by `,`, such as `block-size=4096,capacity=10`. Read [community document](https://juicefs.com/docs/community/command_reference/) and [Cloud Service document](https://juicefs.com/docs/cloud/commands_reference#auth) for more usage.
+    formatOptions: ""
 
 
   mountOptions:
