@@ -59,6 +59,10 @@ spec:
           value: {{ .Values.jfsMountDir }}
         - name: JUICEFS_CONFIG_PATH
           value: {{ .Values.jfsConfigDir }}
+        {{- if .Values.node.storageClassShareMount }}
+        - name: STORAGE_CLASS_SHARE_MOUNT
+          value: "true"
+        {{- end }}
         livenessProbe:
           failureThreshold: 5
           httpGet:

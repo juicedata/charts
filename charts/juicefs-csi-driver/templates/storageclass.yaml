@@ -35,6 +35,9 @@ data:
   {{- if .trashDays }}
   trash-days: {{ .trashDays | b64enc | quote }}
   {{- end }}
+  {{- if .formatOptions }}
+  format-options: {{ .formatOptions | b64enc | quote }}
+  {{- end }}
   {{- end }}
 ---
 apiVersion: storage.k8s.io/v1
