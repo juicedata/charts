@@ -55,6 +55,9 @@ parameters:
   csi.storage.k8s.io/node-publish-secret-namespace: {{ $namespace }}
   csi.storage.k8s.io/provisioner-secret-name: {{ $sc.name }}-secret
   csi.storage.k8s.io/provisioner-secret-namespace: {{ $namespace }}
+  {{- if $sc.pathPattern }}
+  pathPattern: {{ $sc.pathPattern }}
+  {{- end }}
   {{- with $sc.mountPod }}
   {{- if .resources.limits }}
   {{- if .resources.limits.cpu }}
