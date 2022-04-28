@@ -66,7 +66,7 @@ controller:
   # Default is true. This Component will control CSI Driver deployed on node
   enabled: true
   # Default is false. Enable provisioner of controller service
-  provisioner: true
+  provisioner: false
   # Pod Numbers
   replicas: 1
   resources:
@@ -127,19 +127,19 @@ storageClasses:
   backend:
     # -- The JuiceFS file system name.
     name: "juice"
-    # -- Connection URL for metadata engine (e.g. Redis). Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/databases_for_metadata.md) for more information.
+    # -- Connection URL for metadata engine (e.g. Redis). Read [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information.
     metaurl: ""
-    # -- Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md) for the full supported list.
+    # -- Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list.
     storage: ""
     # -- Access key for object storage
     accessKey: ""
     # -- Secret key for object storage
     secretKey: ""
-    # -- Bucket URL. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md) to learn how to setup different object storage.
+    # -- Bucket URL. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) to learn how to setup different object storage.
     bucket: ""
-    # -- Env for mount pod and format, such as `a: b`
+    # -- Env for mount pod and format, such as `{"a": "b"}`
     envs: ""
-    # -- Config for mount pod. Read [this document](https://github.com/juicedata/juicefs-csi-driver/blob/master/docs/en/examples/config-and-env.md) for more usage.
+    # -- Config for mount pod. Read [this document](https://juicefs.com/docs/csi/examples/config-and-env) for more usage.
     configs: ""
     # -- Config for trash days
     trashDays: ""
@@ -148,11 +148,16 @@ storageClasses:
 
 
   mountOptions:
-  # -- Mount Options. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/command_reference.md#juicefs-mount) to learn how to set different mount options.
+  # -- Mount Options. Read [this document](https://juicefs.com/docs/community/command_reference) to learn how to set different mount options.
   # Example:
   # - debug
   # - cache-size=2048
   # - cache-dir=/var/foo
+
+  # Define subdir format in storageClass, read [this document](https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern) for more details.
+  # If enabled, please make sure controller.provisioner=true
+  # Example: "${.PVC.name}"
+  pathPattern: ""
 
   mountPod:
     # mount pod resource requests & limits
