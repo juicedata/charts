@@ -1,6 +1,6 @@
 # juicefs-s3-gateway
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 A Helm chart for JuiceFS S3 Gateway
 
@@ -25,7 +25,7 @@ A Helm chart for JuiceFS S3 Gateway
 | hostNetwork | bool | `false`                          |  |
 | image.pullPolicy | string | `"IfNotPresent"`                 |  |
 | image.repository | string | `"juicedata/juicefs-csi-driver"` |  |
-| image.tag | string | `"v0.13.0"`                      |  |
+| image.tag | string | `"v0.14.0"`                      |  |
 | imagePullSecrets | list | `[]`                             |  |
 | ingress.annotations | object | `{}`                             |  |
 | ingress.className | string | `"nginx"`                        |  |
