@@ -25,7 +25,7 @@ A Helm chart for JuiceFS S3 Gateway
 | hostNetwork | bool | `false`                          |  |
 | image.pullPolicy | string | `"IfNotPresent"`                 |  |
 | image.repository | string | `"juicedata/juicefs-csi-driver"` |  |
-| image.tag | string | `"v0.13.0"`                      |  |
+| image.tag | string | `"v0.14.0"`                      |  |
 | imagePullSecrets | list | `[]`                             |  |
 | ingress.annotations | object | `{}`                             |  |
 | ingress.className | string | `"nginx"`                        |  |
