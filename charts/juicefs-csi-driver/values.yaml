@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.14.0"
+  tag: "v0.14.1"
   pullPolicy: ""
 
 sidecars:
@@ -127,10 +127,12 @@ storageClasses:
   backend:
     # -- The JuiceFS file system name.
     name: "juice"
-    # -- Connection URL for metadata engine (e.g. Redis). Read [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information.
+    # -- Connection URL for metadata engine (e.g. Redis), using in Community edition. Read [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information.
     metaurl: ""
-    # -- Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list.
+    # -- Object storage type, such as `s3`, `gs`, `oss`, using in Community edition. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list.
     storage: ""
+    # -- JuiceFS managed token, using in Cloud Service edition. Read [this document](https://juicefs.com/docs/cloud/metadata/#token-management) for more details.
+    token: ""
     # -- Access key for object storage
     accessKey: ""
     # -- Secret key for object storage
