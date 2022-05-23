@@ -13,7 +13,12 @@ type: Opaque
 data:
   {{- with $sc.backend }}
   name: {{ .name | b64enc | quote }}
+  {{- if .metaurl }}
   metaurl: {{ .metaurl | b64enc | quote }}
+  {{- end }}
+  {{- if .token }}
+  token: {{ .token | b64enc | quote }}
+  {{- end }}
   {{- if .storage }}
   storage: {{ .storage | b64enc | quote }}
   {{- end }}
