@@ -66,18 +66,18 @@ parameters:
   {{- with $sc.mountPod }}
   {{- if .resources.limits }}
   {{- if .resources.limits.cpu }}
-  juicefs/mount-cpu-limit: {{ .resources.limits.cpu }}
+  juicefs/mount-cpu-limit: {{ .resources.limits.cpu | quote }}
   {{- end }}
   {{- if .resources.limits.memory }}
-  juicefs/mount-memory-limit: {{ .resources.limits.memory }}
+  juicefs/mount-memory-limit: {{ .resources.limits.memory | quote }}
   {{- end }}
   {{- end }}
   {{- if .resources.requests }}
   {{- if .resources.requests.cpu }}
-  juicefs/mount-cpu-request: {{ .resources.requests.cpu }}
+  juicefs/mount-cpu-request: {{ .resources.requests.cpu | quote }}
   {{- end }}
   {{- if .resources.requests.memory }}
-  juicefs/mount-memory-request: {{ .resources.requests.memory }}
+  juicefs/mount-memory-request: {{ .resources.requests.memory | quote }}
   {{- end }}
   {{- end }}
   {{- end }}
