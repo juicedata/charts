@@ -61,11 +61,11 @@ Kubernetes: `>=1.14.0-0`
 | sidecars.nodeDriverRegistrarImage.repository | string | `"quay.io/k8scsi/csi-node-driver-registrar"`         |  |
 | sidecars.nodeDriverRegistrarImage.tag | string | `"v1.1.0"`                                           |  |
 | storageClasses[0].backend.accessKey | string | `""`                                                 | Access key for object storage |
-| storageClasses[0].backend.bucket | string | `""`                                                 | Bucket URL. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md) to learn how to setup different object storage. |
-| storageClasses[0].backend.metaurl | string | `""`                                                 | Connection URL for metadata engine (e.g. Redis). Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/databases_for_metadata.md) for more information. |
+| storageClasses[0].backend.bucket | string | `""`                                                 | Bucket URL. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) to learn how to setup different object storage. |
+| storageClasses[0].backend.metaurl | string | `""`                                                 | Connection URL for metadata engine (e.g. Redis). Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_metadata_engine.md) for more information. |
 | storageClasses[0].backend.name | string | `"juice"`                                            | The JuiceFS file system name. |
 | storageClasses[0].backend.secretKey | string | `""`                                                 | Secret key for object storage |
-| storageClasses[0].backend.storage | string | `""`                                                 | Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md) for the full supported list. |
+| storageClasses[0].backend.storage | string | `""`                                                 | Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) for the full supported list. |
 | storageClasses[0].enabled | bool | `true`                                               | Default is true will create a new StorageClass. It will create Secret and StorageClass used by CSI driver |
 | storageClasses[0].mountPod.resources.limits.cpu | string | `"5000m"`                                            |  |
 | storageClasses[0].mountPod.resources.limits.memory | string | `"5Gi"`                                              |  |
