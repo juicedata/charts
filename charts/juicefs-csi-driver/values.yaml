@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.14.1"
+  tag: "v0.14.2"
   pullPolicy: ""
 
 sidecars:
