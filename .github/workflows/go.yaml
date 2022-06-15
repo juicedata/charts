@@ -2,7 +2,7 @@ name: Github Actions
 
 on:
   push:
-    branches: [ add_helm_lint ]
+    branches: [ main ]
   pull_request:
     branches: [ main ]
 
