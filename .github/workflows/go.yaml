@@ -1,0 +1,27 @@
+name: Github Actions
+
+on:
+  push:
+    branches: [ add_helm_lint ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+      - name: CI Preparation
+        run: |
+          arch=$(go env GOARCH)
+          os=$(go env GOOS)
+          curl -L https://get.helm.sh/helm-v3.7.2-${os}-${arch}.tar.gz | tar -xz -C /tmp
+          chmod u+x /tmp/${os}-${arch}/helm && sudo mv /tmp/${os}-${arch}/helm /usr/local/bin/helm
+
+      - name: CI script
+        run: |
+          find ./charts | grep Chart.yaml | xargs dirname | xargs helm lint
