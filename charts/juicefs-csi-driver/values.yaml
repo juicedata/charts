@@ -123,6 +123,9 @@ storageClasses:
   enabled: true
   # -- Either Delete or Retain.
   reclaimPolicy: Delete
+  # -- Additional annotations for this StorageClass e.g. make it default.
+  #annotations:
+    #storageclass.kubernetes.io/is-default-class: "true"
 
   backend:
     # -- The JuiceFS file system name.

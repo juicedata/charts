@@ -51,6 +51,10 @@ metadata:
   labels:
     {{- include "juicefs-csi.labels" $ | nindent 4 }}
   name: {{ $sc.name }}
+  {{- if $sc.annotations }}
+  annotations:
+    {{- toYaml $sc.annotations | nindent 4 }}
+  {{- end }}
 {{- if $sc.mountOptions }}
 mountOptions:
   {{- toYaml $sc.mountOptions | nindent 2 }}
