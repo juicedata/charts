@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.15.0"
+  tag: "v0.15.1"
   pullPolicy: ""
 
 sidecars:
@@ -163,6 +163,9 @@ storageClasses:
   # If enabled, please make sure controller.provisioner=true
   # Example: "${.PVC.name}"
   pathPattern: ""
+
+  # Using PVC as JuiceFS cache, read [this document](https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path-1) for more details.
+  cachePVC: ""
 
   mountPod:
     # mount pod resource requests & limits
