@@ -2,6 +2,27 @@ apiVersion: v1
 entries:
   juicefs-csi-driver:
   - apiVersion: v2
+    appVersion: 0.15.1
+    created: "2022-06-27T02:54:14.387068199Z"
+    description: A Helm chart for JuiceFS CSI Driver
+    digest: db9f39f0196f8ebce8385cd9ed478f528644271beaed7ce6cc734439ae51c982
+    home: https://github.com/juicedata/juicefs-csi-driver
+    icon: https://s.juicefs.com/static/jfs/logo.svg
+    keywords:
+    - juicefs
+    - csi
+    kubeVersion: '>=1.14.0-0'
+    maintainers:
+    - email: team@juicedata.io
+      name: Juicedata Inc
+    name: juicefs-csi-driver
+    sources:
+    - https://github.com/juicedata/juicefs-csi-driver
+    type: application
+    urls:
+    - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-csi-driver-0.11.2/juicefs-csi-driver-0.11.2.tgz
+    version: 0.11.2
+  - apiVersion: v2
     appVersion: 0.15.0
     created: "2022-06-22T03:04:15.506420558Z"
     description: A Helm chart for JuiceFS CSI Driver
@@ -234,6 +255,26 @@ entries:
     version: 0.8.1
   juicefs-s3-gateway:
   - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2022-06-27T02:54:14.503468623Z"
+    description: A Helm chart for JuiceFS S3 Gateway
+    digest: f95eb77ef5c93d101d644546ac14eaa3e66011421176d5ed2acadd5a63d4b555
+    home: https://github.com/juicedata/juicefs
+    icon: https://s.juicefs.com/static/jfs/logo.svg
+    keywords:
+    - juicefs
+    - s3 gateway
+    maintainers:
+    - email: team@juicedata.io
+      name: Juicedata Inc
+    name: juicefs-s3-gateway
+    sources:
+    - https://github.com/juicedata/juicefs
+    type: application
+    urls:
+    - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.6.0/juicefs-s3-gateway-0.6.0.tgz
+    version: 0.6.0
+  - apiVersion: v2
     appVersion: 1.1.0
     created: "2022-06-17T07:03:00.508239984Z"
     description: A Helm chart for JuiceFS S3 Gateway
@@ -313,4 +354,4 @@ entries:
     urls:
     - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.2.0/juicefs-s3-gateway-0.2.0.tgz
     version: 0.2.0
-generated: "2022-06-22T03:04:15.506617558Z"
+generated: "2022-06-27T02:54:14.503544924Z"
