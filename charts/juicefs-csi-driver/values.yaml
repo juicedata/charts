@@ -151,10 +151,10 @@ storageClasses:
     # -- Options of juicefs format/auth, connected by `,`, such as `block-size=4096,capacity=10`. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-format) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#auth) for more information.
     formatOptions: ""
 
-  # -- Mount Options. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#mount) to learn how to set different mount options.
-  # Example:
-  # - `debug`
-  # - `cache-size=2048`
+  # -- Mount Options. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#mount) to learn how to set different mount options.<br/><br/>
+  # Example:<br/>
+  # - `debug`<br/>
+  # - `cache-size=2048`<br/>
   # - `cache-dir=/var/foo`
   mountOptions:
 
