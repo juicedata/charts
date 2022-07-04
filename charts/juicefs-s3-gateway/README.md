@@ -37,7 +37,7 @@ A Helm chart for JuiceFS S3 Gateway
 | metricsPort | int | `9567` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| options | string | `""` | Gateway Options. Separated by spaces. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/command_reference.md#juicefs-gateway) to learn how to set different gateway options. |
+| options | string | `""` | Gateway Options. Separated by spaces. Read [this document](https://juicefs.com/docs/community/command_reference#juicefs-gateway) to learn how to set different gateway options. |
 | podAnnotations | object | `{}` |  |
 | port | int | `9000` |  |
 | replicaCount | int | `1` |  |
@@ -46,11 +46,11 @@ A Helm chart for JuiceFS S3 Gateway
 | resources.requests.cpu | string | `"1000m"` |  |
 | resources.requests.memory | string | `"1Gi"` |  |
 | secret.accessKey | string | `""` | Access key for object storage |
-| secret.bucket | string | `""` | Bucket URL. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) to learn how to setup different object storage. |
-| secret.metaurl | string | `""` | Connection URL for metadata engine (e.g. Redis). Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_metadata_engine.md) for more information. |
+| secret.bucket | string | `""` | Bucket URL. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) to learn how to setup different object storage. |
+| secret.metaurl | string | `""` | Connection URL for metadata engine (e.g. Redis). Read [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information. |
 | secret.name | string | `""` | The JuiceFS file system name. |
 | secret.secretKey | string | `""` | Secret key for object storage |
-| secret.storage | string | `""` | Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) for the full supported list. |
+| secret.storage | string | `""` | Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list. |
 | service.type | string | `"ClusterIP"` |  |
 | tolerations | list | `[]` |  |
 

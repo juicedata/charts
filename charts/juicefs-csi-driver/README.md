@@ -72,7 +72,7 @@ Kubernetes: `>=1.14.0-0`
 | storageClasses[0].backend.bucket | string | `""` | Bucket URL. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) to learn how to setup different object storage. |
 | storageClasses[0].backend.configs | string | `""` | Config for mount pod. Read [this document](https://juicefs.com/docs/csi/examples/config-and-env) for more usage. |
 | storageClasses[0].backend.envs | string | `""` | Env for mount pod and format, such as `{"a": "b"}` |
-| storageClasses[0].backend.formatOptions | string | `""` | Options of juicefs format/auth, connected by `,`, such as `block-size=4096,capacity=10`. Read [community document](https://juicefs.com/docs/community/command_reference/) and [Cloud Service document](https://juicefs.com/docs/cloud/commands_reference#auth) for more usage. |
+| storageClasses[0].backend.formatOptions | string | `""` | Options of juicefs format/auth, connected by `,`, such as `block-size=4096,capacity=10`. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-format) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#auth) for more information. |
 | storageClasses[0].backend.metaurl | string | `""` | Connection URL for metadata engine (e.g. Redis), using in Community edition. Read [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information. |
 | storageClasses[0].backend.name | string | `"juice"` | The JuiceFS file system name. |
 | storageClasses[0].backend.secretKey | string | `""` | Secret key for object storage |
