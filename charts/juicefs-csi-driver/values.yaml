@@ -117,11 +117,11 @@ node:
       operator: Exists
 
 storageClasses:
-  # StorageClass Name. It is important.
-- name: juicefs-sc
-  # -- Default is true will create a new StorageClass. It will create Secret and StorageClass used by CSI driver
+- # -- `StorageClass` Name. It is important.
+  name: juicefs-sc
+  # -- Default is true will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by CSI Driver.
   enabled: true
-  # -- Either Delete or Retain.
+  # -- Either `Delete` or `Retain`.
   reclaimPolicy: Delete
   # -- Additional annotations for this StorageClass e.g. make it default.
   #annotations:
