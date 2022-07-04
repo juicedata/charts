@@ -10,7 +10,7 @@ A Helm chart for JuiceFS CSI Driver
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Juicedata Inc | <team@juicedata.io> |  |
+| Juicedata Inc. | <team@juicedata.io> |  |
 
 ## Source Code
 

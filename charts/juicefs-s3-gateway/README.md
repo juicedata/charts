@@ -10,7 +10,7 @@ A Helm chart for JuiceFS S3 Gateway
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Juicedata Inc | team@juicedata.io |  |
+| Juicedata Inc. | <team@juicedata.io> |  |
 
 ## Source Code
 
@@ -18,40 +18,41 @@ A Helm chart for JuiceFS S3 Gateway
 
 ## Values
 
-| Key | Type | Default                          | Description |
-|-----|------|----------------------------------|-------------|
-| affinity | object | `{}`                             |  |
-| fullnameOverride | string | `""`                             |  |
-| hostNetwork | bool | `false`                          |  |
-| image.pullPolicy | string | `"IfNotPresent"`                 |  |
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| affinity | object | `{}` |  |
+| fullnameOverride | string | `""` |  |
+| hostNetwork | bool | `false` |  |
+| image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"juicedata/juicefs-csi-driver"` |  |
-| image.tag | string | `"v0.15.0"`                      |  |
-| imagePullSecrets | list | `[]`                             |  |
-| ingress.annotations | object | `{}`                             |  |
-| ingress.className | string | `"nginx"`                        |  |
-| ingress.enabled | bool | `false`                          |  |
-| ingress.hosts[0].host | string | `""`                             |  |
-| ingress.hosts[0].paths[0].path | string | `"/"`                            |  |
-| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"`       |  |
-| ingress.tls | list | `[]`                             |  |
-| nameOverride | string | `""`                             |  |
-| nodeSelector | object | `{}`                             |  |
-| options | string | `""`                             | Gateway Options. Separated by spaces. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/command_reference.md#juicefs-gateway) to learn how to set different gateway options. |
-| podAnnotations | object | `{}`                             |  |
-| port | int | `9000`                           |  |
-| replicaCount | int | `1`                              |  |
-| resources.limits.cpu | string | `"5000m"`                        |  |
-| resources.limits.memory | string | `"5Gi"`                          |  |
-| resources.requests.cpu | string | `"1000m"`                        |  |
-| resources.requests.memory | string | `"1Gi"`                          |  |
-| secret.accessKey | string | `""`                             | Access key for object storage |
-| secret.bucket | string | `""`                             | Bucket URL. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) to learn how to setup different object storage. |
-| secret.metaurl | string | `""`                             | Connection URL for metadata engine (e.g. Redis). Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/databases_for_metadata.md) for more information. |
-| secret.name | string | `""`                             | The JuiceFS file system name. |
-| secret.secretKey | string | `""`                             | Secret key for object storage |
-| secret.storage | string | `""`                             | Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/how_to_setup_object_storage.md) for the full supported list. |
-| service.type | string | `"ClusterIP"`                    |  |
-| tolerations | list | `[]`                             |  |
+| image.tag | string | `"v0.15.1"` |  |
+| imagePullSecrets | list | `[]` |  |
+| ingress.annotations | object | `{}` |  |
+| ingress.className | string | `"nginx"` |  |
+| ingress.enabled | bool | `false` |  |
+| ingress.hosts[0].host | string | `""` |  |
+| ingress.hosts[0].paths[0].path | string | `"/"` |  |
+| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
+| ingress.tls | list | `[]` |  |
+| metricsPort | int | `9567` |  |
+| nameOverride | string | `""` |  |
+| nodeSelector | object | `{}` |  |
+| options | string | `""` | Gateway Options. Separated by spaces. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/command_reference.md#juicefs-gateway) to learn how to set different gateway options. |
+| podAnnotations | object | `{}` |  |
+| port | int | `9000` |  |
+| replicaCount | int | `1` |  |
+| resources.limits.cpu | string | `"5000m"` |  |
+| resources.limits.memory | string | `"5Gi"` |  |
+| resources.requests.cpu | string | `"1000m"` |  |
+| resources.requests.memory | string | `"1Gi"` |  |
+| secret.accessKey | string | `""` | Access key for object storage |
+| secret.bucket | string | `""` | Bucket URL. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) to learn how to setup different object storage. |
+| secret.metaurl | string | `""` | Connection URL for metadata engine (e.g. Redis). Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_metadata_engine.md) for more information. |
+| secret.name | string | `""` | The JuiceFS file system name. |
+| secret.secretKey | string | `""` | Secret key for object storage |
+| secret.storage | string | `""` | Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://github.com/juicedata/juicefs/blob/main/docs/en/reference/how_to_setup_object_storage.md) for the full supported list. |
+| service.type | string | `"ClusterIP"` |  |
+| tolerations | list | `[]` |  |
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.5.0](https://github.com/norwoodj/helm-docs/releases/v1.5.0)
+Autogenerated from chart metadata using [helm-docs v1.10.0](https://github.com/norwoodj/helm-docs/releases/v1.10.0)

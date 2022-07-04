@@ -10,7 +10,7 @@ sources:
 icon: https://s.juicefs.com/static/jfs/logo.svg
 maintainers:
   - email: team@juicedata.io
-    name: Juicedata Inc
+    name: Juicedata Inc.
 keywords:
   - juicefs
   - s3 gateway
