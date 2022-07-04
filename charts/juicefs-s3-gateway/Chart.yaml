@@ -11,6 +11,7 @@ icon: https://s.juicefs.com/static/jfs/logo.svg
 maintainers:
   - email: team@juicedata.io
     name: Juicedata Inc.
+    url: https://juicefs.com
 keywords:
   - juicefs
   - s3 gateway

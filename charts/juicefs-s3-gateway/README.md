@@ -10,7 +10,7 @@ A Helm chart for JuiceFS S3 Gateway
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| Juicedata Inc. | <team@juicedata.io> |  |
+| Juicedata Inc. | <team@juicedata.io> | <https://juicefs.com> |
 
 ## Source Code
 
