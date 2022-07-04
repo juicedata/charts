@@ -81,7 +81,7 @@ Kubernetes: `>=1.14.0-0`
 | storageClasses[0].backend.trashDays | string | `""` | Config for trash days |
 | storageClasses[0].cachePVC | string | `""` |  |
 | storageClasses[0].enabled | bool | `true` | Default is true will create a new StorageClass. It will create Secret and StorageClass used by CSI driver |
-| storageClasses[0].mountOptions | string | `nil` | Mount Options. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#mount) to learn how to set different mount options. Example: - debug - cache-size=2048 - cache-dir=/var/foo |
+| storageClasses[0].mountOptions | string | `nil` | Mount Options. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#mount) to learn how to set different mount options. Example: - `debug` - `cache-size=2048` - `cache-dir=/var/foo` |
 | storageClasses[0].mountPod.resources.limits.cpu | string | `"5000m"` |  |
 | storageClasses[0].mountPod.resources.limits.memory | string | `"5Gi"` |  |
 | storageClasses[0].mountPod.resources.requests.cpu | string | `"1000m"` |  |
