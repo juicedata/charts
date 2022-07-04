@@ -158,12 +158,12 @@ storageClasses:
   # - `cache-dir=/var/foo`
   mountOptions:
 
-  # Define subdir format in storageClass, read [this document](https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern) for more details.
-  # If enabled, please make sure controller.provisioner=true
-  # Example: "${.PVC.name}"
+  # -- Define subdir format in storageClass, read [this document](https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern) for more details.
+  # If enabled, please make sure `controller.provisioner=true`.
+  # Example: `"${.PVC.name}"`
   pathPattern: ""
 
-  # Using PVC as JuiceFS cache, read [this document](https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path-1) for more details.
+  # -- Using PVC as JuiceFS cache, read [this document](https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path-1) for more details.
   cachePVC: ""
 
   mountPod:

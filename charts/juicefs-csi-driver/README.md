@@ -79,7 +79,7 @@ Kubernetes: `>=1.14.0-0`
 | storageClasses[0].backend.storage | string | `""` | Object storage type, such as `s3`, `gs`, `oss`, using in Community edition. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list. |
 | storageClasses[0].backend.token | string | `""` | JuiceFS managed token, using in Cloud Service edition. Read [this document](https://juicefs.com/docs/cloud/metadata/#token-management) for more details. |
 | storageClasses[0].backend.trashDays | string | `""` | Config for trash days |
-| storageClasses[0].cachePVC | string | `""` |  |
+| storageClasses[0].cachePVC | string | `""` | Using PVC as JuiceFS cache, read [this document](https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path-1) for more details. |
 | storageClasses[0].enabled | bool | `true` | Default is true will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by CSI Driver. |
 | storageClasses[0].mountOptions | string | `nil` | Mount Options. Read ["Community Edition document"](https://juicefs.com/docs/community/command_reference#juicefs-mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/commands_reference#mount) to learn how to set different mount options.<br/><br/> Example:<br/> - `debug`<br/> - `cache-size=2048`<br/> - `cache-dir=/var/foo` |
 | storageClasses[0].mountPod.resources.limits.cpu | string | `"5000m"` |  |
@@ -87,7 +87,7 @@ Kubernetes: `>=1.14.0-0`
 | storageClasses[0].mountPod.resources.requests.cpu | string | `"1000m"` |  |
 | storageClasses[0].mountPod.resources.requests.memory | string | `"1Gi"` |  |
 | storageClasses[0].name | string | `"juicefs-sc"` | `StorageClass` Name. It is important. |
-| storageClasses[0].pathPattern | string | `""` |  |
+| storageClasses[0].pathPattern | string | `""` | Define subdir format in storageClass, read [this document](https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern) for more details. If enabled, please make sure `controller.provisioner=true`. Example: `"${.PVC.name}"` |
 | storageClasses[0].reclaimPolicy | string | `"Delete"` | Either `Delete` or `Retain`. |
 
 ----------------------------------------------
