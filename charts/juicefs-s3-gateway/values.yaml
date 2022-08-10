@@ -8,7 +8,7 @@ image:
   repository: juicedata/juicefs-csi-driver
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.16.0"
+  tag: "v0.16.1"
 
 port: 9000
 metricsPort: 9567

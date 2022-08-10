@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.16.0"
+  tag: "v0.16.1"
   pullPolicy: ""
 
 sidecars:
@@ -98,11 +98,11 @@ node:
   hostNetwork: false
   resources:
     limits:
-      cpu: 2000m
-      memory: 5Gi
-    requests:
       cpu: 1000m
       memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 512Mi
   storageClassShareMount: false
   # -- Grace period to allow the node pod to shutdown before it is killed
   terminationGracePeriodSeconds: 30
