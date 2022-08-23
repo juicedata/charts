@@ -144,7 +144,7 @@ spec:
       priorityClassName: system-node-critical
       {{- with .Values.node.affinity }}
       affinity:
-        {{- tpl . $ | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.node.nodeSelector }}
       nodeSelector:
