@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.16.1"
+  tag: "v0.17.0"
   pullPolicy: ""
 
 sidecars:
@@ -18,7 +18,7 @@ sidecars:
     tag: "v1.1.0"
   nodeDriverRegistrarImage:
     repository: quay.io/k8scsi/csi-node-driver-registrar
-    tag: "v1.1.0"
+    tag: "v2.1.0"
   csiProvisionerImage:
     repository: quay.io/k8scsi/csi-provisioner
     tag: "v1.6.0"
