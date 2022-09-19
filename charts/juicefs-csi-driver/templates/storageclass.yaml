@@ -87,6 +87,9 @@ parameters:
   juicefs/mount-memory-request: {{ .resources.requests.memory | quote }}
   {{- end }}
   {{- end }}
+  {{- if .image }}
+  juicefs/mount-image: {{ .image }}
+  {{- end }}
   {{- end }}
 provisioner: csi.juicefs.com
 reclaimPolicy: {{ $sc.reclaimPolicy }}

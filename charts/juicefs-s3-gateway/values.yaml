@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: juicedata/juicefs-csi-driver
+  repository: juicedata/mount
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.17.0"
+  tag: "v1.0.0-4.8.0"
 
 port: 9000
 metricsPort: 9567
