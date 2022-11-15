@@ -1,6 +1,6 @@
 # juicefs-csi-driver
 
-![Version: 0.13.1](https://img.shields.io/badge/Version-0.13.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.17.1](https://img.shields.io/badge/AppVersion-0.17.1-informational?style=flat-square)
+![Version: 0.13.2](https://img.shields.io/badge/Version-0.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.17.2](https://img.shields.io/badge/AppVersion-0.17.2-informational?style=flat-square)
 
 A Helm chart for JuiceFS CSI Driver
 
@@ -86,7 +86,7 @@ Kubernetes: `>=1.14.0-0`
 | storageClasses[0].mountPod.resources.limits.memory | string | `"5Gi"` |  |
 | storageClasses[0].mountPod.resources.requests.cpu | string | `"1000m"` |  |
 | storageClasses[0].mountPod.resources.requests.memory | string | `"1Gi"` |  |
-| storageClasses[0].mountPod.image | string | `"juicedata/mount:v1.0.0-4.8.0"` | Image of mount pod. Read [this document](https://juicefs.com/docs/csi/examples/mount-image/) for more details. |
+| storageClasses[0].mountPod.image | string | `"juicedata/mount:v1.0.2-4.8.1"` | Image of mount pod. Read [this document](https://juicefs.com/docs/csi/examples/mount-image/) for more details. |
 | storageClasses[0].name | string | `"juicefs-sc"` | `StorageClass` Name. It is important. |
 | storageClasses[0].pathPattern | string | `""` | Define subdir format in storageClass, read [this document](https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern) for more details. If enabled, please make sure `controller.provisioner=true`. Example: `"${.PVC.name}"` |
 | storageClasses[0].reclaimPolicy | string | `"Delete"` | Either `Delete` or `Retain`. |
