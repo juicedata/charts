@@ -24,9 +24,9 @@ Kubernetes: `>=1.14.0-0`
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| controller.affinity | object | Hard node and soft zone anti-affinity | Affinity for CSI Controller pods |
+| controller.affinity | object | Hard node and soft zone anti-affinity | Affinity for CSI Controller pod |
 | controller.enabled | bool | `true` | Default is `true` |
-| controller.nodeSelector | object | `{}` | Node selector for CSI Controller pods |
+| controller.nodeSelector | object | `{}` | Node selector for CSI Controller pod |
 | controller.provisioner | bool | `false` | Default is `false`. Enable provisioner of controller service. |
 | controller.replicas | int | `1` |  |
 | controller.resources.limits.cpu | string | `"1000m"` |  |
@@ -36,7 +36,7 @@ Kubernetes: `>=1.14.0-0`
 | controller.service.port | int | `9909` |  |
 | controller.service.trpe | string | `"ClusterIP"` |  |
 | controller.terminationGracePeriodSeconds | int | `30` | Grace period to allow the CSI Controller pod to shutdown before it is killed |
-| controller.tolerations | list | `[{"key":"CriticalAddonsOnly","operator":"Exists"}]` | Tolerations for CSI Controller pods |
+| controller.tolerations | list | `[{"key":"CriticalAddonsOnly","operator":"Exists"}]` | Tolerations for CSI Controller pod |
 | dnsConfig | object | `{}` |  |
 | dnsPolicy | string | `"ClusterFirstWithHostNet"` |  |
 | hostAliases | list | `[]` |  |
@@ -55,7 +55,7 @@ Kubernetes: `>=1.14.0-0`
 | node.resources.requests.cpu | string | `"100m"` |  |
 | node.resources.requests.memory | string | `"512Mi"` |  |
 | node.storageClassShareMount | bool | `false` |  |
-| node.terminationGracePeriodSeconds | int | `30` | Grace period to allow the CSI Node Service pod to shutdown before it is killed |
+| node.terminationGracePeriodSeconds | int | `30` | Grace period to allow the CSI Node Service pods to shutdown before it is killed |
 | node.tolerations | list | `[{"key":"CriticalAddonsOnly","operator":"Exists"}]` | Tolerations for CSI Node Service pods |
 | serviceAccount.controller.annotations | object | `{}` |  |
 | serviceAccount.controller.create | bool | `true` |  |
