@@ -81,12 +81,12 @@ controller:
       memory: 512Mi
   # -- Grace period to allow the CSI Controller pod to shutdown before it is killed
   terminationGracePeriodSeconds: 30
-  # -- Affinity for CSI Controller pods
+  # -- Affinity for CSI Controller pod
   # @default -- Hard node and soft zone anti-affinity
   affinity: {}
-  # -- Node selector for CSI Controller pods
+  # -- Node selector for CSI Controller pod
   nodeSelector: {}
-  # -- Tolerations for CSI Controller pods
+  # -- Tolerations for CSI Controller pod
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
@@ -107,7 +107,7 @@ node:
       cpu: 100m
       memory: 512Mi
   storageClassShareMount: false
-  # -- Grace period to allow the CSI Node Service pod to shutdown before it is killed
+  # -- Grace period to allow the CSI Node Service pods to shutdown before it is killed
   terminationGracePeriodSeconds: 30
   # -- Affinity for CSI Node Service pods
   # @default -- Hard node and soft zone anti-affinity
