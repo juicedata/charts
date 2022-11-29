@@ -2,6 +2,28 @@ apiVersion: v1
 entries:
   juicefs-csi-driver:
   - apiVersion: v2
+    appVersion: 0.17.3
+    created: "2022-11-29T09:53:17.483501891Z"
+    description: A Helm chart for JuiceFS CSI Driver
+    digest: ebbe31e3fb3ba16eeb093f43887034950f443afcd769057d87995dd6f1fd57df
+    home: https://github.com/juicedata/juicefs-csi-driver
+    icon: https://s.juicefs.com/static/jfs/logo.svg
+    keywords:
+    - juicefs
+    - csi
+    kubeVersion: '>=1.14.0-0'
+    maintainers:
+    - email: team@juicedata.io
+      name: Juicedata Inc.
+      url: https://juicefs.com
+    name: juicefs-csi-driver
+    sources:
+    - https://github.com/juicedata/juicefs-csi-driver
+    type: application
+    urls:
+    - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-csi-driver-0.13.3/juicefs-csi-driver-0.13.3.tgz
+    version: 0.13.3
+  - apiVersion: v2
     appVersion: 0.17.2
     created: "2022-11-15T06:24:55.957961211Z"
     description: A Helm chart for JuiceFS CSI Driver
@@ -387,6 +409,27 @@ entries:
     version: 0.8.1
   juicefs-s3-gateway:
   - apiVersion: v2
+    appVersion: 1.4.3
+    created: "2022-11-29T09:53:17.793390035Z"
+    description: A Helm chart for JuiceFS S3 Gateway
+    digest: 94501a017ab2ed58b03989893c54828c3f478c42ad5b48cfee60a92d5d9233c4
+    home: https://github.com/juicedata/juicefs
+    icon: https://s.juicefs.com/static/jfs/logo.svg
+    keywords:
+    - juicefs
+    - s3 gateway
+    maintainers:
+    - email: team@juicedata.io
+      name: Juicedata Inc.
+      url: https://juicefs.com
+    name: juicefs-s3-gateway
+    sources:
+    - https://github.com/juicedata/juicefs
+    type: application
+    urls:
+    - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.9.3/juicefs-s3-gateway-0.9.3.tgz
+    version: 0.9.3
+  - apiVersion: v2
     appVersion: 1.4.2
     created: "2022-11-15T06:24:56.169580903Z"
     description: A Helm chart for JuiceFS S3 Gateway
@@ -591,4 +634,4 @@ entries:
     urls:
     - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.2.0/juicefs-s3-gateway-0.2.0.tgz
     version: 0.2.0
-generated: "2022-11-15T06:24:56.169820211Z"
+generated: "2022-11-29T09:53:17.793577338Z"
