@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.17.2"
+  tag: "v0.17.3"
   pullPolicy: ""
 
 sidecars:
@@ -179,4 +179,4 @@ storageClasses:
         cpu: 1000m
         memory: 1Gi
     # -- Image of mount pod. Refer to [this document](https://juicefs.com/docs/csi/examples/mount-image) for more details.
-    image: "juicedata/mount:v1.0.2-4.8.1"
+    image: "juicedata/mount:v1.0.2-4.8.2"
