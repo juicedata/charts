@@ -1,6 +1,6 @@
 # juicefs-csi-driver
 
-![Version: 0.13.2](https://img.shields.io/badge/Version-0.13.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.17.2](https://img.shields.io/badge/AppVersion-0.17.2-informational?style=flat-square)
+![Version: 0.13.3](https://img.shields.io/badge/Version-0.13.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.17.3](https://img.shields.io/badge/AppVersion-0.17.3-informational?style=flat-square)
 
 A Helm chart for JuiceFS CSI Driver
 
@@ -42,7 +42,7 @@ Kubernetes: `>=1.14.0-0`
 | hostAliases | list | `[]` |  |
 | image.pullPolicy | string | `""` |  |
 | image.repository | string | `"juicedata/juicefs-csi-driver"` |  |
-| image.tag | string | `"v0.17.2"` |  |
+| image.tag | string | `"v0.17.3"` |  |
 | jfsConfigDir | string | `"/var/lib/juicefs/config"` | JuiceFS config directory |
 | jfsMountDir | string | `"/var/lib/juicefs/volume"` | JuiceFS mount directory |
 | kubeletDir | string | `"/var/lib/kubelet"` | The kubelet working directory, can be set using `--root-dir` when starting kubelet. |
@@ -83,7 +83,7 @@ Kubernetes: `>=1.14.0-0`
 | storageClasses[0].cachePVC | string | `""` | Using PVC as JuiceFS cache path. Refer to [this document](https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path) for more details. |
 | storageClasses[0].enabled | bool | `true` | Default is `true` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by CSI Driver. |
 | storageClasses[0].mountOptions | string | `nil` | Options for `juicefs mount` command. Refer to ["Community Edition document"](https://juicefs.com/docs/community/command_reference#mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/reference/commands_reference#mount) for more information.<br/><br/> Example:<br/> - `debug`<br/> - `cache-size=2048`<br/> - `cache-dir=/var/foo` |
-| storageClasses[0].mountPod.image | string | `"juicedata/mount:v1.0.2-4.8.1"` | Image of mount pod. Refer to [this document](https://juicefs.com/docs/csi/examples/mount-image) for more details. |
+| storageClasses[0].mountPod.image | string | `"juicedata/mount:v1.0.2-4.8.2"` | Image of mount pod. Refer to [this document](https://juicefs.com/docs/csi/examples/mount-image) for more details. |
 | storageClasses[0].mountPod.resources.limits.cpu | string | `"5000m"` |  |
 | storageClasses[0].mountPod.resources.limits.memory | string | `"5Gi"` |  |
 | storageClasses[0].mountPod.resources.requests.cpu | string | `"1000m"` |  |
