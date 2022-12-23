@@ -1,6 +1,6 @@
 # juicefs-csi-driver
 
-![Version: 0.13.3](https://img.shields.io/badge/Version-0.13.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.17.3](https://img.shields.io/badge/AppVersion-0.17.3-informational?style=flat-square)
+![Version: 0.13.4](https://img.shields.io/badge/Version-0.13.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.17.4](https://img.shields.io/badge/AppVersion-0.17.4-informational?style=flat-square)
 
 A Helm chart for JuiceFS CSI Driver
 
@@ -42,7 +42,7 @@ Kubernetes: `>=1.14.0-0`
 | hostAliases | list | `[]` |  |
 | image.pullPolicy | string | `""` |  |
 | image.repository | string | `"juicedata/juicefs-csi-driver"` |  |
-| image.tag | string | `"v0.17.3"` |  |
+| image.tag | string | `"v0.17.4"` |  |
 | jfsConfigDir | string | `"/var/lib/juicefs/config"` | JuiceFS config directory |
 | jfsMountDir | string | `"/var/lib/juicefs/volume"` | JuiceFS mount directory |
 | kubeletDir | string | `"/var/lib/kubelet"` | The kubelet working directory, can be set using `--root-dir` when starting kubelet. |
