@@ -23,6 +23,10 @@ sidecars:
     repository: quay.io/k8scsi/csi-provisioner
     tag: "v1.6.0"
 
+# The way JuiceFS client runs. including:
+#  - mountpod: default, run JuiceFS client in an independent pod.
+#  - sidecar: run JuiceFS client as a sidecar container in the same pod with application.
+#  - process: not recommended, run JuiceFS client as a process in the JuiceFS CSI node service.
 mountMode: mountpod
 
 # For some environment without DNS server and want to use `/etc/hosts` instead

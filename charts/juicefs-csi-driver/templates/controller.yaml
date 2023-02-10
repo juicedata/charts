@@ -41,9 +41,13 @@ spec:
         {{- if eq .Values.mountMode "sidecar" }}
         - --webhook=true
         {{- end }}
+        {{- if eq .Values.mountMode "process" }}
+        - --by-process=true
+        {{- end }}
         env:
         - name: CSI_ENDPOINT
           value: unix:///var/lib/csi/sockets/pluginproxy/csi.sock
+        {{- if ne .Values.mountMode "process" }}
         - name: NODE_NAME
           valueFrom:
             fieldRef:
@@ -60,6 +64,7 @@ spec:
           value: {{ .Values.jfsMountDir }}
         - name: JUICEFS_CONFIG_PATH
           value: {{ .Values.jfsConfigDir }}
+        {{- end }}
         livenessProbe:
           failureThreshold: 5
           httpGet:
@@ -82,12 +87,14 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/csi/sockets/pluginproxy/
           name: socket-dir
+        {{- if ne .Values.mountMode "process" }}
         - mountPath: /jfs
           mountPropagation: Bidirectional
           name: jfs-dir
         - mountPath: /root/.juicefs
           mountPropagation: Bidirectional
           name: jfs-root-dir
+        {{- end }}
         {{- if eq .Values.mountMode "sidecar" }}
         - name: webhook-certs
           mountPath: /etc/webhook/certs
@@ -137,6 +144,7 @@ spec:
       volumes:
       - emptyDir: {}
         name: socket-dir
+      {{- if ne .Values.mountMode "process" }}
       - hostPath:
           path: {{ .Values.jfsMountDir }}
           type: DirectoryOrCreate
@@ -145,6 +153,7 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
+      {{- end }}
       {{- if eq .Values.mountMode "sidecar" }}
       - name: webhook-certs
         secret:

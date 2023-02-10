@@ -33,7 +33,12 @@ spec:
         - --logtostderr
         - --nodeid=$(NODE_NAME)
         - --v=5
+        {{- if eq .Values.mountMode "mountpod" }}
         - --enable-manager=true
+        {{- end }}
+        {{- if eq .Values.mountMode "process" }}
+        - --by-process=true
+        {{- end }}
         env:
         - name: CSI_ENDPOINT
           value: unix:/csi/csi.sock
@@ -41,6 +46,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        {{- if ne .Values.mountMode "process" }}
         - name: JUICEFS_MOUNT_NAMESPACE
           valueFrom:
             fieldRef:
@@ -59,6 +65,7 @@ spec:
           value: {{ .Values.jfsMountDir }}
         - name: JUICEFS_CONFIG_PATH
           value: {{ .Values.jfsConfigDir }}
+        {{- end }}
         {{- if .Values.node.storageClassShareMount }}
         - name: STORAGE_CLASS_SHARE_MOUNT
           value: "true"
@@ -87,12 +94,14 @@ spec:
           name: plugin-dir
         - mountPath: /dev
           name: device-dir
+        {{- if ne .Values.mountMode "process" }}
         - mountPath: /jfs
           mountPropagation: Bidirectional
           name: jfs-dir
         - mountPath: /root/.juicefs
           mountPropagation: Bidirectional
           name: jfs-root-dir
+        {{- end }}
         lifecycle:
           preStop:
             exec:
@@ -170,6 +179,7 @@ spec:
           path: /dev
           type: Directory
         name: device-dir
+      {{- if ne .Values.mountMode "process" }}
       - hostPath:
           path: {{ .Values.jfsMountDir }}
           type: DirectoryOrCreate
@@ -178,4 +188,5 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
+      {{- end }}
 {{- end }}
