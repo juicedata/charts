@@ -23,6 +23,12 @@ sidecars:
     repository: quay.io/k8scsi/csi-provisioner
     tag: "v1.6.0"
 
+# The way JuiceFS client runs. including:
+#  - mountpod: default, run JuiceFS client in an independent pod.
+#  - sidecar: run JuiceFS client as a sidecar container in the same pod with application.
+#  - process: not recommended, run JuiceFS client as a process in the JuiceFS CSI node service.
+mountMode: mountpod
+
 # For some environment without DNS server and want to use `/etc/hosts` instead
 # - ip: "127.0.0.1"
 #   hostnames:
@@ -93,7 +99,7 @@ controller:
   # CSI Controller service
   service:
     port: 9909
-    trpe: ClusterIP
+    type: ClusterIP
 
 node:
   # -- Default is `true`. CSI Node Service will be deployed in every node.
@@ -118,6 +124,22 @@ node:
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
+
+webhook:
+  # Helm will auto-generate these fields
+  caBundlePEM: |
+
+  crtPEM: |
+
+  keyPEM: |
+
+  # It is recommended that admission webhooks should evaluate as quickly as possible (typically in milliseconds),
+  # since they add to API request latency. It is encouraged to use a small timeout for webhooks.
+  # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#timeouts
+  timeoutSeconds: 5
+  # FailurePolicy defines how unrecognized errors and timeout errors from the admission webhook are handled.
+  # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
+  FailurePolicy: Fail
 
 storageClasses:
 - # -- `StorageClass` Name. It is important.
