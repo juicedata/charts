@@ -143,8 +143,8 @@ webhook:
 
 storageClasses:
 - # -- `StorageClass` Name. It is important.
-  name: ""
-  # -- Default is `true` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by pods which use JuiceFS PVC.
+  name: "juicefs-sc"
+  # -- Default is `false` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by pods which use JuiceFS PVC.
   enabled: false
   # -- Either `Delete` or `Retain`. Refer to [this document](https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy) for more information.
   reclaimPolicy: Delete

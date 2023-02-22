@@ -1,54 +1,8 @@
 Guide on how to configure a StorageClass or PV and start using the driver are here:
 https://juicefs.com/docs/csi/guide/pv
-{{- $scenable := false}}
 
-{{- if .Values.storageClasses }}
-{{- if ne (len .Values.storageClasses) 0 }}
-{{- $scenable := true }}
-{{- end }}
-{{- end }}
+{{- define "all_sc" }}
 
-{{- if $scenable }}
-{{- $sc := index .Values.storageClasses 0 }}
-For quickly test, you can use this file to test:
-
-```
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: juicefs-pvc
-  namespace: {{ .Release.Namespace | quote }}
-spec:
-  accessModes:
-  - ReadWriteMany
-  resources:
-    requests:
-      storage: 10Pi
-  storageClassName: {{ (index .Values.storageClasses 0).name }}
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: juicefs-app
-  namespace: {{ .Release.Namespace | quote }}
-spec:
-  containers:
-  - args:
-    - -c
-    - while true; do echo $(date -u) >> /data/out.txt; sleep 5; done
-    command:
-    - /bin/sh
-    image: busybox
-    name: app
-    volumeMounts:
-    - mountPath: /data
-      name: juicefs-pv
-  volumes:
-  - name: juicefs-pv
-    persistentVolumeClaim:
-      claimName: juicefs-pvc
-```
-{{- else }}
 Before start, you need to prepare a metadata server and object storage, then configure their credentials in Secret.
 
 For metadata server, you can refer to this guide: https://juicefs.com/docs/community/databases_for_metadata
@@ -117,5 +71,54 @@ spec:
     persistentVolumeClaim:
       claimName: juicefs-pvc
 ```
+{{- end }}
 
+{{- if .Values.storageClasses }}
+{{- $sc := index .Values.storageClasses 0 }}
+{{- if $sc.enabled }}
+
+For quickly test, you can use this file to test:
+
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: juicefs-pvc
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Pi
+  storageClassName: {{ $sc.name }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: juicefs-app
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  containers:
+  - args:
+    - -c
+    - while true; do echo $(date -u) >> /data/out.txt; sleep 5; done
+    command:
+    - /bin/sh
+    image: busybox
+    name: app
+    volumeMounts:
+    - mountPath: /data
+      name: juicefs-pv
+  volumes:
+  - name: juicefs-pv
+    persistentVolumeClaim:
+      claimName: juicefs-pvc
+```
+{{- else }}
+{{- template "all_sc" }}
+{{- end }}
+
+{{- else }}
+{{- template "all_sc" }}
 {{- end }}
