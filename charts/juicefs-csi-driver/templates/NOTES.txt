@@ -3,10 +3,13 @@ https://juicefs.com/docs/csi/guide/pv
 
 {{- define "all_sc" }}
 
-Before start, you need to prepare a metadata server and object storage, then configure their credentials in Secret.
+Before start, you need to configure file system credentials in Secret:
 
-For metadata server, you can refer to this guide: https://juicefs.com/docs/community/databases_for_metadata
-For object storage, you can refer to this guide: https://juicefs.com/docs/community/how_to_setup_object_storage
+- If you are using JuiceFS enterprise, you should create a file system in JuiceFS console, refer to this guide: https://juicefs.com/docs/cloud/getting_started/#create-file-system
+
+- If you are using JuiceFS community, you should prepare a metadata engine and object storage:
+  1. For metadata server, you can refer to this guide: https://juicefs.com/docs/community/databases_for_metadata
+  2. For object storage, you can refer to this guide: https://juicefs.com/docs/community/how_to_setup_object_storage
 
 Then you can use this file to test:
 
@@ -19,11 +22,14 @@ metadata:
 type: Opaque
 stringData:
   name: juicefs-vol              # The JuiceFS file system name
+  access-key: <ACCESS_KEY>       # Object storage credentials
+  secret-key: <SECRET_KEY>       # Object storage credentials
+  # follows are for JuiceFS enterprise
+  token: ${JUICEFS_TOKEN}        # Token used to authenticate against JuiceFS Volume
+  # follows are for JuiceFS community
   metaurl: <META_URL>            # Connection URL for metadata engine.
   storage: s3                    # Object storage type, such as s3, gs, oss.
   bucket: <BUCKET>               # Bucket URL of object storage.
-  access-key: <ACCESS_KEY>       # Object storage credentials
-  secret-key: <SECRET_KEY>       # Object storage credentials
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
