@@ -143,9 +143,9 @@ webhook:
 
 storageClasses:
 - # -- `StorageClass` Name. It is important.
-  name: juicefs-sc
-  # -- Default is `true` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by CSI Driver.
-  enabled: true
+  name: "juicefs-sc"
+  # -- Default is `false` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by pods which use JuiceFS PVC.
+  enabled: false
   # -- Either `Delete` or `Retain`. Refer to [this document](https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy) for more information.
   reclaimPolicy: Delete
   # -- Additional annotations for this `StorageClass`, e.g. make it default.
@@ -154,7 +154,7 @@ storageClasses:
 
   backend:
     # -- The JuiceFS file system name
-    name: "juicefs"
+    name: ""
     # -- Connection URL for metadata engine (e.g. Redis), for community edition use only. Refer to [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information.
     metaurl: ""
     # -- Object storage type, such as `s3`, `gs`, `oss`, for community edition use only. Refer to [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list.
