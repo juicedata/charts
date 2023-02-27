@@ -42,7 +42,7 @@ Kubernetes: `>=1.14.0-0`
 | hostAliases                                          | list | `[]`                                                 |  |
 | image.pullPolicy                                     | string | `""`                                                 |  |
 | image.repository                                     | string | `"juicedata/juicefs-csi-driver"`                     |  |
-| image.tag                                            | string | `"v0.18.0"`                                          |  |
+| image.tag                                            | string | `"v0.18.1"`                                          |  |
 | mountMode                                            | string | `"mountpod"`                                         | The way JuiceFS client runs |
 | jfsConfigDir                                         | string | `"/var/lib/juicefs/config"`                          | JuiceFS config directory |
 | jfsMountDir                                          | string | `"/var/lib/juicefs/volume"`                          | JuiceFS mount directory |
