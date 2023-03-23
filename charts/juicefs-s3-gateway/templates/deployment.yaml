@@ -32,7 +32,7 @@ spec:
           command:
             - sh
             - -c
-            - juicefs format --storage=${storage} --bucket=${bucket} --access-key=${accesskey} --secret-key=${secretkey} ${metaurl} ${name}
+            - juicefs format ${metaurl} ${name} --storage=${storage} --bucket=${bucket} --access-key=${accesskey} --secret-key=${secretkey} {{ .Values.formatOptions }}
           envFrom:
             - secretRef:
                 name: juicefs-secret
