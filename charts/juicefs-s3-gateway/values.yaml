@@ -68,6 +68,10 @@ secret:
   # -- Bucket URL. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) to learn how to setup different object storage.
   bucket: ""
 
+# -- JuiceFS format options. Separated by spaces. Read [this document](https://juicefs.com/docs/community/command_reference#juicefs-format) to learn how to set different format options.
+# Example: "--inodes=1000000 --block-size=4M"
+formatOptions: ""
+
 # -- Gateway Options. Separated by spaces. Read [this document](https://juicefs.com/docs/community/command_reference#juicefs-gateway) to learn how to set different gateway options.
 options: ""
 # Example: "--get-timeout=60 --put-timeout=60"
