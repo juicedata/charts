@@ -39,6 +39,9 @@ spec:
         {{- if eq .Values.mountMode "process" }}
         - --by-process=true
         {{- end }}
+        {{- with .Values.node.additionalArguments }}
+        {{- toYaml . | trim | nindent 8 }}
+        {{- end }}
         env:
         - name: CSI_ENDPOINT
           value: unix:/csi/csi.sock
