@@ -23,6 +23,8 @@ sidecars:
     repository: quay.io/k8scsi/csi-provisioner
     tag: "v1.6.0"
 
+imagePullSecrets: []
+
 # The way JuiceFS client runs. including:
 #  - mountpod: default, run JuiceFS client in an independent pod.
 #  - sidecar: run JuiceFS client as a sidecar container in the same pod with application.
