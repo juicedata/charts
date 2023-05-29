@@ -129,7 +129,11 @@ spec:
         - --timeout=60s
         - --v=5
         {{- if .Values.controller.leaderElection.enabled }}
+        {{- if gt .Values.sidecars.csiProvisionerImage.tag "v2.0.0" }}
+        - --leader-election
+        {{- else }}
         - --enable-leader-election
+        {{- end }}
         {{- if .Values.controller.leaderElection.leaderElectionNamespace }}
         - --leader-election-namespace={{ .Values.controller.leaderElection.leaderElectionNamespace }}
         {{- end }}
