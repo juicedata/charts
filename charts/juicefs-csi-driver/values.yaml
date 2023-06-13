@@ -145,6 +145,9 @@ defaultMountImage:
   ee: ""
 
 webhook:
+  # Setup the webhook using cert-manager
+  certManager:
+    enabled: true
   # Helm will auto-generate these fields
   caBundlePEM: |
 
