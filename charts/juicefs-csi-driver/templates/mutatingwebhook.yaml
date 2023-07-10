@@ -59,6 +59,9 @@ spec:
     - juicefs-admission-webhook
     - juicefs-admission-webhook.kube-system
     - juicefs-admission-webhook.kube-system.svc
+  issuerRef:
+    name: juicefs-selfsigned
+    kind: Issuer
   secretName: juicefs-webhook-certs
 {{- end }}
 {{- end }}
