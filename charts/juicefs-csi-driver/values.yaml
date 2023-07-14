@@ -9,7 +9,7 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.20.1"
+  tag: "v0.21.0"
   pullPolicy: ""
 
 sidecars:
@@ -22,6 +22,9 @@ sidecars:
   csiProvisionerImage:
     repository: quay.io/k8scsi/csi-provisioner
     tag: "v1.6.0"
+  csiResizerImage:
+    repository: quay.io/k8scsi/csi-resizer
+    tag: "v1.0.1"
 
 imagePullSecrets: []
 
@@ -123,7 +126,10 @@ node:
     requests:
       cpu: 100m
       memory: 512Mi
+  # -- Default is `false`. When set true, enable application pods using same sc share the same mount pod.
   storageClassShareMount: false
+  # -- Default is `false`. When set true, disable mount pods preempt application pods when in resource pressure.
+  mountPodNonPreempting: false
   # -- Grace period to allow the CSI Node Service pods to shutdown before it is killed
   terminationGracePeriodSeconds: 30
   # -- Affinity for CSI Node Service pods
@@ -170,6 +176,8 @@ storageClasses:
   enabled: false
   # -- Either `Delete` or `Retain`. Refer to [this document](https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy) for more information.
   reclaimPolicy: Delete
+  # -- Default is `false`. If set to `true`, the PVC using this StorageClass can be expanded.
+  allowVolumeExpansion: true
   # -- Additional annotations for this `StorageClass`, e.g. make it default.
   # annotations:
   #   storageclass.kubernetes.io/is-default-class: "true"
