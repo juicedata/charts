@@ -1,0 +1,10 @@
+{{- if .Values.node.mountPodNonPreempting }}
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: juicefs-mount-priority-nonpreempting
+value: 1000000000
+preemptionPolicy: Never
+globalDefault: false
+description: "This priority class used by JuiceFS Mount Pod."
+{{- end }}

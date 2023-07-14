@@ -59,11 +59,16 @@ metadata:
 mountOptions:
   {{- toYaml $sc.mountOptions | nindent 2 }}
 {{- end }}
+allowVolumeExpansion: {{ $sc.allowVolumeExpansion }}
 parameters:
   csi.storage.k8s.io/node-publish-secret-name: {{ $sc.name }}-secret
   csi.storage.k8s.io/node-publish-secret-namespace: {{ $namespace }}
   csi.storage.k8s.io/provisioner-secret-name: {{ $sc.name }}-secret
   csi.storage.k8s.io/provisioner-secret-namespace: {{ $namespace }}
+  {{- if $sc.allowVolumeExpansion }}
+  csi.storage.k8s.io/controller-expand-secret-name: {{ $sc.name }}-secret
+  csi.storage.k8s.io/controller-expand-secret-namespace: {{ $namespace }}
+  {{- end }}
   {{- if $sc.pathPattern }}
   pathPattern: {{ $sc.pathPattern }}
   {{- end }}

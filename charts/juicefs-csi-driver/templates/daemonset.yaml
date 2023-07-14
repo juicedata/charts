@@ -73,6 +73,12 @@ spec:
         - name: STORAGE_CLASS_SHARE_MOUNT
           value: "true"
         {{- end }}
+        {{- if .Values.node.mountPodNonPreempting }}
+        - name: JUICEFS_MOUNT_PRIORITY_NAME
+          value: "juicefs-mount-priority-nonpreempting"
+        - name: JUICEFS_MOUNT_PREEMPTION_POLICY
+          value: "Never"
+        {{- end }}
         {{- if .Values.defaultMountImage.ce }}
         - name: JUICEFS_CE_MOUNT_IMAGE
           value: {{ .Values.defaultMountImage.ce }}

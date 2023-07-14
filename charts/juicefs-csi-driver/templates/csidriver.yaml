@@ -8,4 +8,4 @@ metadata:
     "helm.sh/resource-policy": keep
 spec:
   attachRequired: false
-  podInfoOnMount: false
+  podInfoOnMount: true
