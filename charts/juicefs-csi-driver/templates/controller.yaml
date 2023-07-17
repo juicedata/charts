@@ -179,7 +179,7 @@ spec:
         volumeMounts:
         - mountPath: /csi
           name: socket-dir
-      priorityClassName: system-cluster-critical
+      priorityClassName: {{ .Values.controller.priorityClassName }}
       serviceAccount: {{ include "juicefs-csi.controller.serviceAccountName" . }}
       {{- with .Values.controller.affinity }}
       affinity:

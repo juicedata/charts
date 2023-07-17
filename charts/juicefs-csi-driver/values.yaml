@@ -114,6 +114,8 @@ controller:
   service:
     port: 9909
     type: ClusterIP
+  # -- PriorityClass name for CSI Controller pod
+  priorityClassName: system-cluster-critical
 
 node:
   # -- Default is `true`. CSI Node Service will be deployed in every node.
@@ -141,6 +143,8 @@ node:
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
+  # -- PriorityClass name for CSI Node Service pods
+  priorityClassName: system-node-critical
 
 defaultMountImage:
   # -- Default Mount image for community edition, usually set in juicefs-csi-driver image.
