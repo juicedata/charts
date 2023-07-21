@@ -92,6 +92,9 @@ spec:
           value: "Never"
         {{- end }}
         {{- end }}
+        {{- if .Values.controller.envs }}
+{{ toYaml .Values.controller.envs | trim | indent 8 }}
+        {{- end }}
         livenessProbe:
           failureThreshold: 5
           httpGet:

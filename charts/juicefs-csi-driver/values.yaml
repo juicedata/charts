@@ -116,6 +116,11 @@ controller:
     type: ClusterIP
   # -- PriorityClass name for CSI Controller pod
   priorityClassName: system-cluster-critical
+  # -- Extra envs of CSI Controller
+  # Example:
+  #  - name: ENABLE_APISERVER_LIST_CACHE
+  #    value: "true"
+  envs:
 
 node:
   # -- Default is `true`. CSI Node Service will be deployed in every node.
@@ -145,6 +150,11 @@ node:
       operator: Exists
   # -- PriorityClass name for CSI Node Service pods
   priorityClassName: system-node-critical
+  # -- Extra envs of CSI Node
+  # Example:<br/>
+  #  - name: ENABLE_APISERVER_LIST_CACHE<br/>
+  #    value: "true"<br/>
+  envs:
 
 defaultMountImage:
   # -- Default Mount image for community edition, usually set in juicefs-csi-driver image.
