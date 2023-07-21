@@ -53,6 +53,10 @@ jfsMountDir: /var/lib/juicefs/volume
 # -- JuiceFS config directory
 jfsConfigDir: /var/lib/juicefs/config
 
+# Specifies whether JuiceFS is being deployed in an immutable Kubernetes environment.
+# Immutable environments, such as Talos Linux, have read-only paths in the host filesystem.
+immutable: false
+
 dnsPolicy: ClusterFirstWithHostNet
 dnsConfig:
   {}

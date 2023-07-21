@@ -88,6 +88,10 @@ spec:
           value: {{ .Values.defaultMountImage.ee }}
         {{- end }}
         {{- end }}
+        {{- if .Values.immutable }}
+        - name: JUICEFS_IMMUTABLE
+          value: "true"
+        {{- end }}
         {{- if .Values.node.envs }}
 {{ toYaml .Values.node.envs | trim | indent 8 }}
         {{- end }}

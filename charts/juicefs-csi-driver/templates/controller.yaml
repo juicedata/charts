@@ -92,6 +92,10 @@ spec:
           value: "Never"
         {{- end }}
         {{- end }}
+        {{- if .Values.immutable }}
+        - name: JUICEFS_IMMUTABLE
+          value: "true"
+        {{- end }}
         {{- if .Values.controller.envs }}
 {{ toYaml .Values.controller.envs | trim | indent 8 }}
         {{- end }}
