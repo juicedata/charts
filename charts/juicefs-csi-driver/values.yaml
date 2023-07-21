@@ -16,15 +16,19 @@ sidecars:
   livenessProbeImage:
     repository: quay.io/k8scsi/livenessprobe
     tag: "v1.1.0"
+    pullPolicy: ""
   nodeDriverRegistrarImage:
     repository: quay.io/k8scsi/csi-node-driver-registrar
     tag: "v2.1.0"
+    pullPolicy: ""
   csiProvisionerImage:
     repository: quay.io/k8scsi/csi-provisioner
     tag: "v1.6.0"
+    pullPolicy: ""
   csiResizerImage:
     repository: quay.io/k8scsi/csi-resizer
     tag: "v1.0.1"
+    pullPolicy: ""
 
 imagePullSecrets: []
 
