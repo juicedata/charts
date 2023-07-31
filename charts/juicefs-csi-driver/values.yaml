@@ -173,9 +173,9 @@ webhook:
   # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
   FailurePolicy: Fail
 
+# For production environment, manually create & manage storageClass outside Helm is recommended, Refer to [this document](https://juicefs.com/docs/csi/guide/pv#create-storage-class) for more information.
 storageClasses:
-- # -- `StorageClass` Name. It is important.
-  name: "juicefs-sc"
+- name: "juicefs-sc"
   # -- Default is `false` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by pods which use JuiceFS PVC.
   enabled: false
   # -- Either `Delete` or `Retain`. Refer to [this document](https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy) for more information.
