@@ -133,7 +133,7 @@ node:
   terminationGracePeriodSeconds: 30
   # Affinity for CSI Node Service pods
   affinity: {}
-  # Node selector for CSI Node Service pods, ref: https://juicefs.com/docs/csi/guide/resource-optimization#running-csi-node-service-on-select-nodes
+  # Node selector for CSI Node Service pods, ref: https://juicefs.com/docs/csi/guide/resource-optimization#csi-node-node-selector
   nodeSelector: {}
   # Tolerations for CSI Node Service pods
   tolerations:
@@ -188,15 +188,17 @@ storageClasses:
     storage: ""
     # Bucket URL, for community edition use only, ref: https://juicefs.com/docs/community/how_to_setup_object_storage
     bucket: ""
-    # JuiceFS managed token, for enterprise edition only, ref: https://juicefs.com/docs/cloud/acl
+    # Token for JuiceFS Enterprise Edition token, ref: https://juicefs.com/docs/cloud/acl
     token: ""
     # Access key for object storage
     accessKey: ""
     # Secret key for object storage
     secretKey: ""
-    # Environment variables for mount pod and juicefs format command, such as {"a": "b"}, ref: https://juicefs.com/docs/csi/examples/config-and-env
+    # Environment variables for the JuiceFS Client
+    # Example: {"a": "b"}
+    # Ref: https://juicefs.com/docs/csi/guide/pv#volume-credentials
     envs: ""
-    # Configuration for mount pod, ref: https://juicefs.com/docs/csi/examples/config-and-env
+    # Extra files for the mount pod, ref: https://juicefs.com/docs/csi/guide/pv/#mount-pod-extra-files
     configs: ""
     # The number of days which files are kept in the trash, for community edition use only, ref: https://juicefs.com/docs/community/security/trash
     trashDays: ""
@@ -213,12 +215,12 @@ storageClasses:
   # Ref: https://juicefs.com/docs/community/command_reference#mount and https://juicefs.com/docs/cloud/reference/commands_reference#mount
   mountOptions:
 
-  # Customize PV directory format, ref: https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern
+  # Customize PV directory format, ref: https://juicefs.com/docs/csi/guide/pv#using-path-pattern
   # If enabled, controller.provisioner must be set to true
   # Example: "${.PVC.namespace}-${.PVC.name}"
   pathPattern: ""
 
-  # Using PVC as JuiceFS cache path, ref: https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path
+  # Using PVC as JuiceFS cache path, ref: https://juicefs.com/docs/csi/guide/cache#use-pvc-as-cache-path
   cachePVC: ""
 
   mountPod:
@@ -230,5 +232,5 @@ storageClasses:
       requests:
         cpu: 1000m
         memory: 1Gi
-    # Override mount pod image, ref: https://juicefs.com/docs/csi/examples/mount-image
+    # Override mount pod image, ref: https://juicefs.com/docs/csi/guide/custom-image
     image: ""
