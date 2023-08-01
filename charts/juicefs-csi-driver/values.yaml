@@ -1,10 +1,10 @@
-# Default values for juicefs-csi.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# Default values for juicefs-csi
+# This is a YAML-formatted file
+# Declare variables to be passed into your templates
 
-# -- Overrides the chart's computed name
+# Overrides the chart's computed name
 # nameOverride: ""
-# -- Overrides the chart's computed fullname
+# Overrides the chart's computed fullname
 # fullnameOverride: ""
 
 image:
@@ -32,25 +32,26 @@ sidecars:
 
 imagePullSecrets: []
 
-# The way JuiceFS client runs. including:
-#  - mountpod: default, run JuiceFS client in an independent pod.
-#  - sidecar: run JuiceFS client as a sidecar container in the same pod with application.
-#  - process: not recommended, run JuiceFS client as a process in the JuiceFS CSI node service.
+# The way JuiceFS Client runs. choose between:
+# - mountpod: default, run JuiceFS Client in an independent pod
+# - sidecar: run JuiceFS Client as a sidecar container in the same pod with application
+# - process: run JuiceFS Client as a process in the JuiceFS CSI node service
+# Ref: https://juicefs.com/docs/csi/introduction/
 mountMode: mountpod
 
-# For some environment without DNS server and want to use `/etc/hosts` instead
+# For some environment without DNS server and want to use /etc/hosts instead
 # - ip: "127.0.0.1"
 #   hostnames:
 #   - "s3.juicefs.local"
 #   - "redis.juicefs.local"
 hostAliases: []
 
-# -- The kubelet working directory, can be set using `--root-dir` when starting kubelet.
+# The kubelet working directory, can be set using --root-dir when starting kubelet
 kubeletDir: /var/lib/kubelet
 
-# -- JuiceFS mount directory
+# JuiceFS mount directory
 jfsMountDir: /var/lib/juicefs/volume
-# -- JuiceFS config directory
+# JuiceFS config directory
 jfsConfigDir: /var/lib/juicefs/config
 
 # Specifies whether JuiceFS is being deployed in an immutable Kubernetes environment.
@@ -72,33 +73,30 @@ serviceAccount:
     create: true
     # Annotations to add to the service account
     annotations: {}
-    # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
+    # The name of the service account to use
     name: "juicefs-csi-controller-sa"
   node:
     # Specifies whether a service account of node service should be created
     create: true
     # Annotations to add to the service account
     annotations: {}
-    # The name of the service account to use.
-    # If not set and create is true, a name is generated using the fullname template
+    # The name of the service account to use
     name: "juicefs-csi-node-sa"
 
 controller:
-  # -- Default is `true`
   enabled: true
   leaderElection:
-    # Enable leader election for controller.
+    # Enable leader election for controller, ref: https://juicefs.com/docs/csi/administration/going-production#leader-election
     enabled: true
-    # The namespace where the leader election resource lives. Defaults to the pod namespace if not set.
+    # The namespace where the leader election resource lives. Defaults to the pod namespace if not set
     leaderElectionNamespace: ""
-    # The duration that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack.
-    # -- Default is `15s` if not set
+    # The duration that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack
+    # Defaults to 15s, if not set
     leaseDuration: ""
-    # The duration that the acting control-plane will retry refreshing leadership before giving up.
-  # -- Default is `false`. Enable provisioner of controller service.
+    # The duration that the acting control-plane will retry refreshing leadership before giving up
+  # Enable provisioner of controller service, must be set to true when pathPattern is used
+  # Ref: https://juicefs.com/docs/csi/guide/pv/#using-path-pattern
   provisioner: false
-  # Pod Numbers
   replicas: 2
   resources:
     limits:
@@ -107,14 +105,13 @@ controller:
     requests:
       cpu: 100m
       memory: 512Mi
-  # -- Grace period to allow the CSI Controller pod to shutdown before it is killed
+  # Grace period to allow the CSI Controller pod to shutdown before it is killed
   terminationGracePeriodSeconds: 30
-  # -- Affinity for CSI Controller pod
-  # @default -- Hard node and soft zone anti-affinity
+  # Affinity for CSI Controller pod
   affinity: {}
-  # -- Node selector for CSI Controller pod
+  # Node selector for CSI Controller pod
   nodeSelector: {}
-  # -- Tolerations for CSI Controller pod
+  # Tolerations for CSI Controller pod
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
@@ -122,7 +119,7 @@ controller:
   service:
     port: 9909
     type: ClusterIP
-  # -- PriorityClass name for CSI Controller pod
+  # PriorityClass name for CSI Controller pod
   priorityClassName: system-cluster-critical
   # -- Extra envs of CSI Controller
   # Example:
@@ -131,7 +128,7 @@ controller:
   envs:
 
 node:
-  # -- Default is `true`. CSI Node Service will be deployed in every node.
+  # CSI Node Service will be deployed in every node
   enabled: true
   hostNetwork: false
   resources:
@@ -141,22 +138,21 @@ node:
     requests:
       cpu: 100m
       memory: 512Mi
-  # -- Default is `false`. When set true, enable application pods using same sc share the same mount pod.
+  # When set true, enable application pods using same sc share the same mount pod
   storageClassShareMount: false
-  # -- Default is `false`. When set true, disable mount pods preempt application pods when in resource pressure.
+  # When set true, disable mount pods preempt application pods when in resource pressure
   mountPodNonPreempting: false
-  # -- Grace period to allow the CSI Node Service pods to shutdown before it is killed
+  # Grace period to allow the CSI Node Service pods to shutdown before it is killed
   terminationGracePeriodSeconds: 30
-  # -- Affinity for CSI Node Service pods
-  # @default -- Hard node and soft zone anti-affinity
+  # Affinity for CSI Node Service pods
   affinity: {}
-  # -- Node selector for CSI Node Service pods. Refer to [this document](https://juicefs.com/docs/csi/guide/resource-optimization#running-csi-node-service-on-select-nodes) for more information.
+  # Node selector for CSI Node Service pods, ref: https://juicefs.com/docs/csi/guide/resource-optimization#csi-node-node-selector
   nodeSelector: {}
-  # -- Tolerations for CSI Node Service pods
+  # Tolerations for CSI Node Service pods
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
-  # -- PriorityClass name for CSI Node Service pods
+  # PriorityClass name for CSI Node Service pods
   priorityClassName: system-node-critical
   # -- Extra envs of CSI Node
   # Example:<br/>
@@ -164,12 +160,9 @@ node:
   #    value: "true"<br/>
   envs:
 
+# Override mount image, ref: https://juicefs.com/docs/csi/guide/custom-image/
 defaultMountImage:
-  # -- Default Mount image for community edition, usually set in juicefs-csi-driver image.
-  # If set, it will overwrite the value in juicefs-csi-driver image. Refer to [this document](https://juicefs.com/docs/csi/examples/mount-image) for more details.
   ce: ""
-  # -- Default Mount image for enterprise edition. usually set in juicefs-csi-driver image.
-  # If set, it will overwrite the value in juicefs-csi-driver image. Refer to [this document](https://juicefs.com/docs/csi/examples/mount-image) for more details.
   ee: ""
 
 webhook:
@@ -184,63 +177,68 @@ webhook:
   keyPEM: |
 
   # It is recommended that admission webhooks should evaluate as quickly as possible (typically in milliseconds),
-  # since they add to API request latency. It is encouraged to use a small timeout for webhooks.
+  # since they add to API request latency. It is encouraged to use a small timeout for webhooks
   # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#timeouts
   timeoutSeconds: 5
-  # FailurePolicy defines how unrecognized errors and timeout errors from the admission webhook are handled.
+  # FailurePolicy defines how unrecognized errors and timeout errors from the admission webhook are handled
   # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
   FailurePolicy: Fail
 
+# For production environment, manually create & manage storageClass outside Helm is recommended, ref: https://juicefs.com/docs/csi/guide/pv#create-storage-class
 storageClasses:
-- # -- `StorageClass` Name. It is important.
-  name: "juicefs-sc"
-  # -- Default is `false` will create a new `StorageClass`. It will create `Secret` and `StorageClass` used by pods which use JuiceFS PVC.
+- name: "juicefs-sc"
+  # Set to true to actually create this StorageClass
   enabled: false
-  # -- Either `Delete` or `Retain`. Refer to [this document](https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy) for more information.
+  # Either Delete or Retain, ref: https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy
   reclaimPolicy: Delete
-  # -- Default is `false`. If set to `true`, the PVC using this StorageClass can be expanded.
+  # Set to true to allow PVC expansion
   allowVolumeExpansion: true
-  # -- Additional annotations for this `StorageClass`, e.g. make it default.
+  # Additional annotations for this StorageClass, e.g. make it default
   # annotations:
   #   storageclass.kubernetes.io/is-default-class: "true"
 
   backend:
-    # -- The JuiceFS file system name
+    # The JuiceFS file system name
     name: ""
-    # -- Connection URL for metadata engine (e.g. Redis), for community edition use only. Refer to [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information.
+    # Connection URL for metadata engine (e.g. Redis), for community edition use only, ref: https://juicefs.com/docs/community/databases_for_metadata
     metaurl: ""
-    # -- Object storage type, such as `s3`, `gs`, `oss`, for community edition use only. Refer to [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list.
+    # Object storage type, such as s3, gs, oss, for community edition use only, ref: https://juicefs.com/docs/community/how_to_setup_object_storage
     storage: ""
-    # -- Bucket URL, for community edition use only. Refer to [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) to learn how to setup different object storage.
+    # Bucket URL, for community edition use only, ref: https://juicefs.com/docs/community/how_to_setup_object_storage
     bucket: ""
-    # -- JuiceFS managed token, for cloud service use only. Refer to [this document](https://juicefs.com/docs/cloud/acl) for more details.
+    # Token for JuiceFS Enterprise Edition token, ref: https://juicefs.com/docs/cloud/acl
     token: ""
-    # -- Access key for object storage
+    # Access key for object storage
     accessKey: ""
-    # -- Secret key for object storage
+    # Secret key for object storage
     secretKey: ""
-    # -- Environment variables for mount pod and `juicefs format` command, such as `{"a": "b"}`. Refer to [this document](https://juicefs.com/docs/csi/examples/config-and-env) for more information.
+    # Environment variables for the JuiceFS Client
+    # Example: {"a": "b"}
+    # Ref: https://juicefs.com/docs/csi/guide/pv#volume-credentials
     envs: ""
-    # -- Configuration for mount pod. Refer to [this document](https://juicefs.com/docs/csi/examples/config-and-env) for more information.
+    # Extra files for the mount pod, ref: https://juicefs.com/docs/csi/guide/pv/#mount-pod-extra-files
     configs: ""
-    # -- The number of days which files are kept in the trash, for community edition use only. Refer to [this document](https://juicefs.com/docs/community/security/trash) for more information.
+    # The number of days which files are kept in the trash, for community edition use only, ref: https://juicefs.com/docs/community/security/trash
     trashDays: ""
-    # -- Options for `juicefs format` or `juicefs auth` command, connected by `,`, such as `block-size=4096,capacity=10`. Refer to ["Community Edition document"](https://juicefs.com/docs/community/command_reference#format) or ["Cloud Service document"](https://juicefs.com/docs/cloud/reference/commands_reference#auth) for more information.
+    # Options passed to the "juicefs format" or "juicefs auth" command, depending on which edition you're using
+    # Example: block-size=4096,capacity=10
+    # Ref: https://juicefs.com/docs/community/command_reference#format and https://juicefs.com/docs/cloud/reference/commands_reference#auth
     formatOptions: ""
 
-  # -- Options for `juicefs mount` command. Refer to ["Community Edition document"](https://juicefs.com/docs/community/command_reference#mount) or ["Cloud Service document"](https://juicefs.com/docs/cloud/reference/commands_reference#mount) for more information.<br/><br/>
-  # Example:<br/>
-  # - `debug`<br/>
-  # - `cache-size=2048`<br/>
-  # - `cache-dir=/var/foo`
+  # Options for the "juicefs mount" command
+  # Example:
+  # - debug
+  # - cache-size=2048
+  # - cache-dir=/var/foo
+  # Ref: https://juicefs.com/docs/community/command_reference#mount and https://juicefs.com/docs/cloud/reference/commands_reference#mount
   mountOptions:
 
-  # -- Subdirectory format of PV in `StorageClass`. Refer to [this document](https://juicefs.com/docs/csi/examples/subpath/#using-pathpattern) for more details.
-  # If enabled, please make sure `controller.provisioner` is `true`.
-  # Example: `"${.PVC.name}"`
+  # Customize PV directory format, ref: https://juicefs.com/docs/csi/guide/pv#using-path-pattern
+  # If enabled, controller.provisioner must be set to true
+  # Example: "${.PVC.namespace}-${.PVC.name}"
   pathPattern: ""
 
-  # -- Using PVC as JuiceFS cache path. Refer to [this document](https://juicefs.com/docs/csi/examples/cache-dir/#use-pvc-as-cache-path) for more details.
+  # Using PVC as JuiceFS cache path, ref: https://juicefs.com/docs/csi/guide/cache#use-pvc-as-cache-path
   cachePVC: ""
 
   mountPod:
@@ -252,5 +250,5 @@ storageClasses:
       requests:
         cpu: 1000m
         memory: 1Gi
-    # -- Image of mount pod. Refer to [this document](https://juicefs.com/docs/csi/examples/mount-image) for more details.
+    # Override mount pod image, ref: https://juicefs.com/docs/csi/guide/custom-image
     image: ""
