@@ -155,9 +155,9 @@ node:
   # PriorityClass name for CSI Node Service pods
   priorityClassName: system-node-critical
   # -- Extra envs of CSI Node
-  # Example:<br/>
-  #  - name: ENABLE_APISERVER_LIST_CACHE<br/>
-  #    value: "true"<br/>
+  # Example:
+  #  - name: ENABLE_APISERVER_LIST_CACHE
+  #    value: "true"
   envs:
 
 # Override mount image, ref: https://juicefs.com/docs/csi/guide/custom-image/
