@@ -158,7 +158,11 @@ node:
   # Example:
   #  - name: ENABLE_APISERVER_LIST_CACHE
   #    value: "true"
-  envs:
+  envs: []
+  updateStrategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 50%
 
 # Override mount image, ref: https://juicefs.com/docs/csi/guide/custom-image/
 defaultMountImage:

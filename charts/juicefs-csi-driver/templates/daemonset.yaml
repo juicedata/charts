@@ -8,6 +8,10 @@ metadata:
   name: juicefs-csi-node
   namespace: {{ .Release.Namespace | quote }}
 spec:
+  {{- with .Values.node.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       app: juicefs-csi-node
