@@ -4,7 +4,7 @@ image:
   repository: juicedata/mount
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "ce-v1.0.4"
+  tag: "ce-v1.1.0"
 
 port: 9000
 metricsPort: 9567
