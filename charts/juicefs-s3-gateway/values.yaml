@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: juicedata/mount
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  # -- Overrides the image tag whose default is the chart appVersion.
   tag: "ee-4.9.20"
 
 port: 9000
@@ -47,31 +47,32 @@ tolerations: []
 affinity: {}
 
 secret:
-  # The JuiceFS file system name.
+  # -- The JuiceFS file system name.
   name: ""
-  # JuiceFS Enterprise Edition file system token, if this token is specified,
+  # -- JuiceFS Enterprise Edition file system token, if this token is specified,
   # this helm chart then assumes JuiceFS EE and neglect all CE configurations
   token: ""
-  # Connection URL for metadata engine (e.g. Redis)
+  # -- Connection URL for metadata engine (e.g. Redis)
   # Ref: https://juicefs.com/docs/community/databases_for_metadata
   metaurl: ""
-  # Object storage type, such as `s3`, `gs`, `oss`
+  # -- Object storage type, such as `s3`, `gs`, `oss`
   # Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
   storage: ""
-  # Access key for object storage
+  # -- Access key for object storage
   accessKey: ""
-  # Secret key for object storage
+  # -- Secret key for object storage
   secretKey: ""
-  # Bucket URL
-  # Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
+  # -- Object storage bucket or full endpoint
+  # CE Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
+  # EE Ref (see --bucket): https://juicefs.com/docs/cloud/reference/command_reference/#auth
   bucket: ""
 
-# JuiceFS format options. Separated by spaces
+# -- JuiceFS format options. Separated by spaces
 # Example: "--inodes=1000000 --block-size=4M"
 # Ref: https://juicefs.com/docs/community/command_reference#format
 formatOptions: ""
 
-# Gateway Options. Separated by spaces
+# -- Gateway Options. Separated by spaces
 # Example: "--get-timeout=60 --put-timeout=60"
 # CE Ref: https://juicefs.com/docs/community/command_reference#gateway
 # EE Ref: https://juicefs.com/docs/cloud/reference/command_reference/#gateway
