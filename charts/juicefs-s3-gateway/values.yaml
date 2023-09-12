@@ -49,11 +49,18 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
-# -- Extra envs
+# -- Environment variables for init containers
+# Example:
+#  - name: GOOGLE_APPLICATION_CREDENTIALS
+#    value: "/root/.config/gcloud/application_default_credentials.json"
+initEnvs: []
+
+# -- Environment variables for the gateway container
 # Example:
 #  - name: JFSCHAN
 #    value: "gluster"
 envs: []
+
 
 secret:
   # -- The JuiceFS file system name.

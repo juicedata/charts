@@ -21,13 +21,13 @@ A Helm chart for JuiceFS S3 Gateway
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| envs | list | `[]` | Extra envs Example:  - name: JFSCHAN    value: "gluster" |
+| envs | list | `[]` | Environment variables for the gateway container Example:  - name: JFSCHAN    value: "gluster" |
 | formatOptions | string | `""` | JuiceFS format options. Separated by spaces Example: "--inodes=1000000 --block-size=4M" Ref: https://juicefs.com/docs/community/command_reference#format |
 | fullnameOverride | string | `""` |  |
 | hostNetwork | bool | `false` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"juicedata/mount"` |  |
-| image.tag | string | `"ee-4.9.20"` | Overrides the image tag whose default is the chart appVersion. |
+| image.tag | string | `"ce-v1.1.0"` | Overrides the image tag which defaults to the chart appVersion. For JuiceFS Community Edition, use ce-vx.x.x style tags For JuiceFS Enterprise Edition, use ee-vx.x.x style tags Find the latest built images in our docker image repo: https://hub.docker.com/r/juicedata/mount |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `"nginx"` |  |
@@ -36,6 +36,7 @@ A Helm chart for JuiceFS S3 Gateway
 | ingress.hosts[0].paths[0].path | string | `"/"` |  |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
 | ingress.tls | list | `[]` |  |
+| initEnvs | list | `[]` | Environment variables for init containers Example:  - name: GOOGLE_APPLICATION_CREDENTIALS    value: "/root/.config/gcloud/application_default_credentials.json" |
 | metricsPort | int | `9567` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |

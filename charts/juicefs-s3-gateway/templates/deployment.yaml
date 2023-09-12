@@ -51,8 +51,8 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
-            {{- if .Values.envs }}
-            {{ toYaml .Values.envs | nindent 12 }}
+            {{- if .Values.initEnvs }}
+{{ toYaml .Values.initEnvs | indent 12 }}
             {{- end }}
           volumeMounts:
             {{- if .Values.secret.token }}
@@ -107,7 +107,7 @@ spec:
                   name: juicefs-secret
                   key: secret-key
             {{- if .Values.envs }}
-            {{ toYaml .Values.envs | nindent 12 }}
+{{ toYaml .Values.envs | indent 12 }}
             {{- end }}
           ports:
             - containerPort: {{ .Values.port }}
