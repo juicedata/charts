@@ -46,6 +46,12 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+# -- Extra envs
+# Example:
+#  - name: JFSCHAN
+#    value: "gluster"
+envs: []
+
 secret:
   # -- The JuiceFS file system name.
   name: ""

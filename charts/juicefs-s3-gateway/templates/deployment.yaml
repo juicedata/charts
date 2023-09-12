@@ -56,6 +56,9 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
+            {{- if .Values.envs }}
+            {{ toYaml .Values.envs | nindent 12 }}
+            {{- end }}
           volumeMounts:
             {{- if .Values.secret.token }}
             - mountPath: /root/.juicefs
@@ -114,6 +117,9 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
+            {{- if .Values.envs }}
+            {{ toYaml .Values.envs | nindent 12 }}
+            {{- end }}
           ports:
             - containerPort: {{ .Values.port }}
             - containerPort: {{ .Values.metricsPort }}
