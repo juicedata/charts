@@ -21,6 +21,7 @@ A Helm chart for JuiceFS S3 Gateway
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| envs | list | `[]` | Extra envs Example:  - name: JFSCHAN    value: "gluster" |
 | formatOptions | string | `""` | JuiceFS format options. Separated by spaces Example: "--inodes=1000000 --block-size=4M" Ref: https://juicefs.com/docs/community/command_reference#format |
 | fullnameOverride | string | `""` |  |
 | hostNetwork | bool | `false` |  |
