@@ -4,7 +4,7 @@ image:
   repository: juicedata/mount
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "ce-v1.1.0"
+  tag: "ee-4.9.20"
 
 port: 9000
 metricsPort: 9567
@@ -49,6 +49,9 @@ affinity: {}
 secret:
   # The JuiceFS file system name.
   name: ""
+  # JuiceFS Enterprise Edition file system token, if this token is specified,
+  # this helm chart then assumes JuiceFS EE and neglect all CE configurations
+  token: ""
   # Connection URL for metadata engine (e.g. Redis)
   # Ref: https://juicefs.com/docs/community/databases_for_metadata
   metaurl: ""
@@ -65,10 +68,11 @@ secret:
 
 # JuiceFS format options. Separated by spaces
 # Example: "--inodes=1000000 --block-size=4M"
-# Ref: https://juicefs.com/docs/community/command_reference#juicefs-format
+# Ref: https://juicefs.com/docs/community/command_reference#format
 formatOptions: ""
 
 # Gateway Options. Separated by spaces
 # Example: "--get-timeout=60 --put-timeout=60"
-# Ref: https://juicefs.com/docs/community/command_reference#juicefs-gateway
+# CE Ref: https://juicefs.com/docs/community/command_reference#gateway
+# EE Ref: https://juicefs.com/docs/cloud/reference/command_reference/#gateway
 options: ""
