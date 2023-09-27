@@ -61,6 +61,14 @@ initEnvs: []
 #    value: "gluster"
 envs: []
 
+# -- Extra volumes for the mount pod, used when JuiceFS Client relies on extra config files
+extraVolumes:
+  #  - name: ceph-secret
+  #    secret:
+  #      secretName: ceph-secret
+extraVolumeMounts:
+  #  - name: ceph-secret
+  #    mountPath: "/etc/ceph"
 
 secret:
   # -- The JuiceFS file system name.
