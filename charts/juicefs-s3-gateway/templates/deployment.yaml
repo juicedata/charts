@@ -119,6 +119,9 @@ spec:
             - mountPath: /root/.juicefs
               name: jfs-root-dir
             {{- end }}
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -138,4 +141,7 @@ spec:
         {{- if .Values.secret.token }}
         - emptyDir: {}
           name: jfs-root-dir
+        {{- end }}
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
