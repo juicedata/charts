@@ -1,0 +1,62 @@
+{{- if and (.Values.dashboard.enabled) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: dashboard
+    {{- include "juicefs-csi.labels" . | nindent 4 }}
+  name: juicefs-csi-dashboard
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: juicefs-csi-dashboard
+      {{- include "juicefs-csi.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: juicefs-csi-dashboard
+        {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "juicefs-csi.dashboard.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: dashboard
+          image: {{ .Values.dashboard.image.repository }}:{{ .Values.dashboard.image.tag }}
+          {{- if .Values.dashboard.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.dashboard.image.pullPolicy }}
+          {{- end }}
+          args:
+           - --static-dir=/dist
+          env:
+            - name: SYS_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            {{- if .Values.dashboard.envs }}
+{{ toYaml .Values.dashboard.envs | indent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 8088
+          resources:
+            {{- toYaml .Values.dashboard.resources | nindent 12 }}
+      {{- with .Values.dashboard.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dashboard.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dashboard.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.dashboard.hostNetwork }}
+      hostNetwork: true
+      {{- end }}
+{{- end }}

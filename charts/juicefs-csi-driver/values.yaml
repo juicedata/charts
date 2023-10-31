@@ -82,6 +82,13 @@ serviceAccount:
     annotations: {}
     # The name of the service account to use
     name: "juicefs-csi-node-sa"
+  dashboard:
+    # Specifies whether a service account of dashboard should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use
+    name: "juicefs-csi-dashboard-sa"
 
 controller:
   enabled: true
@@ -162,6 +169,47 @@ node:
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 50%
+
+dashboard:
+  # CSI Dashboard helps with CSI Driver observation, disabled by default
+  enabled: false
+  image:
+    repository: hexilee/csi-dashboard
+    tag: "v0.22.1-221-g17c6c96"
+    pullPolicy: IfNotPresent
+  hostNetwork: false
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 200Mi
+  affinity: {}
+  nodeSelector: {}
+  tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+  service:
+    port: 8088
+    type: ClusterIP
+  ingress:
+    enabled: false
+    className: "nginx"
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: ""
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  priorityClassName: system-node-critical
+  envs: []
 
 # Override mount image, ref: https://juicefs.com/docs/csi/guide/custom-image/
 defaultMountImage:

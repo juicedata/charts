@@ -86,6 +86,14 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{- define "juicefs-csi.dashboard.serviceAccountName" -}}
+{{- if .Values.serviceAccount.dashboard.create }}
+{{- default (include "juicefs-csi.fullname" .) .Values.serviceAccount.dashboard.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.dashboard.name }}
+{{- end }}
+{{- end }}
+
 {{/*
 secret fullname
 */}}
