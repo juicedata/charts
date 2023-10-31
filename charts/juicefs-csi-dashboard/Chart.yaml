@@ -1,0 +1,17 @@
+apiVersion: v2
+name: juicefs-csi-dashboard
+description: A Helm chart for JuiceFS CSI Dashboard
+type: application
+version: 0.0.1
+appVersion: "0.0.1"
+home: https://github.com/juicedata/juicefs
+sources:
+  - https://github.com/juicedata/juicefs
+icon: https://s.juicefs.com/static/jfs/logo.svg
+maintainers:
+  - email: team@juicedata.io
+    name: Juicedata Inc.
+    url: https://juicefs.com
+keywords:
+  - juicefs
+  - kubernetes
