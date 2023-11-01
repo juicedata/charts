@@ -35,6 +35,6 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app: juicefs-csi-controller
+    app: juicefs-csi-dashboard
     {{- include "juicefs-csi.selectorLabels" . | nindent 4 }}
 {{- end }}
