@@ -12,6 +12,11 @@ image:
   tag: "v0.22.1"
   pullPolicy: ""
 
+dashboardImage:
+  repository: juicedata/csi-dashboard
+  tag: "v0.23.0-alpha1"
+  pullPolicy: ""
+
 sidecars:
   livenessProbeImage:
     repository: quay.io/k8scsi/livenessprobe
@@ -173,10 +178,6 @@ node:
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
   enabled: false
-  image:
-    repository: juicedata/csi-dashboard
-    tag: "test"
-    pullPolicy: Always
   hostNetwork: false
   resources:
     limits:
