@@ -174,9 +174,9 @@ dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
   enabled: false
   image:
-    repository: hexilee/csi-dashboard
-    tag: "v0.22.1-221-g17c6c96"
-    pullPolicy: IfNotPresent
+    repository: juicedata/csi-dashboard
+    tag: "test"
+    pullPolicy: Always
   hostNetwork: false
   resources:
     limits:
