@@ -12,6 +12,11 @@ image:
   tag: "v0.22.1"
   pullPolicy: ""
 
+dashboardImage:
+  repository: juicedata/csi-dashboard
+  tag: "v0.23.0-alpha1"
+  pullPolicy: ""
+
 sidecars:
   livenessProbeImage:
     repository: quay.io/k8scsi/livenessprobe
@@ -82,6 +87,13 @@ serviceAccount:
     annotations: {}
     # The name of the service account to use
     name: "juicefs-csi-node-sa"
+  dashboard:
+    # Specifies whether a service account of dashboard should be created
+    create: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use
+    name: "juicefs-csi-dashboard-sa"
 
 controller:
   enabled: true
@@ -162,6 +174,53 @@ node:
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 50%
+
+dashboard:
+  # CSI Dashboard helps with CSI Driver observation, disabled by default
+  enabled: false
+  replicas: 2
+  leaderElection:
+    # Enable leader election for dashboard.
+    enabled: true
+    # The namespace where the leader election resource lives. Defaults to the pod namespace if not set
+    leaderElectionNamespace: ""
+    # The duration that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack
+    # Defaults to 15s, if not set
+    leaseDuration: ""
+    # The duration that the acting control-plane will retry refreshing leadership before giving up
+  hostNetwork: false
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+    requests:
+      cpu: 100m
+      memory: 200Mi
+  affinity: {}
+  nodeSelector: {}
+  tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+  service:
+    port: 8088
+    type: ClusterIP
+  ingress:
+    enabled: false
+    className: "nginx"
+    annotations: {}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: ""
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls: []
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
+  priorityClassName: system-node-critical
+  envs: []
 
 # Override mount image, ref: https://juicefs.com/docs/csi/guide/custom-image/
 defaultMountImage:
