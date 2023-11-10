@@ -31,7 +31,7 @@ spec:
           imagePullPolicy: {{ .Values.dashboardImage.pullPolicy }}
           {{- end }}
           args:
-           - --static-dir=/dist
+          - --static-dir=/dist
           {{- if .Values.dashboard.leaderElection.enabled }}
           - --leader-election
           {{- if .Values.dashboard.leaderElection.leaderElectionNamespace }}

@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.22.1"
+  tag: "v0.23.0"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.23.0-alpha1"
+  tag: "v0.23.0"
   pullPolicy: ""
 
 sidecars:
@@ -177,7 +177,7 @@ node:
 
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
-  enabled: false
+  enabled: true
   replicas: 2
   leaderElection:
     # Enable leader election for dashboard.
