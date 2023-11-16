@@ -25,3 +25,17 @@ jobs:
       - name: CI script
         run: |
           find ./charts | grep Chart.yaml | xargs dirname | xargs helm lint
+      - name: check chart
+        run: |
+          helm template charts/juicefs-csi-driver
+          rst=$?
+          if [ $rst -ne 0 ]; then
+            echo "something wrong in juicefs csi driver chart"
+            exit 1
+          fi
+          helm template charts/juicefs-s3-gateway
+          rst=$?
+          if [ $rst -ne 0 ]; then
+            echo "something wrong in juicefs s3 gateway chart"
+            exit 1
+          fi
