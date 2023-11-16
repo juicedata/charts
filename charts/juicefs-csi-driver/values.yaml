@@ -174,7 +174,7 @@ node:
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 50%
-  ifPollingKubelet: false
+  ifPollingKubelet: true
 
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
