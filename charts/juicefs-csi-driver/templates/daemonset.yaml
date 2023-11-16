@@ -63,12 +63,14 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        {{- if .Values.node.ifPollingKubelet }}
         - name: HOST_IP
           valueFrom:
             fieldRef:
               fieldPath: status.hostIP
         - name: KUBELET_PORT
           value: "10250"
+        {{- end }}
         - name: JUICEFS_MOUNT_PATH
           value: {{ .Values.jfsMountDir }}
         - name: JUICEFS_CONFIG_PATH
