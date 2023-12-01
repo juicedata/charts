@@ -179,10 +179,10 @@ node:
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
   enabled: true
-  replicas: 2
+  replicas: 1
   leaderElection:
     # Enable leader election for dashboard.
-    enabled: true
+    enabled: false
     # The namespace where the leader election resource lives. Defaults to the pod namespace if not set
     leaderElectionNamespace: ""
     # The duration that non-leader candidates will wait to force acquire leadership. This is measured against time of last observed ack
