@@ -32,7 +32,11 @@ spec:
           command:
             - sh
             - -c
+            {{- if .Values.secret.token }}
+            - juicefs auth ${name} --token=${token} {{ if .Values.secret.bucket }}--bucket=${bucket}{{ end }} --access-key=${accesskey} --secret-key=${secretkey}
+            {{- else }}
             - juicefs format ${metaurl} ${name} --storage=${storage} --bucket=${bucket} --access-key=${accesskey} --secret-key=${secretkey} {{ .Values.formatOptions }}
+            {{- end }}
           envFrom:
             - secretRef:
                 name: juicefs-secret
@@ -47,6 +51,14 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
+            {{- if .Values.initEnvs }}
+{{ toYaml .Values.initEnvs | indent 12 }}
+            {{- end }}
+          volumeMounts:
+            {{- if .Values.secret.token }}
+            - mountPath: /root/.juicefs
+              name: jfs-root-dir
+            {{- end }}
       containers:
         - name: gateway
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -56,17 +68,34 @@ spec:
           command:
             - sh
             - -c
+            {{- if .Values.secret.token }}
+            - juicefs gateway ${VOL_NAME} ${NODE_IP}:{{ .Values.port }} {{ .Values.options }}
+            {{- else }}
             - juicefs gateway ${METAURL} ${NODE_IP}:{{ .Values.port }} --metrics=${NODE_IP}:{{ .Values.metricsPort }} {{ .Values.options }}
+            {{- end }}
           env:
             - name: NODE_IP
               valueFrom:
                 fieldRef:
                   fieldPath: status.podIP
+            {{- if .Values.secret.token }}
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: juicefs-secret
+                  key: token
+            - name: VOL_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: juicefs-secret
+                  key: name
+            {{- else }}
             - name: METAURL
               valueFrom:
                 secretKeyRef:
                   name: juicefs-secret
                   key: metaurl
+            {{- end }}
             - name: MINIO_ROOT_USER
               valueFrom:
                 secretKeyRef:
@@ -77,11 +106,22 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
+            {{- if .Values.envs }}
+{{ toYaml .Values.envs | indent 12 }}
+            {{- end }}
           ports:
             - containerPort: {{ .Values.port }}
             - containerPort: {{ .Values.metricsPort }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            {{- if .Values.secret.token }}
+            - mountPath: /root/.juicefs
+              name: jfs-root-dir
+            {{- end }}
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
@@ -97,3 +137,11 @@ spec:
       {{- if .Values.hostNetwork }}
       hostNetwork: true
       {{- end }}
+      volumes:
+        {{- if .Values.secret.token }}
+        - emptyDir: {}
+          name: jfs-root-dir
+        {{- end }}
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}

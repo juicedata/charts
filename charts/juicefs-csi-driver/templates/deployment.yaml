@@ -1,0 +1,71 @@
+{{- if and (.Values.dashboard.enabled) }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: dashboard
+    {{- include "juicefs-csi.labels" . | nindent 4 }}
+  name: juicefs-csi-dashboard
+  namespace: {{ .Release.Namespace | quote }}
+spec:
+  replicas: {{ .Values.dashboard.replicas }}
+  selector:
+    matchLabels:
+      app: juicefs-csi-dashboard
+      {{- include "juicefs-csi.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: juicefs-csi-dashboard
+        {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "juicefs-csi.dashboard.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: dashboard
+          image: {{ .Values.dashboardImage.repository }}:{{ .Values.dashboardImage.tag }}
+          {{- if .Values.dashboardImage.pullPolicy }}
+          imagePullPolicy: {{ .Values.dashboardImage.pullPolicy }}
+          {{- end }}
+          args:
+          - --static-dir=/dist
+          {{- if .Values.dashboard.leaderElection.enabled }}
+          - --leader-election
+          {{- if .Values.dashboard.leaderElection.leaderElectionNamespace }}
+          - --leader-election-namespace={{ .Values.dashboard.leaderElection.leaderElectionNamespace }}
+          {{- end }}
+          {{- if .Values.dashboard.leaderElection.leaseDuration }}
+          - --leader-election-lease-duration={{ .Values.dashboard.leaderElection.leaseDuration }}
+          {{- end }}
+          {{- end }}
+          env:
+            - name: SYS_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            {{- if .Values.dashboard.envs }}
+{{ toYaml .Values.dashboard.envs | indent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 8088
+          resources:
+            {{- toYaml .Values.dashboard.resources | nindent 12 }}
+      {{- with .Values.dashboard.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dashboard.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.dashboard.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.dashboard.hostNetwork }}
+      hostNetwork: true
+      {{- end }}
+{{- end }}

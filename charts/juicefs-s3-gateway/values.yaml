@@ -1,14 +1,13 @@
-# Default values for juicefs-s3-gateway.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 replicaCount: 1
 
 image:
   repository: juicedata/mount
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.3-4.8.5"
+  # -- Overrides the image tag which defaults to the chart appVersion.
+  # For JuiceFS Community Edition, use ce-vx.x.x style tags
+  # For JuiceFS Enterprise Edition, use ee-vx.x.x style tags
+  # Find the latest built images in our docker image repo: https://hub.docker.com/r/juicedata/mount
+  tag: "ce-v1.1.0"
 
 port: 9000
 metricsPort: 9567
@@ -38,10 +37,6 @@ ingress:
   #      - chart-example.local
 
 resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
     cpu: 5000m
     memory: 5Gi
@@ -54,24 +49,55 @@ nodeSelector: {}
 tolerations: []
 affinity: {}
 
+# -- Environment variables for init containers
+# Example:
+#  - name: GOOGLE_APPLICATION_CREDENTIALS
+#    value: "/root/.config/gcloud/application_default_credentials.json"
+initEnvs: []
+
+# -- Environment variables for the gateway container
+# Example:
+#  - name: JFSCHAN
+#    value: "gluster"
+envs: []
+
+# -- Extra volumes for the mount pod, used when JuiceFS Client relies on extra config files
+extraVolumes:
+  #  - name: ceph-secret
+  #    secret:
+  #      secretName: ceph-secret
+extraVolumeMounts:
+  #  - name: ceph-secret
+  #    mountPath: "/etc/ceph"
+
 secret:
   # -- The JuiceFS file system name.
   name: ""
-  # -- Connection URL for metadata engine (e.g. Redis). Read [this document](https://juicefs.com/docs/community/databases_for_metadata) for more information.
+  # -- JuiceFS Enterprise Edition file system token, if this token is specified,
+  # this helm chart then assumes JuiceFS EE and neglect all CE configurations
+  token: ""
+  # -- Connection URL for metadata engine (e.g. Redis)
+  # Ref: https://juicefs.com/docs/community/databases_for_metadata
   metaurl: ""
-  # -- Object storage type, such as `s3`, `gs`, `oss`. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) for the full supported list.
+  # -- Object storage type, such as `s3`, `gs`, `oss`
+  # Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
   storage: ""
   # -- Access key for object storage
   accessKey: ""
   # -- Secret key for object storage
   secretKey: ""
-  # -- Bucket URL. Read [this document](https://juicefs.com/docs/community/how_to_setup_object_storage) to learn how to setup different object storage.
+  # -- Object storage bucket or full endpoint
+  # CE Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
+  # EE Ref (see --bucket): https://juicefs.com/docs/cloud/reference/command_reference/#auth
   bucket: ""
 
-# -- JuiceFS format options. Separated by spaces. Read [this document](https://juicefs.com/docs/community/command_reference#juicefs-format) to learn how to set different format options.
+# -- JuiceFS format options. Separated by spaces
 # Example: "--inodes=1000000 --block-size=4M"
+# Ref: https://juicefs.com/docs/community/command_reference#format
 formatOptions: ""
 
-# -- Gateway Options. Separated by spaces. Read [this document](https://juicefs.com/docs/community/command_reference#juicefs-gateway) to learn how to set different gateway options.
-options: ""
+# -- Gateway Options. Separated by spaces
 # Example: "--get-timeout=60 --put-timeout=60"
+# CE Ref: https://juicefs.com/docs/community/command_reference#gateway
+# EE Ref: https://juicefs.com/docs/cloud/reference/command_reference/#gateway
+options: ""

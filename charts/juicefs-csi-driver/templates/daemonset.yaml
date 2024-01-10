@@ -8,6 +8,10 @@ metadata:
   name: juicefs-csi-node
   namespace: {{ .Release.Namespace | quote }}
 spec:
+  {{- with .Values.node.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   selector:
     matchLabels:
       app: juicefs-csi-node
@@ -18,6 +22,10 @@ spec:
         app: juicefs-csi-node
         {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
     spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
     {{- if .Values.hostAliases }}
       hostAliases:
       {{- toYaml .Values.hostAliases | nindent 6 }}
@@ -49,29 +57,52 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         {{- if ne .Values.mountMode "process" }}
         - name: JUICEFS_MOUNT_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
+        {{- if .Values.node.ifPollingKubelet }}
         - name: HOST_IP
           valueFrom:
             fieldRef:
               fieldPath: status.hostIP
         - name: KUBELET_PORT
           value: "10250"
+        {{- end }}
         - name: JUICEFS_MOUNT_PATH
           value: {{ .Values.jfsMountDir }}
         - name: JUICEFS_CONFIG_PATH
           value: {{ .Values.jfsConfigDir }}
-        {{- end }}
         {{- if .Values.node.storageClassShareMount }}
         - name: STORAGE_CLASS_SHARE_MOUNT
           value: "true"
+        {{- end }}
+        {{- if .Values.node.mountPodNonPreempting }}
+        - name: JUICEFS_MOUNT_PRIORITY_NAME
+          value: "juicefs-mount-priority-nonpreempting"
+        - name: JUICEFS_MOUNT_PREEMPTION_POLICY
+          value: "Never"
+        {{- end }}
+        {{- if .Values.defaultMountImage.ce }}
+        - name: JUICEFS_CE_MOUNT_IMAGE
+          value: {{ .Values.defaultMountImage.ce }}
+        {{- end }}
+        {{- if .Values.defaultMountImage.ee }}
+        - name: JUICEFS_EE_MOUNT_IMAGE
+          value: {{ .Values.defaultMountImage.ee }}
+        {{- end }}
+        {{- end }}
+        {{- if .Values.immutable }}
+        - name: JUICEFS_IMMUTABLE
+          value: "true"
+        {{- end }}
+        {{- if .Values.node.envs }}
+{{ toYaml .Values.node.envs | trim | indent 8 }}
         {{- end }}
         livenessProbe:
           failureThreshold: 5
@@ -114,6 +145,9 @@ spec:
               - rm /csi/csi.sock
       - name: node-driver-registrar
         image: {{ printf "%s:%s" .Values.sidecars.nodeDriverRegistrarImage.repository .Values.sidecars.nodeDriverRegistrarImage.tag }}
+        {{- if .Values.sidecars.nodeDriverRegistrarImage.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.nodeDriverRegistrarImage.pullPolicy }}
+        {{- end }}
         args:
         - --csi-address=$(ADDRESS)
         - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
@@ -130,6 +164,9 @@ spec:
           name: registration-dir
       - name: liveness-probe
         image: {{ printf "%s:%s" .Values.sidecars.livenessProbeImage.repository .Values.sidecars.livenessProbeImage.tag }}
+        {{- if .Values.sidecars.livenessProbeImage.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.livenessProbeImage.pullPolicy }}
+        {{- end }}
         args:
         - --csi-address=$(ADDRESS)
         - --health-port=$(HEALTH_PORT)
@@ -151,7 +188,7 @@ spec:
       dnsConfig:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      priorityClassName: system-node-critical
+      priorityClassName: {{ .Values.node.priorityClassName }}
       {{- with .Values.node.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}
