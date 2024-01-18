@@ -51,6 +51,9 @@ spec:
         {{- if .Values.controller.provisioner }}
         - --provisioner=true
         {{- end }}
+        {{- if hasKey .Values.controller "cacheClientConf" }}
+        - --cache-client-conf={{ .Values.controller.cacheClientConf }}
+        {{- end }}
         {{- if eq .Values.mountMode "sidecar" }}
         - --webhook=true
         {{- end }}
