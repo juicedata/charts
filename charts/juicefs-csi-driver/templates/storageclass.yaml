@@ -76,6 +76,12 @@ parameters:
   juicefs/mount-cache-pvc: {{ $sc.cachePVC }}
   {{- end }}
   {{- with $sc.mountPod }}
+  {{- if .delayedMountDeletion }}
+  juicefs/delayed-mount-deletion: {{ .delayedMountDeletion }}
+  {{- end }}
+  {{- if .cleanCache }}
+  juicefs/clean-cache: {{ .cleanCache | quote }}
+  {{- end }}
   {{- if .resources.limits }}
   {{- if .resources.limits.cpu }}
   juicefs/mount-cpu-limit: {{ .resources.limits.cpu | quote }}

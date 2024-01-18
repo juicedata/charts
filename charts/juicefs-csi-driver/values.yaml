@@ -18,22 +18,57 @@ dashboardImage:
   pullPolicy: ""
 
 sidecars:
-  livenessProbeImage:
-    repository: quay.io/k8scsi/livenessprobe
-    tag: "v1.1.0"
-    pullPolicy: ""
-  nodeDriverRegistrarImage:
-    repository: quay.io/k8scsi/csi-node-driver-registrar
-    tag: "v2.1.0"
-    pullPolicy: ""
-  csiProvisionerImage:
-    repository: quay.io/k8scsi/csi-provisioner
-    tag: "v1.6.0"
-    pullPolicy: ""
-  csiResizerImage:
-    repository: quay.io/k8scsi/csi-resizer
-    tag: "v1.0.1"
-    pullPolicy: ""
+  livenessProbe:
+    image:
+      repository: quay.io/k8scsi/livenessprobe
+      tag: "v1.1.0"
+      pullPolicy: ""
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 10m
+        memory: 100Mi
+
+  nodeDriverRegistrar:
+    image:
+      repository: quay.io/k8scsi/csi-node-driver-registrar
+      tag: "v2.1.0"
+      pullPolicy: ""
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 10m
+        memory: 100Mi
+
+  csiProvisioner:
+    image:
+      repository: quay.io/k8scsi/csi-provisioner
+      tag: "v1.6.0"
+      pullPolicy: ""
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 10m
+        memory: 100Mi
+
+  csiResizer:
+    image:
+      repository: quay.io/k8scsi/csi-resizer
+      tag: "v1.0.1"
+      pullPolicy: ""
+    resources:
+      limits:
+        cpu: 100m
+        memory: 200Mi
+      requests:
+        cpu: 10m
+        memory: 100Mi
 
 imagePullSecrets: []
 
@@ -307,6 +342,15 @@ storageClasses:
   cachePVC: ""
 
   mountPod:
+    # Delayed mount pod deletion, ref: https://juicefs.com/docs/csi/guide/resource-optimization#delayed-mount-pod-deletion
+    # This supports a variety of units: ns (nanoseconds), us (microseconds), ms (milliseconds), s (seconds), m (minutes), h (hours).
+    # Example: 1m
+    delayedMountDeletion: ""
+
+    # Clean cache when mount pod exists, ref: https://juicefs.com/docs/csi/guide/cache#mount-pod-clean-cache
+    # Either "true" or "false"
+    cleanCache: ""
+
     # Mount pod resource requests & limits
     resources:
       limits:
