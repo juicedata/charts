@@ -139,16 +139,16 @@ spec:
         {{- end }}
       {{- if not .Values.controller.provisioner }}
       - name: csi-provisioner
-        image: {{ printf "%s:%s" .Values.sidecars.csiProvisionerImage.repository .Values.sidecars.csiProvisionerImage.tag }}
-        {{- if .Values.sidecars.csiProvisionerImage.pullPolicy }}
-        imagePullPolicy: {{ .Values.sidecars.csiProvisionerImage.pullPolicy }}
+        image: {{ printf "%s:%s" .Values.sidecars.csiProvisioner.image.repository .Values.sidecars.csiProvisioner.image.tag }}
+        {{- if .Values.sidecars.csiProvisioner.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.csiProvisioner.image.pullPolicy }}
         {{- end }}
         args:
         - --csi-address=$(ADDRESS)
         - --timeout=60s
         - --v=5
         {{- if .Values.controller.leaderElection.enabled }}
-        {{- if gt .Values.sidecars.csiProvisionerImage.tag "v2.0.0" }}
+        {{- if gt .Values.sidecars.csiProvisioner.image.tag "v2.0.0" }}
         - --leader-election
         {{- else }}
         - --enable-leader-election
@@ -163,6 +163,8 @@ spec:
         env:
         - name: ADDRESS
           value: /var/lib/csi/sockets/pluginproxy/csi.sock
+        resources:
+          {{- toYaml .Values.sidecars.csiProvisioner.resources | nindent 10 }}
         volumeMounts:
         - mountPath: /var/lib/csi/sockets/pluginproxy/
           name: socket-dir
@@ -174,18 +176,20 @@ spec:
         env:
           - name: ADDRESS
             value: /var/lib/csi/sockets/pluginproxy/csi.sock
-        image: {{ printf "%s:%s" .Values.sidecars.csiResizerImage.repository .Values.sidecars.csiResizerImage.tag }}
-        {{- if .Values.sidecars.csiResizerImage.pullPolicy }}
-        imagePullPolicy: {{ .Values.sidecars.csiResizerImage.pullPolicy }}
+        resources:
+          {{- toYaml .Values.sidecars.csiResizer.resources | nindent 10 }}
+        image: {{ printf "%s:%s" .Values.sidecars.csiResizer.image.repository .Values.sidecars.csiResizer.image.tag }}
+        {{- if .Values.sidecars.csiResizer.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.csiResizer.image.pullPolicy }}
         {{- end }}
         name: csi-resizer
         volumeMounts:
           - mountPath: /var/lib/csi/sockets/pluginproxy/
             name: socket-dir
       - name: liveness-probe
-        image: {{ printf "%s:%s" .Values.sidecars.livenessProbeImage.repository .Values.sidecars.livenessProbeImage.tag }}
-        {{- if .Values.sidecars.livenessProbeImage.pullPolicy }}
-        imagePullPolicy: {{ .Values.sidecars.livenessProbeImage.pullPolicy }}
+        image: {{ printf "%s:%s" .Values.sidecars.livenessProbe.image.repository .Values.sidecars.livenessProbe.image.tag }}
+        {{- if .Values.sidecars.livenessProbe.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.livenessProbe.image.pullPolicy }}
         {{- end }}
         args:
         - --csi-address=$(ADDRESS)
@@ -195,6 +199,8 @@ spec:
           value: /csi/csi.sock
         - name: HEALTH_PORT
           value: "9909"
+        resources:
+          {{- toYaml .Values.sidecars.livenessProbe.resources | nindent 10 }}
         volumeMounts:
         - mountPath: /csi
           name: socket-dir

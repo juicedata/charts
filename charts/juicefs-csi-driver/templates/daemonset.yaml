@@ -141,9 +141,9 @@ spec:
               - -c
               - rm /csi/csi.sock
       - name: node-driver-registrar
-        image: {{ printf "%s:%s" .Values.sidecars.nodeDriverRegistrarImage.repository .Values.sidecars.nodeDriverRegistrarImage.tag }}
-        {{- if .Values.sidecars.nodeDriverRegistrarImage.pullPolicy }}
-        imagePullPolicy: {{ .Values.sidecars.nodeDriverRegistrarImage.pullPolicy }}
+        image: {{ printf "%s:%s" .Values.sidecars.nodeDriverRegistrar.image.repository .Values.sidecars.nodeDriverRegistrar.image.tag }}
+        {{- if .Values.sidecars.nodeDriverRegistrar.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.nodeDriverRegistrar.image.pullPolicy }}
         {{- end }}
         args:
         - --csi-address=$(ADDRESS)
@@ -154,15 +154,17 @@ spec:
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
           value: {{ .Values.kubeletDir }}/csi-plugins/csi.juicefs.com/csi.sock
+        resources:
+          {{- toYaml .Values.sidecars.nodeDriverRegistrar.resources | nindent 10 }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
         - mountPath: /registration
           name: registration-dir
       - name: liveness-probe
-        image: {{ printf "%s:%s" .Values.sidecars.livenessProbeImage.repository .Values.sidecars.livenessProbeImage.tag }}
-        {{- if .Values.sidecars.livenessProbeImage.pullPolicy }}
-        imagePullPolicy: {{ .Values.sidecars.livenessProbeImage.pullPolicy }}
+        image: {{ printf "%s:%s" .Values.sidecars.livenessProbe.image.repository .Values.sidecars.livenessProbe.image.tag }}
+        {{- if .Values.sidecars.livenessProbe.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.livenessProbe.image.pullPolicy }}
         {{- end }}
         args:
         - --csi-address=$(ADDRESS)
@@ -172,6 +174,8 @@ spec:
           value: /csi/csi.sock
         - name: HEALTH_PORT
           value: "9909"
+        resources:
+          {{- toYaml .Values.sidecars.livenessProbe.resources | nindent 10 }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
