@@ -6,6 +6,7 @@
 {{- $timeoutSeconds := .Values.webhook.timeoutSeconds }}
 
 {{- if eq .Values.mountMode "sidecar" }}
+---
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
@@ -38,6 +39,62 @@ webhooks:
     namespaceSelector:
       matchLabels:
         juicefs.com/enable-injection: "true"
+{{- end }}
+
+{{- if .Values.validatingWebhook.enabled -}}
+---
+# before changing this value, check the required kubernetes version
+# https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#prerequisites
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  labels:
+    app.kubernetes.io/component: admission-webhook
+    {{- include "juicefs-csi.labels" . | nindent 4 }}
+  name: juicefs-admission-webhook
+  {{- if $certEnabled }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ printf "%s/%s" .Release.Namespace "juicefs-cert" | quote }}
+  {{- end }}
+webhooks:
+  - name: validate.secret.juicefs.com
+    matchPolicy: Equivalent
+    rules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - secrets
+    failurePolicy: {{ .Values.validatingWebhook.failurePolicy | default "Ignore" }}
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: juicefs-admission-webhook
+        namespace: {{ .Release.Namespace | quote }}
+        path: /validate-secret
+      {{- if $certEnabled }}
+      caBundle: Cg==
+      {{- else }}
+      caBundle: {{ ternary (b64enc $caCert) (b64enc (trim $crtPEM)) (empty $crtPEM) }}
+      {{- end }}
+    {{- if .Values.validatingWebhook.timeoutSeconds }}
+    timeoutSeconds: {{ .Values.validatingWebhook.timeoutSeconds }}
+    {{- end }}
+    {{- if .Values.validatingWebhook.namespaceSelector }}
+    namespaceSelector: {{ toYaml .Values.validatingWebhook.namespaceSelector | nindent 6 }}
+    {{- end }}
+    {{- if .Values.validatingWebhook.objectSelector }}
+    objectSelector: {{ toYaml .Values.validatingWebhook.objectSelector | nindent 6 }}
+    {{- end }}
+{{- end }}
+
+{{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
 {{- if $certEnabled }}
 ---
 apiVersion: cert-manager.io/v1

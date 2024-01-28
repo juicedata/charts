@@ -38,7 +38,7 @@ spec:
         - --endpoint=$(CSI_ENDPOINT)
         - --logtostderr
         - --nodeid=$(NODE_NAME)
-        - --v=5
+        - --v=6
         {{- if .Values.controller.leaderElection.enabled }}
         - --leader-election
         {{- if .Values.controller.leaderElection.leaderElectionNamespace }}
@@ -54,8 +54,11 @@ spec:
         {{- if hasKey .Values.controller "cacheClientConf" }}
         - --cache-client-conf={{ .Values.controller.cacheClientConf }}
         {{- end }}
-        {{- if eq .Values.mountMode "sidecar" }}
+        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
         - --webhook=true
+        {{- end }}
+        {{- if .Values.validatingWebhook.enabled }}
+        - --validating-webhook=true
         {{- end }}
         {{- if eq .Values.mountMode "process" }}
         - --by-process=true
@@ -132,7 +135,7 @@ spec:
           mountPropagation: Bidirectional
           name: jfs-root-dir
         {{- end }}
-        {{- if eq .Values.mountMode "sidecar" }}
+        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
         - name: webhook-certs
           mountPath: /etc/webhook/certs
           readOnly: true
@@ -225,7 +228,7 @@ spec:
           type: DirectoryOrCreate
         name: jfs-root-dir
       {{- end }}
-      {{- if eq .Values.mountMode "sidecar" }}
+      {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
       - name: webhook-certs
         secret:
           secretName: {{ template "juicefs-csi.webhook.secret" . }}
