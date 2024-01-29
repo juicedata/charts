@@ -178,6 +178,14 @@ node:
       maxUnavailable: 50%
   ifPollingKubelet: true
 
+metrics:
+  port: 8080
+  service:
+    annotations: {}
+    # prometheus.io/scrape: "true"
+    # prometheus.io/port: "8080"
+    servicePort: 8080
+
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
   enabled: true

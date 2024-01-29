@@ -7,15 +7,14 @@ metadata:
   labels:
     app.kubernetes.io/component: service
     {{- include "juicefs-csi.labels" . | nindent 4 }}
-  annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/app-metrics: 'true'
-    prometheus.io/app-metrics-path: '/metrics'
+{{- if .Values.metrics.service.annotations }}
+  annotations: {{ toYaml .Values.metrics.service.annotations | nindent 4 }}
+{{- end }}
 spec:
   ports:
     - name: metrics
-      port: 6060
-      targetPort: 6060
+      port: {{ .Values.metrics.service.servicePort }}
+      targetPort: {{ .Values.metrics.port }}
   selector:
     app: juicefs-csi-node
     {{- include "juicefs-csi.selectorLabels" . | nindent 4 }}
