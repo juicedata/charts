@@ -59,6 +59,9 @@ metadata:
 webhooks:
   - name: validate.secret.juicefs.com
     matchPolicy: Equivalent
+    objectSelector:
+      matchLabels:
+        juicefs.com/validate-secret: "true"
     rules:
       - apiGroups:
           - ""
