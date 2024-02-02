@@ -80,7 +80,7 @@ webhooks:
       service:
         name: juicefs-admission-webhook
         namespace: {{ .Release.Namespace | quote }}
-        path: /validate-secret
+        path: /juicefs/validate-secret
       {{- if $certEnabled }}
       caBundle: Cg==
       {{- else }}
