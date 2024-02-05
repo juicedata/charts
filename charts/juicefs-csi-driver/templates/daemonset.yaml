@@ -115,6 +115,9 @@ spec:
         - containerPort: 9909
           name: healthz
           protocol: TCP
+        - containerPort: 6060
+          name: metrics
+          protocol: TCP
         securityContext:
           privileged: true
         volumeMounts:
