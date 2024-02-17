@@ -95,6 +95,10 @@ parameters:
   {{- if .image }}
   juicefs/mount-image: {{ .image }}
   {{- end }}
+  {{- if .annotations }}
+  juicefs/mount-annotations:
+    {{- toYaml .annotations | nindent 4 }}
+  {{- end }}
   {{- end }}
 provisioner: csi.juicefs.com
 reclaimPolicy: {{ $sc.reclaimPolicy }}
