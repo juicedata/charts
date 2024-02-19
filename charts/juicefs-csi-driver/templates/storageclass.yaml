@@ -96,8 +96,7 @@ parameters:
   juicefs/mount-image: {{ .image }}
   {{- end }}
   {{- if .annotations }}
-  juicefs/mount-annotations:
-    {{- toYaml .annotations | nindent 4 }}
+  juicefs/mount-annotations: {{ toJson .annotations | quote }}
   {{- end }}
   {{- end }}
 provisioner: csi.juicefs.com
