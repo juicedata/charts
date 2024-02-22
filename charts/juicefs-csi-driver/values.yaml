@@ -257,6 +257,16 @@ webhook:
   # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
   FailurePolicy: Fail
 
+validatingWebhook:
+  enabled: false
+  # It is recommended that admission webhooks should evaluate as quickly as possible (typically in milliseconds),
+  # since they add to API request latency. It is encouraged to use a small timeout for webhooks
+  # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#timeouts
+  timeoutSeconds: 5
+  # FailurePolicy defines how unrecognized errors and timeout errors from the admission webhook are handled
+  # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
+  FailurePolicy: Fail
+
 # For production environment, manually create & manage storageClass outside Helm is recommended, ref: https://juicefs.com/docs/csi/guide/pv#create-storage-class
 storageClasses:
 - name: "juicefs-sc"
