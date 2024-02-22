@@ -325,3 +325,5 @@ storageClasses:
         memory: 1Gi
     # Override mount pod image, ref: https://juicefs.com/docs/csi/guide/custom-image
     image: ""
+    # Set annotations for the mount pod
+    annotations: {}
