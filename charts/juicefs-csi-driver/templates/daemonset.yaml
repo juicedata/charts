@@ -1,4 +1,4 @@
-{{- if and (.Values.node.enabled) (ne .Values.mountMode "sidecar") }}
+{{- if and (.Values.node.enabled) (ne .Values.mountMode "sidecar") (ne .Values.mountMode "serverless") }}
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:

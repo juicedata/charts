@@ -54,7 +54,7 @@ spec:
         {{- if hasKey .Values.controller "cacheClientConf" }}
         - --cache-client-conf={{ .Values.controller.cacheClientConf }}
         {{- end }}
-        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
+        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled)  (eq .Values.mountMode "serverless") }}
         - --webhook=true
         {{- end }}
         {{- if .Values.validatingWebhook.enabled }}
@@ -119,23 +119,29 @@ spec:
         - containerPort: 9909
           name: healthz
           protocol: TCP
+        {{- if ne .Values.mountMode "serverless" }}
         securityContext:
           capabilities:
             add:
             - SYS_ADMIN
           privileged: true
+        {{- end }}
         volumeMounts:
         - mountPath: /var/lib/csi/sockets/pluginproxy/
           name: socket-dir
         {{- if ne .Values.mountMode "process" }}
         - mountPath: /jfs
+          {{- if ne .Values.mountMode "serverless" }}
           mountPropagation: Bidirectional
+          {{- end }}
           name: jfs-dir
         - mountPath: /root/.juicefs
+          {{- if ne .Values.mountMode "serverless" }}
           mountPropagation: Bidirectional
+          {{- end }}
           name: jfs-root-dir
         {{- end }}
-        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
+        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) (eq .Values.mountMode "serverless") }}
         - name: webhook-certs
           mountPath: /etc/webhook/certs
           readOnly: true
@@ -218,7 +224,7 @@ spec:
       volumes:
       - emptyDir: {}
         name: socket-dir
-      {{- if ne .Values.mountMode "process" }}
+      {{- if or (eq .Values.mountMode "mountpod") (eq .Values.mountMode "sidecar") }}
       - hostPath:
           path: {{ .Values.jfsMountDir }}
           type: DirectoryOrCreate
@@ -227,8 +233,13 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
+      {{- else if eq .Values.mountMode "serverless" }}
+      - emptyDir: {}
+        name: jfs-dir
+      - emptyDir: {}
+        name: jfs-root-dir
       {{- end }}
-      {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
+      {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled)  (eq .Values.mountMode "serverless")}}
       - name: webhook-certs
         secret:
           secretName: {{ template "juicefs-csi.webhook.secret" . }}
