@@ -19,7 +19,7 @@ spec:
     app: juicefs-csi-node
     {{- include "juicefs-csi.selectorLabels" . | nindent 4 }}
 
-{{- if eq .Values.mountMode "sidecar" }}
+{{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
 ---
 apiVersion: v1
 kind: Service
@@ -38,6 +38,7 @@ spec:
     app: juicefs-csi-controller
     {{- include "juicefs-csi.selectorLabels" . | nindent 4 }}
 {{ end }}
+
 {{- if and (.Values.dashboard.enabled) }}
 ---
 apiVersion: v1
