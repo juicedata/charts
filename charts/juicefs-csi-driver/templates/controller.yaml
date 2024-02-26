@@ -119,13 +119,13 @@ spec:
         - containerPort: 9909
           name: healthz
           protocol: TCP
-        {{- if ne .Values.mountMode "serverless" }}
         securityContext:
           capabilities:
             add:
             - SYS_ADMIN
+          {{- if ne .Values.mountMode "serverless" }}
           privileged: true
-        {{- end }}
+          {{- end }}
         volumeMounts:
         - mountPath: /var/lib/csi/sockets/pluginproxy/
           name: socket-dir
