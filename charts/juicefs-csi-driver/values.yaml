@@ -41,6 +41,7 @@ imagePullSecrets: []
 # - mountpod: default, run JuiceFS Client in an independent pod
 # - sidecar: run JuiceFS Client as a sidecar container in the same pod with application
 # - process: run JuiceFS Client as a process in the JuiceFS CSI node service
+# - serverless: a special "sidecar" mode that requires no privilege, creates no hostPath volumes, to allow full serverless deployment
 # Ref: https://juicefs.com/docs/csi/introduction/
 mountMode: mountpod
 
