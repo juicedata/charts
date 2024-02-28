@@ -41,6 +41,42 @@ webhooks:
         juicefs.com/enable-injection: "true"
 {{- end }}
 
+{{- if eq .Values.mountMode "serverless" }}
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: juicefs-admission-serverless-webhook
+  {{- if $certEnabled }}
+  annotations:
+    cert-manager.io/inject-ca-from: {{ printf "%s/%s" .Release.Namespace "juicefs-cert" | quote }}
+  {{- end }}
+webhooks:
+  - name: sidecar.inject.serverless.juicefs.com
+    rules:
+      - apiGroups:   [""]
+        apiVersions: ["v1"]
+        operations:  ["CREATE"]
+        resources:   ["pods"]
+    clientConfig:
+      service:
+        namespace: {{ .Release.Namespace | quote }}
+        name: juicefs-admission-webhook
+        path: "/juicefs/serverless/inject-v1-pod"
+      {{- if $certEnabled }}
+      caBundle: Cg==
+      {{- else }}
+      caBundle: {{ ternary (b64enc $caCert) (b64enc (trim $crtPEM)) (empty $crtPEM) }}
+      {{- end }}
+    timeoutSeconds: {{ $timeoutSeconds }}
+    failurePolicy: {{ $.Values.webhook.FailurePolicy }}
+    sideEffects: None
+    admissionReviewVersions: ["v1","v1beta1"]
+    namespaceSelector:
+      matchLabels:
+        juicefs.com/enable-serverless-injection: "true"
+{{- end }}
+
 {{- if .Values.validatingWebhook.enabled -}}
 ---
 # before changing this value, check the required kubernetes version
