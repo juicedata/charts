@@ -109,7 +109,7 @@ controller:
     # The duration that the acting control-plane will retry refreshing leadership before giving up
   # Enable provisioner of controller service, must be set to true when pathPattern is used
   # Ref: https://juicefs.com/docs/csi/guide/pv/#using-path-pattern
-  provisioner: false
+  provisioner: true
   # Cache client auth config file in user's secret, only applicable to JuiceFS EE
   cacheClientConf: true
   replicas: 2
