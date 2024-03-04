@@ -38,7 +38,11 @@ spec:
         - --endpoint=$(CSI_ENDPOINT)
         - --logtostderr
         - --nodeid=$(NODE_NAME)
+        {{- if .Values.controller.debug }}
+        - --v=6
+        {{- else }}
         - --v=5
+        {{- end }}
         {{- if .Values.controller.leaderElection.enabled }}
         - --leader-election
         {{- if .Values.controller.leaderElection.leaderElectionNamespace }}
