@@ -40,7 +40,11 @@ spec:
         - --endpoint=$(CSI_ENDPOINT)
         - --logtostderr
         - --nodeid=$(NODE_NAME)
+        {{- if .Values.node.debug }}
+        - --v=6
+        {{- else }}
         - --v=5
+        {{- end }}
         {{- if eq .Values.mountMode "mountpod" }}
         - --enable-manager=true
         {{- end }}

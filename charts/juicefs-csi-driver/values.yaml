@@ -98,6 +98,8 @@ serviceAccount:
 
 controller:
   enabled: true
+  # Enable verbose logging
+  debug: false
   leaderElection:
     # Enable leader election for controller, ref: https://juicefs.com/docs/csi/administration/going-production#leader-election
     enabled: true
@@ -145,6 +147,8 @@ controller:
 node:
   # CSI Node Service will be deployed in every node
   enabled: true
+  # Enable verbose logging
+  debug: false
   hostNetwork: false
   resources:
     limits:
