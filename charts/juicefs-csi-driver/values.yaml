@@ -183,7 +183,9 @@ node:
       maxUnavailable: 50%
   ifPollingKubelet: true
 
+# Expose CSI Driver metrics
 metrics:
+  enabled: false
   port: 8080
   service:
     annotations: {}
