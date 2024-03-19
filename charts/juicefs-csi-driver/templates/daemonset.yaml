@@ -21,6 +21,13 @@ spec:
       labels:
         app: juicefs-csi-node
         {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
+        {{- if .Values.node.extraLabels }}
+        {{- toYaml .Values.node.extraLabels | nindent 8}}
+        {{- end}}
+      {{- with .Values.node.extraAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:

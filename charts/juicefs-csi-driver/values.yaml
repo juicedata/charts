@@ -124,6 +124,10 @@ controller:
       memory: 512Mi
   # Grace period to allow the CSI Controller pod to shutdown before it is killed
   terminationGracePeriodSeconds: 30
+  # Extra customization labels for CSI Controller pod
+  extraLabels: {}
+  # Extra customization annotations for CSI Controller pod
+  extraAnnotations: {}
   # Affinity for CSI Controller pod
   affinity: {}
   # Node selector for CSI Controller pod
@@ -163,6 +167,10 @@ node:
   mountPodNonPreempting: false
   # Grace period to allow the CSI Node Service pods to shutdown before it is killed
   terminationGracePeriodSeconds: 30
+  # Extra customization labels for CSI Node Service pods
+  extraLabels: {}
+  # Extra customization annotations for CSI Node Service pods
+  extraAnnotations: {}
   # Affinity for CSI Node Service pods
   affinity: {}
   # Node selector for CSI Node Service pods, ref: https://juicefs.com/docs/csi/guide/resource-optimization#csi-node-node-selector
@@ -214,6 +222,10 @@ dashboard:
     requests:
       cpu: 100m
       memory: 200Mi
+  # Extra customization labels for dashboard pods
+  extraLabels: {}
+  # Extra customization annotations for dashboard pods
+  extraAnnotations: {}
   affinity: {}
   nodeSelector: {}
   tolerations:

@@ -13,6 +13,13 @@ spec:
     matchLabels:
       app: juicefs-csi-dashboard
       {{- include "juicefs-csi.selectorLabels" . | nindent 6 }}
+      {{- if .Values.dashboard.extraLabels }}
+        {{- toYaml .Values.dashboard.extraLabels | nindent 8}}
+        {{- end}}
+      {{- with .Values.dashboard.extraAnnotations }}
+      annotations:
+          {{- toYaml . | nindent 8 }}
+      {{- end }}
   template:
     metadata:
       labels:
