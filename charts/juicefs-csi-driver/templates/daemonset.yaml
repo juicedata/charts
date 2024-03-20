@@ -5,6 +5,13 @@ metadata:
   labels:
     app.kubernetes.io/component: node
     {{- include "juicefs-csi.labels" . | nindent 4 }}
+    {{- if .Values.node.labels }}
+    {{- toYaml .Values.node.labels | nindent 4}}
+    {{- end}}
+  {{- with .Values.node.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   name: juicefs-csi-node
   namespace: {{ .Release.Namespace | quote }}
 spec:
@@ -21,6 +28,13 @@ spec:
       labels:
         app: juicefs-csi-node
         {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
+        {{- if .Values.node.labels }}
+        {{- toYaml .Values.node.labels | nindent 8}}
+        {{- end}}
+      {{- with .Values.node.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     spec:
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
