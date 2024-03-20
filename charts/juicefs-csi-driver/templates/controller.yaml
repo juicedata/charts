@@ -19,10 +19,10 @@ spec:
       labels:
         app: juicefs-csi-controller
         {{- include "juicefs-csi.selectorLabels" . | nindent 8 }}
-        {{- if .Values.controller.extraLabels }}
-        {{- toYaml .Values.controller.extraLabels | nindent 8}}
+        {{- if .Values.controller.labels }}
+        {{- toYaml .Values.controller.labels | nindent 8}}
         {{- end}}
-      {{- with .Values.controller.extraAnnotations }}
+      {{- with .Values.controller.annotations }}
       annotations:
       {{- toYaml . | nindent 8 }}
       {{- end }}
