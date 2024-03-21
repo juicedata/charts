@@ -175,6 +175,9 @@ node:
   tolerations:
     - key: CriticalAddonsOnly
       operator: Exists
+  # Additional command line arguments for the juicefs-plugin
+  additionalArguments: []
+  # - "--format-in-pod=true"
   # PriorityClass name for CSI Node Service pods
   priorityClassName: system-node-critical
   # -- Extra envs of CSI Node
