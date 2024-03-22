@@ -154,6 +154,11 @@ spec:
           mountPropagation: Bidirectional
           name: jfs-root-dir
         {{- end }}
+        {{- if and (eq .Values.mountMode "mountpod") (.Values.node.abortFuseConnections) }}
+        - mountPath: /sys/fs/fuse
+          name: fuse
+          mountPropagation: Bidirectional
+        {{- end }}
         lifecycle:
           preStop:
             exec:
@@ -246,5 +251,11 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
+      {{- end }}
+      {{- if and (eq .Values.mountMode "mountpod") (.Values.node.abortFuseConnections) }}
+      - hostPath:
+          path: /sys/fs/fuse
+          type: Directory
+        name: fuse
       {{- end }}
 {{- end }}
