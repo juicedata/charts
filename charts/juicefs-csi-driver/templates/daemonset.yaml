@@ -170,6 +170,18 @@ spec:
         - --csi-address=$(ADDRESS)
         - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
         - --v=5
+        {{- if gt .Values.sidecars.nodeDriverRegistrarImage.tag "v2.4.0" }}
+        - --health-port=9809
+        ports:
+          - containerPort: 9809
+            name: healthz
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: healthz
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+       {{- end }}
         env:
         - name: ADDRESS
           value: /csi/csi.sock
