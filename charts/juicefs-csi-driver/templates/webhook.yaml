@@ -131,6 +131,40 @@ webhooks:
     {{- if .Values.validatingWebhook.objectSelector }}
     objectSelector: {{ toYaml .Values.validatingWebhook.objectSelector | nindent 6 }}
     {{- end }}
+  - name: validate.pv.juicefs.com
+    matchPolicy: Equivalent
+    rules:
+      - apiGroups:
+          - ""
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+        resources:
+          - persistentvolumes
+    failurePolicy: {{ .Values.validatingWebhook.failurePolicy | default "Ignore" }}
+    sideEffects: None
+    admissionReviewVersions:
+      - v1
+    clientConfig:
+      service:
+        name: juicefs-admission-webhook
+        namespace: {{ .Release.Namespace | quote }}
+        path: /juicefs/validate-pv
+      {{- if $certEnabled }}
+      caBundle: Cg==
+      {{- else }}
+      caBundle: {{ ternary (b64enc $caCert) (b64enc (trim $crtPEM)) (empty $crtPEM) }}
+      {{- end }}
+    {{- if .Values.validatingWebhook.timeoutSeconds }}
+    timeoutSeconds: {{ .Values.validatingWebhook.timeoutSeconds }}
+    {{- end }}
+    {{- if .Values.validatingWebhook.namespaceSelector }}
+    namespaceSelector: {{ toYaml .Values.validatingWebhook.namespaceSelector | nindent 6 }}
+    {{- end }}
+    {{- if .Values.validatingWebhook.objectSelector }}
+    objectSelector: {{ toYaml .Values.validatingWebhook.objectSelector | nindent 6 }}
+    {{- end }}
 {{- end }}
 
 {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) }}
