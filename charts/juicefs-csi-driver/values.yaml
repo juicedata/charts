@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.23.5"
+  tag: "v0.23.6"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.23.5"
+  tag: "v0.23.6"
   pullPolicy: ""
 
 sidecars:
@@ -277,7 +277,7 @@ validatingWebhook:
   timeoutSeconds: 5
   # FailurePolicy defines how unrecognized errors and timeout errors from the admission webhook are handled
   # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
-  FailurePolicy: Fail
+  FailurePolicy: Ignore
 
 # For production environment, manually create & manage storageClass outside Helm is recommended, ref: https://juicefs.com/docs/csi/guide/pv#create-storage-class
 storageClasses:
