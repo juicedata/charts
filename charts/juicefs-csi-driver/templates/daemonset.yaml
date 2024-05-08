@@ -117,21 +117,16 @@ spec:
           value: "true"
         {{- end }}
         {{- if .Values.node.envs }}
-{{ toYaml .Values.node.envs | trim | indent 8 }}
+        {{ toYaml .Values.node.envs | trim | indent 8 }}
         {{- end }}
+        {{- with .Values.node.livenessProbe }}
         livenessProbe:
-          failureThreshold: 5
-          httpGet:
-            path: /healthz
-            port: healthz
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 3
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         resources:
           {{- toYaml .Values.node.resources | nindent 10 }}
         ports:
-        - containerPort: 9909
-          name: healthz
+        - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
           protocol: TCP
         - containerPort: 6060
           name: metrics
@@ -204,7 +199,7 @@ spec:
         - name: ADDRESS
           value: /csi/csi.sock
         - name: HEALTH_PORT
-          value: "9909"
+          value: "{{ .Values.node.livenessProbe.httpGet.port }}"
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir

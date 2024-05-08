@@ -185,6 +185,14 @@ node:
     rollingUpdate:
       maxUnavailable: 50%
   ifPollingKubelet: true
+  livenessProbe:
+    failureThreshold: 5
+    httpGet:
+      path: /healthz
+      port: 9909  # numeric value only
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 3
 
 # Expose CSI Driver metrics
 metrics:
