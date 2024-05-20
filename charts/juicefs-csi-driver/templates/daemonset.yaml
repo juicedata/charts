@@ -65,6 +65,9 @@ spec:
         {{- if eq .Values.mountMode "process" }}
         - --by-process=true
         {{- end }}
+        {{- if ge .Values.image.tag "v0.24.0" }}
+        - --config=/etc/config/config.yaml
+        {{- end }}
         env:
         - name: CSI_ENDPOINT
           value: unix:/csi/csi.sock
@@ -148,6 +151,10 @@ spec:
         - mountPath: /root/.juicefs
           mountPropagation: Bidirectional
           name: jfs-root-dir
+        {{- end }}
+        {{- if ge .Values.image.tag "v0.24.0" }}
+        - name: juicefs-config
+          mountPath: /etc/config
         {{- end }}
         lifecycle:
           preStop:
@@ -253,5 +260,10 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
+      {{- end }}
+      {{- if ge .Values.image.tag "v0.24.0" }}
+      - name: juicefs-config
+        configMap:
+          name: {{ include "juicefs-csi.fullname" . }}-config
       {{- end }}
 {{- end }}

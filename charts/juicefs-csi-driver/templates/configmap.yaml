@@ -1,0 +1,13 @@
+{{- if ge .Values.image.tag "v0.24.0" }}
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: {{ include "juicefs-csi.fullname" . }}-config
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: config
+    {{- include "juicefs-csi.labels" . | nindent 4 }}
+data:
+  config.yaml: |-
+    {{- toYaml .Values.globalConfig | nindent 4  }}
+{{- end }}
