@@ -1,4 +1,4 @@
-{{- if ge .Values.image.tag "v0.24.0" }}
+{{- if .Values.globalConfig.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata: 

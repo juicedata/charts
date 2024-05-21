@@ -65,7 +65,7 @@ spec:
         {{- if eq .Values.mountMode "process" }}
         - --by-process=true
         {{- end }}
-        {{- if ge .Values.image.tag "v0.24.0" }}
+        {{- if .Values.globalConfig.enabled }}
         - --config=/etc/config/config.yaml
         {{- end }}
         env:
@@ -152,7 +152,7 @@ spec:
           mountPropagation: Bidirectional
           name: jfs-root-dir
         {{- end }}
-        {{- if ge .Values.image.tag "v0.24.0" }}
+        {{- if .Values.globalConfig.enabled }}
         - name: juicefs-config
           mountPath: /etc/config
         {{- end }}
@@ -261,7 +261,7 @@ spec:
           type: DirectoryOrCreate
         name: jfs-root-dir
       {{- end }}
-      {{- if ge .Values.image.tag "v0.24.0" }}
+      {{- if .Values.globalConfig.enabled }}
       - name: juicefs-config
         configMap:
           name: {{ include "juicefs-csi.fullname" . }}-config

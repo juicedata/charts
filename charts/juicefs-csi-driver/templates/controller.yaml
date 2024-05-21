@@ -81,7 +81,7 @@ spec:
         {{- if eq .Values.mountMode "process" }}
         - --by-process=true
         {{- end }}
-        {{- if ge .Values.image.tag "v0.24.0" }}
+        {{- if .Values.globalConfig.enabled }}
         - --config=/etc/config/config.yaml
         {{- end }}
         env:
@@ -167,7 +167,7 @@ spec:
           mountPath: /etc/webhook/certs
           readOnly: true
         {{- end }}
-        {{- if ge .Values.image.tag "v0.24.0" }}
+        {{- if .Values.globalConfig.enabled }}
         - name: juicefs-config
           mountPath: /etc/config
         {{- end }}
@@ -269,7 +269,7 @@ spec:
         secret:
           secretName: {{ template "juicefs-csi.webhook.secret" . }}
       {{- end }}
-      {{- if ge .Values.image.tag "v0.24.0" }}
+      {{- if .Values.globalConfig.enabled }}
       - name: juicefs-config
         configMap:
           name: {{ include "juicefs-csi.fullname" . }}-config
