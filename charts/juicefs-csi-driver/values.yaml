@@ -92,7 +92,7 @@ globalConfig:
     #     matchLabels:
     #       custom-image: "true"
     #   eeMountImage: "juicedata/mount:ee-5.0.17-0c63dc5"
-    #   eeMountImage: "juicedata/mount:ce-v1.2.0"
+    #   ceMountImage: "juicedata/mount:ce-v1.2.0"
   
     # - pvcSelector:
     #     matchLabels:
