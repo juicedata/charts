@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.23.6"
+  tag: "v0.24.0"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.23.6"
+  tag: "v0.24.0"
   pullPolicy: ""
 
 sidecars:
