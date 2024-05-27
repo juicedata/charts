@@ -120,7 +120,7 @@ spec:
           value: "true"
         {{- end }}
         {{- if .Values.node.envs }}
-        {{ toYaml .Values.node.envs | trim | indent 8 }}
+{{ toYaml .Values.node.envs | trim | indent 8 }}
         {{- end }}
         {{- with .Values.node.livenessProbe }}
         livenessProbe:
