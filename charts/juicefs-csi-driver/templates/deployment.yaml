@@ -63,6 +63,18 @@ spec:
             {{- if .Values.dashboard.envs }}
 {{ toYaml .Values.dashboard.envs | indent 12 }}
             {{- end }}
+            {{- if .Values.dashboard.auth.enabled }}
+            - name: USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: juicefs-dashboard-secret
+                  key: username
+            - name: PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: juicefs-dashboard-secret
+                  key: password
+            {{- end }}
           ports:
             - containerPort: 8088
           resources:

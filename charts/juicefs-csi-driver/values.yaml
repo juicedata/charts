@@ -269,6 +269,12 @@ metrics:
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
   enabled: true
+  # Basic auth for dashboard
+  auth:
+    enabled: false
+    username: admin
+    password: admin
+
   replicas: 1
   leaderElection:
     # Enable leader election for dashboard.
