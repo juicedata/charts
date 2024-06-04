@@ -71,6 +71,7 @@ extraVolumeMounts:
   #    mountPath: "/etc/ceph"
 
 secret:
+  enabled: true
   # -- The JuiceFS file system name.
   name: ""
   # -- JuiceFS Enterprise Edition file system token, if this token is specified,
@@ -101,3 +102,5 @@ formatOptions: ""
 # CE Ref: https://juicefs.com/docs/community/command_reference#gateway
 # EE Ref: https://juicefs.com/docs/cloud/reference/command_reference/#gateway
 options: ""
+
+extraDeploy: []

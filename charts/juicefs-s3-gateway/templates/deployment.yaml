@@ -59,6 +59,9 @@ spec:
             - mountPath: /root/.juicefs
               name: jfs-root-dir
             {{- end }}
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
       containers:
         - name: gateway
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
