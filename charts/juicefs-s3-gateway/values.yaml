@@ -56,9 +56,6 @@ affinity: {}
 initEnvs: []
 
 # -- Environment variables for the gateway container
-# Example:
-#  - name: JFSCHAN
-#    value: "gluster"
 envs: []
 
 # -- Extra volumes for the mount pod, used when JuiceFS Client relies on extra config files
@@ -71,6 +68,7 @@ extraVolumeMounts:
   #    mountPath: "/etc/ceph"
 
 secret:
+  enabled: true
   # -- The JuiceFS file system name.
   name: ""
   # -- JuiceFS Enterprise Edition file system token, if this token is specified,
@@ -90,6 +88,13 @@ secret:
   # CE Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
   # EE Ref (see --bucket): https://juicefs.com/docs/cloud/reference/command_reference/#auth
   bucket: ""
+  # -- Encryption settings
+  # JFS_RSA_PASSPHRASE: xxx
+  # encrypt_rsa_key: |
+  #   -----BEGIN RSA PRIVATE KEY-----
+  #   ...
+  #   -----END RSA PRIVATE KEY-----
+
 
 # -- JuiceFS format options. Separated by spaces
 # Example: "--inodes=1000000 --block-size=4M"

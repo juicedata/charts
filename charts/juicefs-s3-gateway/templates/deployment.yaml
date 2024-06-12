@@ -69,9 +69,9 @@ spec:
             - sh
             - -c
             {{- if .Values.secret.token }}
-            - juicefs gateway ${VOL_NAME} ${NODE_IP}:{{ .Values.port }} {{ .Values.options }}
+            - juicefs gateway ${VOL_NAME} ${NODE_IP}:{{ .Values.port }} {{ .Values.options }} {{ if .Values.secret.encrypt_rsa_key }}--rsa-key /root/encrypt_rsa_key.pem{{ end }}
             {{- else }}
-            - juicefs gateway ${METAURL} ${NODE_IP}:{{ .Values.port }} --metrics=${NODE_IP}:{{ .Values.metricsPort }} {{ .Values.options }}
+            - juicefs gateway ${METAURL} ${NODE_IP}:{{ .Values.port }} --metrics=${NODE_IP}:{{ .Values.metricsPort }} {{ .Values.options }} {{ if .Values.secret.encrypt_rsa_key }}--rsa-key /root/encrypt_rsa_key.pem{{ end }}
             {{- end }}
           env:
             - name: NODE_IP
@@ -106,6 +106,13 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
+            {{- if .Values.secret.JFS_RSA_PASSPHRASE }}
+            - name: JFS_RSA_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: juicefs-secret
+                  key: JFS_RSA_PASSPHRASE
+            {{- end }}
             {{- if .Values.envs }}
 {{ toYaml .Values.envs | indent 12 }}
             {{- end }}
@@ -118,6 +125,11 @@ spec:
             {{- if .Values.secret.token }}
             - mountPath: /root/.juicefs
               name: jfs-root-dir
+            {{- end }}
+            {{- if .Values.secret.encrypt_rsa_key }}
+            - name: rsa-key
+              mountPath: "/root"
+              readOnly: true
             {{- end }}
             {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
@@ -141,6 +153,14 @@ spec:
         {{- if .Values.secret.token }}
         - emptyDir: {}
           name: jfs-root-dir
+        {{- end }}
+        {{- if .Values.secret.encrypt_rsa_key }}
+        - name: rsa-key
+          secret:
+            secretName: juicefs-secret
+            items:
+              - key: encrypt_rsa_key
+                path: encrypt_rsa_key.pem
         {{- end }}
         {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
