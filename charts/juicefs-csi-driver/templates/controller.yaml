@@ -66,7 +66,7 @@ spec:
         - --leader-election-lease-duration={{ .Values.controller.leaderElection.leaseDuration }}
         {{- end }}
         {{- end }}
-        {{- if .Values.controller.provisioner }}
+        {{- if and (.Values.controller.provisioner) (ne .Values.mountMode "process" ) }}
         - --provisioner=true
         {{- end }}
         {{- if hasKey .Values.controller "cacheClientConf" }}
@@ -171,7 +171,7 @@ spec:
         - name: juicefs-config
           mountPath: /etc/config
         {{- end }}
-      {{- if not .Values.controller.provisioner }}
+      {{- if or (not .Values.controller.provisioner) (eq .Values.mountMode "process") }}
       - name: csi-provisioner
         image: {{ printf "%s:%s" .Values.sidecars.csiProvisionerImage.repository .Values.sidecars.csiProvisionerImage.tag }}
         {{- if .Values.sidecars.csiProvisionerImage.pullPolicy }}
