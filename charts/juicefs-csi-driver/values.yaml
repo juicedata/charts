@@ -360,8 +360,8 @@ storageClasses:
 - name: "juicefs-sc"
   # Set to true to actually create this StorageClass
   enabled: false
-  # Either Delete or Retain, ref: https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy
-  reclaimPolicy: Delete
+  # Either Retain or Delete, ref: https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy
+  reclaimPolicy: Retain
   # Set to true to allow PVC expansion
   allowVolumeExpansion: true
   # Additional annotations for this StorageClass, e.g. make it default
