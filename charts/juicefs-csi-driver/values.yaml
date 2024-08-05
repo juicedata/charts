@@ -227,7 +227,10 @@ node:
   # Grace period to allow the CSI Node Service pods to shutdown before it is killed
   terminationGracePeriodSeconds: 30
   labels: {}
+  # example ServiceDiscovery for Prometheus scrape 
   annotations: {}
+  #  prometheus.io/port: "9567"
+  #  prometheus.io/scrape: "true"
   # Affinity for CSI Node Service pods
   affinity: {}
   # Node selector for CSI Node Service pods, ref: https://juicefs.com/docs/csi/guide/resource-optimization#csi-node-node-selector

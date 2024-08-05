@@ -131,7 +131,7 @@ spec:
         ports:
         - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
           protocol: TCP
-        - containerPort: 6060
+        - containerPort: 9567
           name: metrics
           protocol: TCP
         securityContext:
