@@ -55,9 +55,7 @@ spec:
         - --logtostderr
         - --nodeid=$(NODE_NAME)
         {{- if .Values.node.debug }}
-        - --v=6
-        {{- else }}
-        - --v=5
+        - --v=1
         {{- end }}
         {{- if eq .Values.mountMode "mountpod" }}
         - --enable-manager=true
@@ -151,6 +149,8 @@ spec:
         - mountPath: /root/.juicefs
           mountPropagation: Bidirectional
           name: jfs-root-dir
+        - mountPath: /tmp
+          name: jfs-fuse-fd
         {{- end }}
         {{- if .Values.globalConfig.enabled }}
         - name: juicefs-config
@@ -253,6 +253,10 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
+      - hostPath:
+          path: /var/run/juicefs-csi
+          type: DirectoryOrCreate
+        name: jfs-fuse-fd
       {{- end }}
       {{- if .Values.globalConfig.enabled }}
       - name: juicefs-config
