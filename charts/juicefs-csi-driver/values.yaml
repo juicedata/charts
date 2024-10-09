@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.24.7"
+  tag: "v0.25.0"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.24.7"
+  tag: "v0.25.0"
   pullPolicy: ""
 
 sidecars:
@@ -59,15 +59,7 @@ globalConfig:
   # If pvcSelector isn't set, the patch will be applied to all PVCs
   # Variable templates are supported, e.g.  ${MOUNT_POINT}, ${SUB_PATH}, ${VOLUME_ID}
   mountPodPatch:
-    - lifecycle:
-        preStop:
-          exec:
-            command:
-            - sh
-            - -c
-            - +e
-            - umount -l ${MOUNT_POINT}; rmdir ${MOUNT_POINT}; exit 0
-  
+
     # Example configurations:
     # - pvcSelector:
     #     matchLabels:
