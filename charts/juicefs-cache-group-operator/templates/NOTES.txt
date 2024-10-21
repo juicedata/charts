@@ -1,0 +1,27 @@
+1. Wait for the operator to be ready using kubectl wait:
+
+kubectl wait --for=condition=Available=true --timeout=120s deployment/juicefs-cache-group-operator
+
+2. Create the sample Cache Group Cluster
+
+apiVersion: juicefs.io/v1
+kind: CacheGroup
+metadata:
+  name: cachegroup-sample
+spec:
+  secretRef:
+    name: juicefs-secret
+  worker:
+    template:
+      nodeSelector:
+        juicefs.io/cg-worker: "true"
+      image: juicedata/mount:ee-5.1.1-1faf43b
+      opts:
+        - group-weight=100
+      resources:
+        requests:
+          cpu: 100m
+          memory: 128Mi
+        limits:
+          cpu: 200m
+          memory: 1Gi
