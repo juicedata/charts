@@ -39,3 +39,9 @@ jobs:
             echo "something wrong in juicefs s3 gateway chart"
             exit 1
           fi
+          helm template charts/juicefs-cache-group-operator
+          rst=$?
+          if [ $rst -ne 0 ]; then
+            echo "something wrong in juicefs cache group operator chart"
+            exit 1
+          fi
