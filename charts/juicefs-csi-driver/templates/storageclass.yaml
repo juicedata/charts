@@ -1,7 +1,7 @@
 {{ $namespace := .Release.Namespace | quote }}
 {{- range $_, $sc := .Values.storageClasses }}
 
-{{- if $sc.enabled }}
+{{- if and $sc.enabled $sc.secretEnabled }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -44,7 +44,15 @@ data:
   format-options: {{ .formatOptions | b64enc | quote }}
   {{- end }}
   {{- end }}
+{{- end }}
 ---
+{{- if $sc.enabled }}
+
+{{- $secretName := printf "%s-secret" $sc.name -}}
+{{- if not $sc.secretEnabled }}
+{{ $secretName = $sc.secretName | quote }}
+{{- end }}
+
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
@@ -61,12 +69,12 @@ mountOptions:
 {{- end }}
 allowVolumeExpansion: {{ $sc.allowVolumeExpansion }}
 parameters:
-  csi.storage.k8s.io/node-publish-secret-name: {{ $sc.name }}-secret
+  csi.storage.k8s.io/node-publish-secret-name: {{ $secretName }}
   csi.storage.k8s.io/node-publish-secret-namespace: {{ $namespace }}
-  csi.storage.k8s.io/provisioner-secret-name: {{ $sc.name }}-secret
+  csi.storage.k8s.io/provisioner-secret-name: {{ $secretName }}
   csi.storage.k8s.io/provisioner-secret-namespace: {{ $namespace }}
   {{- if $sc.allowVolumeExpansion }}
-  csi.storage.k8s.io/controller-expand-secret-name: {{ $sc.name }}-secret
+  csi.storage.k8s.io/controller-expand-secret-name: {{ $secretName }}
   csi.storage.k8s.io/controller-expand-secret-namespace: {{ $namespace }}
   {{- end }}
   {{- if $sc.pathPattern }}

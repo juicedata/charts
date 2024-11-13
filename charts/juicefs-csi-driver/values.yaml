@@ -352,6 +352,10 @@ storageClasses:
 - name: "juicefs-sc"
   # Set to true to actually create this StorageClass
   enabled: false
+  # Set secretEnabled to indicate whether you need to create the secret. If False, you can set the existing secret.
+  secretEnabled: true
+  # Must set secretName when secretEnabled is false
+  secretName: juicefs-exist-secret
   # Either Retain or Delete, ref: https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy
   reclaimPolicy: Retain
   # Set to true to allow PVC expansion
