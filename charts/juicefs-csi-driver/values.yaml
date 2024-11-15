@@ -264,6 +264,8 @@ dashboard:
   # Basic auth for dashboard
   auth:
     enabled: false
+    # Set secretEnabled to indicate whether you need to create the secret. If False, you should create a secret called juicefs-dashboard-secret
+    secretEnabled: false
     username: admin
     password: admin
 
