@@ -264,8 +264,8 @@ dashboard:
   # Basic auth for dashboard
   auth:
     enabled: false
-    # Set secretEnabled to indicate whether you need to create the secret. If False, you should create a secret called juicefs-dashboard-secret
-    secretEnabled: false
+    # Set existingSecret to indicate whether to use an existing secret. If it is empty, a corresponding secret will be created according to the plain text configuration.
+    existingSecret: ""
     username: admin
     password: admin
 
@@ -354,10 +354,8 @@ storageClasses:
 - name: "juicefs-sc"
   # Set to true to actually create this StorageClass
   enabled: false
-  # Set secretEnabled to indicate whether you need to create the secret. If False, you can set the existing secret.
-  secretEnabled: true
-  # Must set secretName when secretEnabled is false
-  secretName: juicefs-exist-secret
+  # Set existingSecret to indicate whether to use an existing secret. If it is empty, a corresponding secret will be created according to the plain text configuration.
+  existingSecret: ""
   # Either Retain or Delete, ref: https://juicefs.com/docs/csi/guide/resource-optimization#reclaim-policy
   reclaimPolicy: Retain
   # Set to true to allow PVC expansion
