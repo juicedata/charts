@@ -1,7 +1,7 @@
 {{ $namespace := .Release.Namespace | quote }}
 {{- range $_, $sc := .Values.storageClasses }}
 
-{{- if and $sc.enabled $sc.secretEnabled }}
+{{- if and ($sc.enabled) (not $sc.existingSecret) }}
 apiVersion: v1
 kind: Secret
 metadata:
@@ -49,8 +49,8 @@ data:
 {{- if $sc.enabled }}
 
 {{- $secretName := printf "%s-secret" $sc.name -}}
-{{- if not $sc.secretEnabled }}
-{{ $secretName = $sc.secretName | quote }}
+{{- if $sc.existingSecret }}
+{{ $secretName = $sc.existingSecret | quote }}
 {{- end }}
 
 apiVersion: storage.k8s.io/v1

@@ -1,4 +1,10 @@
 {{- if and (.Values.dashboard.enabled) }}
+
+{{- $secretName := printf "juicefs-dashboard-secret" -}}
+{{- if .Values.dashboard.auth.existingSecret }}
+{{ $secretName = .Values.dashboard.auth.existingSecret | quote }}
+{{- end }}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -67,12 +73,12 @@ spec:
             - name: USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: juicefs-dashboard-secret
+                  name: {{ $secretName }}
                   key: username
             - name: PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: juicefs-dashboard-secret
+                  name: {{ $secretName }}
                   key: password
             {{- end }}
             - name: JUICEFS_CONFIG_NAME
