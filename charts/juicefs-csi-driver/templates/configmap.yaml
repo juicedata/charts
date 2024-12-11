@@ -7,7 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/component: config
     {{- include "juicefs-csi.labels" . | nindent 4 }}
+{{- if .Release.IsInstall }}
 data:
   config.yaml: |-
     {{- toYaml .Values.globalConfig | nindent 4  }}
+{{- end }}
 {{- end }}
