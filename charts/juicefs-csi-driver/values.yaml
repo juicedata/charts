@@ -260,7 +260,7 @@ metrics:
 
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, disabled by default
-  enabled: true
+  enabled: false
   # Basic auth for dashboard
   auth:
     enabled: false
