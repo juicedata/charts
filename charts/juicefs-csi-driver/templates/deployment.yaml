@@ -83,6 +83,8 @@ spec:
             {{- end }}
             - name: JUICEFS_CONFIG_NAME
               value: {{ include "juicefs-csi.fullname" . }}-config
+            - name: DASHBOARD_IMAGE
+              value: {{ .Values.dashboardImage.repository }}:{{ .Values.dashboardImage.tag }}
           ports:
             - containerPort: 8088
           resources:
