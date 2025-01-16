@@ -1,0 +1,21 @@
+{{- if .Values.dashboard.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: juicefs-csi-dashboard
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: dashboard
+    {{- include "juicefs-cache-group-operator.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.dashboard.service.type }}
+  ports:
+    - port: {{ .Values.dashboard.service.port }}
+      targetPort: 8088
+      protocol: TCP
+      name: http
+  selector:
+    app: juicefs-csi-dashboard
+    {{- include "juicefs-cache-group-operator.selectorLabels" . | nindent 4 }}
+{{- end }}
