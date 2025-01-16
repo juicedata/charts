@@ -181,6 +181,7 @@ controller:
   terminationGracePeriodSeconds: 30
   labels: {}
   annotations: {}
+  metricsPort: "9567"
   # Affinity for CSI Controller pod
   affinity: {}
   # Node selector for CSI Controller pod
@@ -222,6 +223,7 @@ node:
   terminationGracePeriodSeconds: 30
   labels: {}
   annotations: {}
+  metricsPort: "9567"
   # Affinity for CSI Node Service pods
   affinity: {}
   # Node selector for CSI Node Service pods, ref: https://juicefs.com/docs/csi/guide/resource-optimization#csi-node-node-selector
@@ -261,7 +263,7 @@ metrics:
     servicePort: 8080
 
 dashboard:
-  # CSI Dashboard helps with CSI Driver observation, disabled by default
+  # CSI Dashboard helps with CSI Driver observation, enabled by default
   enabled: true
   # Basic auth for dashboard
   auth:
