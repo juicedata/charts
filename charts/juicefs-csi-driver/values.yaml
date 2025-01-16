@@ -265,6 +265,12 @@ metrics:
 dashboard:
   # CSI Dashboard helps with CSI Driver observation, enabled by default
   enabled: true
+
+  # Enable manager for dashboard
+  # If enabled, the dashboard will watch and cache k8s resources in the dashboard, which is used to achieve better performance and more features.
+  # If disabled, directly obtain resources from the k8s API server when the user accesses the dashboard, which will reduce the pressure on the API server under large-scale clusters.
+  enableManager: true
+
   # Basic auth for dashboard
   auth:
     enabled: false

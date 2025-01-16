@@ -61,6 +61,9 @@ spec:
           - --leader-election-lease-duration={{ .Values.dashboard.leaderElection.leaseDuration }}
           {{- end }}
           {{- end }}
+          {{- if semverCompare ">0.26.0" $.Values.dashboardImage.tag }}
+          - --enable-manager={{ .Values.dashboard.enableManager }}
+          {{- end }}
           env:
             - name: SYS_NAMESPACE
               valueFrom:
