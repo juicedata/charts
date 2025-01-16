@@ -121,6 +121,10 @@ spec:
         - name: JUICEFS_IMMUTABLE
           value: "true"
         {{- end }}
+        {{- if .Values.controller.metricsPort }}
+        - name: JUICEFS_CSI_WEB_PORT
+          value: "{{ .Values.controller.metricsPort }}"
+        {{- end }}
         {{- if .Values.controller.envs }}
 {{ toYaml .Values.controller.envs | trim | indent 8 }}
         {{- end }}
@@ -137,6 +141,9 @@ spec:
         ports:
         - containerPort: 9909
           name: healthz
+          protocol: TCP
+        - containerPort: {{ .Values.controller.metricsPort }}
+          name: metrics
           protocol: TCP
         securityContext:
           capabilities:

@@ -117,6 +117,10 @@ spec:
         - name: JUICEFS_IMMUTABLE
           value: "true"
         {{- end }}
+        {{- if .Values.node.metricsPort }}
+        - name: JUICEFS_CSI_WEB_PORT
+          value: "{{ .Values.node.metricsPort }}"
+        {{- end }}
         {{- if .Values.node.envs }}
 {{ toYaml .Values.node.envs | trim | indent 8 }}
         {{- end }}
@@ -129,7 +133,7 @@ spec:
         ports:
         - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
           protocol: TCP
-        - containerPort: 6060
+        - containerPort: {{ .Values.node.metricsPort }}
           name: metrics
           protocol: TCP
         securityContext:
