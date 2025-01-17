@@ -163,9 +163,18 @@ rules:
   - persistentvolumes
   - persistentvolumeclaims
   - persistentvolumeclaims/status
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
   - nodes
   verbs:
   - get
+  - patch
+  - update
   - list
   - watch
 {{- end }}
