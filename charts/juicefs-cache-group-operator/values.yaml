@@ -12,7 +12,7 @@ image:
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.26.0"
+  tag: "v0.26.1"
   pullPolicy: ""
 
 # Configure the verbosity of logging. 
