@@ -1,4 +1,4 @@
-{{- if .Values.globalConfig.enabled }}
+{{- if and .Values.globalConfig.enabled .Release.IsInstall }}
 apiVersion: v1
 kind: ConfigMap
 metadata: 
@@ -7,9 +7,9 @@ metadata:
   labels:
     app.kubernetes.io/component: config
     {{- include "juicefs-csi.labels" . | nindent 4 }}
-{{- if .Release.IsInstall }}
+  annotations:
+    helm.sh/resource-policy: keep
 data:
   config.yaml: |-
     {{- toYaml .Values.globalConfig | nindent 4  }}
-{{- end }}
 {{- end }}
