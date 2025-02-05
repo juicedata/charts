@@ -47,11 +47,15 @@ mountMode: mountpod
 
 # This file contains the configuration options for the JuiceFS CSI driver
 # Ref: https://juicefs.com/docs/zh/csi/guide/configurations#configmap
-# NOTE: this config only apply in first install
-# if you want to update it, you need to edit the configmap directly, or use csi-dashboard to update it
 globalConfig:
   # Set to false to disable global config
   enabled: true
+
+  # Set to true to manage global config by Helm
+  # If set to false:
+  #    1. the global config will only be applied in the first installation, and will not be updated or deleted by Helm
+  #    2. if you want to update it, you need to edit the configmap directly, or use csi-dashboard
+  manageByHelm: false
 
   # Set to true to schedule mount pod to node with via nodeSelector, rather than nodeName
   enableNodeSelector: false

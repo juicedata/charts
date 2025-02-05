@@ -1,4 +1,5 @@
 {{- if .Values.globalConfig.enabled }}
+{{- if or .Values.globalConfig.manageByHelm .Release.IsInstall }}
 apiVersion: v1
 kind: ConfigMap
 metadata: 
@@ -7,9 +8,13 @@ metadata:
   labels:
     app.kubernetes.io/component: config
     {{- include "juicefs-csi.labels" . | nindent 4 }}
-{{- if .Release.IsInstall }}
+  annotations:
+{{- if not .Values.globalConfig.manageByHelm }}
+    helm.sh/resource-policy: keep
+{{- end }}
 data:
   config.yaml: |-
-    {{- toYaml .Values.globalConfig | nindent 4  }}
+    {{- $val := omit .Values.globalConfig "enabled" "manageByHelm"  }}
+    {{- toYaml $val | nindent 4 }}
 {{- end }}
 {{- end }}
