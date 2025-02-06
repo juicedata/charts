@@ -55,7 +55,7 @@ globalConfig:
   # If set to false:
   #    1. the global config will only be applied in the first installation, and will not be updated or deleted by Helm
   #    2. if you want to update it, you need to edit the configmap directly, or use csi-dashboard
-  manageByHelm: false
+  manageByHelm: true
 
   # Set to true to schedule mount pod to node with via nodeSelector, rather than nodeName
   enableNodeSelector: false
