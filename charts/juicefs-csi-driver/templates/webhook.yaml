@@ -187,8 +187,8 @@ spec:
   duration: 43800h #5year
   dnsNames:
     - juicefs-admission-webhook
-    - juicefs-admission-webhook.kube-system
-    - juicefs-admission-webhook.kube-system.svc
+    - juicefs-admission-webhook.{{ .Release.Namespace }}
+    - juicefs-admission-webhook.{{ .Release.Namespace }}.svc
   issuerRef:
     name: juicefs-selfsigned
     kind: Issuer
