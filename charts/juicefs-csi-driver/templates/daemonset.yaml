@@ -63,6 +63,9 @@ spec:
         {{- if eq .Values.mountMode "process" }}
         - --by-process=true
         {{- end }}
+        {{- if .Values.dataEncryption.enabled }}
+        - --format-in-pod=true
+        {{- end }}
         {{- if .Values.globalConfig.enabled }}
         - --config=/etc/config/config.yaml
         {{- end }}

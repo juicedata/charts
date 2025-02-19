@@ -435,3 +435,7 @@ storageClasses:
     image: ""
     # Set annotations for the mount pod
     annotations: {}
+
+# Enables the Data Encryption feature, ref: https://juicefs.com/docs/csi/security/encryption
+dataEncryption:
+  enabled: false
