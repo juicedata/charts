@@ -49,7 +49,6 @@ rules:
   - ""
   resources:
   - nodes
-  - secrets
   verbs:
   - get
   - list
@@ -64,6 +63,7 @@ rules:
   - get
   - list
   - watch
+  - deletecollection
 - apiGroups:
   - ""
   resources:
@@ -73,11 +73,33 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - secrets
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
   - serviceaccounts
   verbs:
   - create
   - get
   - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - update
   - watch
 - apiGroups:
   - batch
@@ -93,6 +115,7 @@ rules:
   - juicefs.io
   resources:
   - cachegroups
+  - syncs
   - warmups
   verbs:
   - create
@@ -106,6 +129,7 @@ rules:
   - juicefs.io
   resources:
   - cachegroups/finalizers
+  - syncs/finalizers
   - warmups/finalizers
   verbs:
   - update
@@ -113,6 +137,7 @@ rules:
   - juicefs.io
   resources:
   - cachegroups/status
+  - syncs/status
   - warmups/status
   verbs:
   - get
