@@ -69,15 +69,11 @@ spec:
             - sh
             - -c
             {{- if .Values.secret.token }}
-            - juicefs gateway ${VOL_NAME} ${NODE_IP}:{{ .Values.port }} {{ .Values.options }} {{ if .Values.secret.encrypt_rsa_key }}--rsa-key /root/encrypt_rsa_key.pem{{ end }}
+            - juicefs gateway ${VOL_NAME} 0.0.0.0:{{ .Values.port }} {{ .Values.options }} {{ if .Values.secret.encrypt_rsa_key }}--rsa-key /root/encrypt_rsa_key.pem{{ end }}
             {{- else }}
-            - juicefs gateway ${METAURL} ${NODE_IP}:{{ .Values.port }} --metrics=${NODE_IP}:{{ .Values.metricsPort }} {{ .Values.options }} {{ if .Values.secret.encrypt_rsa_key }}--rsa-key /root/encrypt_rsa_key.pem{{ end }}
+            - juicefs gateway ${METAURL} 0.0.0.0:{{ .Values.port }} --metrics=0.0.0.0:{{ .Values.metricsPort }} {{ .Values.options }} {{ if .Values.secret.encrypt_rsa_key }}--rsa-key /root/encrypt_rsa_key.pem{{ end }}
             {{- end }}
           env:
-            - name: NODE_IP
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.podIP
             {{- if .Values.secret.token }}
             - name: TOKEN
               valueFrom:
