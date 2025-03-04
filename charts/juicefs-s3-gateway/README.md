@@ -27,7 +27,7 @@ A Helm chart for JuiceFS S3 Gateway
 | hostNetwork | bool | `false` |  |
 | image.pullPolicy | string | `"IfNotPresent"` |  |
 | image.repository | string | `"juicedata/mount"` |  |
-| image.tag | string | `"ce-v1.1.0"` | Overrides the image tag which defaults to the chart appVersion. For JuiceFS Community Edition, use ce-vx.x.x style tags For JuiceFS Enterprise Edition, use ee-vx.x.x style tags Find the latest built images in our docker image repo: https://hub.docker.com/r/juicedata/mount |
+| image.tag | string | `"ce-v1.2.3"` | Overrides the image tag which defaults to the chart appVersion. For JuiceFS Community Edition, use ce-vx.x.x style tags For JuiceFS Enterprise Edition, use ee-vx.x.x style tags Find the latest built images in our docker image repo: https://hub.docker.com/r/juicedata/mount |
 | imagePullSecrets | list | `[]` |  |
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `"nginx"` |  |
