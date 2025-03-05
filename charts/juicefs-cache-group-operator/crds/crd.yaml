@@ -2961,11 +2961,14 @@ spec:
     - jsonPath: .status.phase
       name: Phase
       type: string
+    - jsonPath: .spec.replicas
+      name: Replicas
+      type: integer
+    - jsonPath: .status.progress
+      name: Progress
+      type: string
     - jsonPath: .metadata.creationTimestamp
       name: Age
-      type: date
-    - jsonPath: .status.completedAt
-      name: Completed
       type: date
     name: v1
     schema:
@@ -4215,14 +4218,56 @@ spec:
               completedAt:
                 format: date-time
                 type: string
+              finishLog:
+                type: string
               phase:
                 default: Pending
+                type: string
+              progress:
                 type: string
               reason:
                 type: string
               startAt:
                 format: date-time
                 type: string
+              stats:
+                properties:
+                  checked:
+                    default: 0
+                    format: int64
+                    type: integer
+                  copied:
+                    default: 0
+                    format: int64
+                    type: integer
+                  copiedBytes:
+                    default: 0
+                    format: int64
+                    type: integer
+                  failed:
+                    default: 0
+                    format: int64
+                    type: integer
+                  handled:
+                    default: 0
+                    format: int64
+                    type: integer
+                  lastUpdated:
+                    format: date-time
+                    type: string
+                  lost:
+                    default: 0
+                    format: int64
+                    type: integer
+                  scanned:
+                    default: 0
+                    format: int64
+                    type: integer
+                  skipped:
+                    default: 0
+                    format: int64
+                    type: integer
+                type: object
             type: object
         type: object
     served: true
