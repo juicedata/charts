@@ -25,3 +25,11 @@ spec:
         limits:
           cpu: 200m
           memory: 1Gi
+
+{{ if .Release.IsUpgrade -}}
+If you are upgrading from a version of the chart that uses older Custom Resource Definitions (CRD) it is necessary to manually upgrade the CRDs as this is not managed by Helm.
+To update to the latest version of the CRDs:
+
+  $ kubectl apply -f https://raw.githubusercontent.com/juicedata/juicefs-cache-group-operator/refs/tags/v{{ .Chart.AppVersion }}/dist/crd.yaml
+
+{{- end -}}
