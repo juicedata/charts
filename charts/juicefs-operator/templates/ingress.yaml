@@ -17,7 +17,7 @@ metadata:
   name: juicefs-csi-dashboard
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "juicefs-cache-group-operator.labels" . | nindent 4 }}
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
   {{- with .Values.dashboard.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}

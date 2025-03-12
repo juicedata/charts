@@ -7,7 +7,7 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/component: dashboard
-    {{- include "juicefs-cache-group-operator.labels" . | nindent 4 }}
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.dashboard.service.type }}
   ports:
@@ -17,5 +17,5 @@ spec:
       name: http
   selector:
     app: juicefs-csi-dashboard
-    {{- include "juicefs-cache-group-operator.selectorLabels" . | nindent 4 }}
+    {{- include "juicefs-operator.selectorLabels" . | nindent 4 }}
 {{- end }}
