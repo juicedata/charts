@@ -61,7 +61,7 @@ spec:
           - --leader-election-lease-duration={{ .Values.dashboard.leaderElection.leaseDuration }}
           {{- end }}
           {{- end }}
-          {{- if semverCompare ">0.26.0" $.Values.dashboardImage.tag }}
+          {{- if or (eq "nightly" $.Values.dashboardImage.tag) (hasPrefix "dev" $.Values.dashboardImage.tag) (semverCompare ">0.26.0" $.Values.dashboardImage.tag)}}
           - --enable-manager={{ .Values.dashboard.enableManager }}
           {{- end }}
           env:
