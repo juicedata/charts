@@ -1,5 +1,5 @@
 apiVersion: v2
-name: juicefs-cache-group-operator
+name: juicefs-operator
 description: A Helm chart for JuiceFS Cache Group Operator
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -22,9 +22,9 @@ version: 0.3.3
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "0.3.3"
-home: https://github.com/juicedata/juicefs-cache-group-operator
+home: https://github.com/juicedata/juicefs-operator
 sources:
-  - https://github.com/juicedata/juicefs-cache-group-operator
+  - https://github.com/juicedata/juicefs-operator
 icon: https://s.juicefs.com/static/jfs/logo.svg
 maintainers:
   - email: team@juicedata.io

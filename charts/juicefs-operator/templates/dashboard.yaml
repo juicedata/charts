@@ -10,7 +10,7 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    {{- include "juicefs-cache-group-operator.labels" . | nindent 4 }}
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
     {{- if .Values.dashboard.labels }}
     {{- toYaml .Values.dashboard.labels | nindent 4}}
     {{- end}}
@@ -25,12 +25,12 @@ spec:
   selector:
     matchLabels:
       app: juicefs-csi-dashboard
-      {{- include "juicefs-cache-group-operator.selectorLabels" . | nindent 6 }}
+      {{- include "juicefs-operator.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
         app: juicefs-csi-dashboard
-        {{- include "juicefs-cache-group-operator.selectorLabels" . | nindent 8 }}
+        {{- include "juicefs-operator.selectorLabels" . | nindent 8 }}
         {{- if .Values.dashboard.labels }}
         {{- toYaml .Values.dashboard.labels | nindent 8}}
         {{- end}}
@@ -39,7 +39,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-      serviceAccountName: {{ include "juicefs-cache-group-operator.serviceAccountName" . }}
+      serviceAccountName: {{ include "juicefs-operator.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

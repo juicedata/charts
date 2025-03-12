@@ -1,6 +1,6 @@
 1. Wait for the operator to be ready using kubectl wait:
 
-kubectl wait --for=condition=Available=true --timeout=120s deployment/juicefs-cache-group-operator
+kubectl wait --for=condition=Available=true --timeout=120s deployment/juicefs-operator
 
 2. Create the sample Cache Group Cluster
 
@@ -30,6 +30,6 @@ spec:
 If you are upgrading from a version of the chart that uses older Custom Resource Definitions (CRD) it is necessary to manually upgrade the CRDs as this is not managed by Helm.
 To update to the latest version of the CRDs:
 
-  $ kubectl apply -f https://raw.githubusercontent.com/juicedata/juicefs-cache-group-operator/refs/tags/v{{ .Chart.AppVersion }}/dist/crd.yaml
+  $ kubectl apply -f https://raw.githubusercontent.com/juicedata/juicefs-operator/refs/tags/v{{ .Chart.AppVersion }}/dist/crd.yaml
 
 {{- end -}}

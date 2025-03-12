@@ -5,7 +5,7 @@
 
 This Helm chart installs the JuiceFS Cache Group Operator.
 
-**Homepage:** <https://github.com/juicedata/juicefs-cache-group-operator>
+**Homepage:** <https://github.com/juicedata/juicefs-operator>
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ This Helm chart installs the JuiceFS Cache Group Operator.
 
 ## Source Code
 
-* <https://github.com/juicedata/juicefs-cache-group-operator>
+* <https://github.com/juicedata/juicefs-operator>
 
 ## Requirements
 
@@ -28,7 +28,7 @@ The following table lists the configurable parameters of the JuiceFS Cache Group
 | Parameter                            | Description                                           | Default                                                              |
 | ------------------------------------ | ----------------------------------------------------- | -------------------------------------------------------------------- |
 | `replicaCount`                       | Number of replicas for the deployment                 | `2`                                                                  |
-| `image.repository`                   | Image repository                                      | `juicedata/juicefs-cache-group-operator`                             |
+| `image.repository`                   | Image repository                                      | `juicedata/juicefs-operator`                             |
 | `image.pullPolicy`                   | Image pull policy                                     | `IfNotPresent`                                                       |
 | `image.tag`                          | Image tag                                             | `${Chart.AppVersion}`                                                |
 | `logLevel`                           | Logging verbosity level                               | `info`                                                               |
