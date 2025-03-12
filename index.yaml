@@ -1662,6 +1662,29 @@ entries:
     urls:
     - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-csi-driver-0.8.1/juicefs-csi-driver-0.8.1.tgz
     version: 0.8.1
+  juicefs-operator:
+  - apiVersion: v2
+    appVersion: 0.3.3
+    created: "2025-03-12T09:34:47.208630117Z"
+    description: A Helm chart for JuiceFS Cache Group Operator
+    digest: 8d23c2e1b7f202dc3e2ad5068cef324db4b304745d91fd4d661db1ab6654adc5
+    home: https://github.com/juicedata/juicefs-operator
+    icon: https://s.juicefs.com/static/jfs/logo.svg
+    keywords:
+    - juicefs
+    - csi
+    - cache group
+    maintainers:
+    - email: team@juicedata.io
+      name: Juicedata Inc.
+      url: https://juicefs.com
+    name: juicefs-operator
+    sources:
+    - https://github.com/juicedata/juicefs-operator
+    type: application
+    urls:
+    - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-operator-0.3.3/juicefs-operator-0.3.3.tgz
+    version: 0.3.3
   juicefs-s3-gateway:
   - apiVersion: v2
     appVersion: 1.6.0
@@ -2057,4 +2080,4 @@ entries:
     urls:
     - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.2.0/juicefs-s3-gateway-0.2.0.tgz
     version: 0.2.0
-generated: "2025-03-12T05:16:18.235548979Z"
+generated: "2025-03-12T09:34:47.208856149Z"
