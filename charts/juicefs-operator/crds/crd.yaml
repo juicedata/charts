@@ -3489,6 +3489,28 @@ spec:
                                 x-kubernetes-map-type: atomic
                             type: object
                         type: object
+                      filesFrom:
+                        properties:
+                          configMap:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                default: ""
+                                type: string
+                              optional:
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          filePath:
+                            type: string
+                          files:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       secretKey:
                         properties:
                           value:
@@ -3637,6 +3659,8 @@ spec:
                             - key
                             type: object
                             x-kubernetes-map-type: atomic
+                          filePath:
+                            type: string
                           files:
                             items:
                               type: string
@@ -3897,6 +3921,28 @@ spec:
                                 x-kubernetes-map-type: atomic
                             type: object
                         type: object
+                      filesFrom:
+                        properties:
+                          configMap:
+                            properties:
+                              key:
+                                type: string
+                              name:
+                                default: ""
+                                type: string
+                              optional:
+                                type: boolean
+                            required:
+                            - key
+                            type: object
+                            x-kubernetes-map-type: atomic
+                          filePath:
+                            type: string
+                          files:
+                            items:
+                              type: string
+                            type: array
+                        type: object
                       secretKey:
                         properties:
                           value:
@@ -4045,6 +4091,8 @@ spec:
                             - key
                             type: object
                             x-kubernetes-map-type: atomic
+                          filePath:
+                            type: string
                           files:
                             items:
                               type: string
