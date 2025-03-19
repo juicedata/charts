@@ -43,6 +43,11 @@ spec:
             - --health-probe-bind-address=:8081
             - --zap-log-level={{ .Values.logLevel }}
             - --zap-encoder={{ .Values.logEncoder }}
+            {{- if (semverCompare ">0.4.1" $.Values.image.tag)}}
+            - --max-sync-concurrent-reconciles={{ .Values.options.maxSyncConcurrentReconciles }}
+            - --k8s-client-qps={{ .Values.options.k8sClientQPS }}
+            - --k8s-client-burst={{.Values.options.k8sClientBurst }}
+            {{- end }}
             {{- if .Values.leaderElection.enabled }}
             - --leader-elect
             {{- end }}
