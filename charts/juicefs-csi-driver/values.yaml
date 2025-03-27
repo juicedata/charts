@@ -45,6 +45,9 @@ imagePullSecrets: []
 # Ref: https://juicefs.com/docs/csi/introduction/
 mountMode: mountpod
 
+# The name of the JuiceFS CSI driver
+driverName: "csi.juicefs.com"
+
 # This file contains the configuration options for the JuiceFS CSI driver
 # Ref: https://juicefs.com/docs/zh/csi/guide/configurations#configmap
 globalConfig:

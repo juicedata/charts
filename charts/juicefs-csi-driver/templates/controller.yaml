@@ -125,6 +125,10 @@ spec:
         - name: JUICEFS_CSI_WEB_PORT
           value: "{{ .Values.controller.metricsPort }}"
         {{- end }}
+        {{- if .Values.driverName }}
+        - name: DRIVER_NAME
+          value: "{{ .Values.driverName }}"
+        {{- end }}
         {{- if .Values.controller.envs }}
 {{ toYaml .Values.controller.envs | trim | indent 8 }}
         {{- end }}
