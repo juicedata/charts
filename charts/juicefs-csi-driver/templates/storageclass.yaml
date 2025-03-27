@@ -107,7 +107,7 @@ parameters:
   juicefs/mount-annotations: {{ toJson .annotations | quote }}
   {{- end }}
   {{- end }}
-provisioner: csi.juicefs.com
+provisioner: {{ .Values.driverName }}
 reclaimPolicy: {{ $sc.reclaimPolicy }}
 volumeBindingMode: Immediate
 {{- end }}
