@@ -88,6 +88,10 @@ spec:
               value: {{ include "juicefs-csi.fullname" . }}-config
             - name: DASHBOARD_IMAGE
               value: {{ .Values.dashboardImage.repository }}:{{ .Values.dashboardImage.tag }}
+            {{- if .Values.driverName }}
+            - name: DRIVER_NAME
+              value: "{{ .Values.driverName }}"
+            {{- end }}
           ports:
             - containerPort: 8088
           resources:
