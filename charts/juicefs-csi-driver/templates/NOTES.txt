@@ -35,7 +35,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: juicefs-sc
-provisioner: csi.juicefs.com
+provisioner: {{ .Values.driverName }}
 parameters:
   csi.storage.k8s.io/provisioner-secret-name: juicefs-secret
   csi.storage.k8s.io/provisioner-secret-namespace: default
@@ -122,9 +122,9 @@ spec:
       claimName: juicefs-pvc
 ```
 {{- else }}
-{{- template "all_sc" }}
+{{- template "all_sc" . }}
 {{- end }}
 
 {{- else }}
-{{- template "all_sc" }}
+{{- template "all_sc" . }}
 {{- end }}

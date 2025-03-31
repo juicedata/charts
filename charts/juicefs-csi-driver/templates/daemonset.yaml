@@ -121,6 +121,10 @@ spec:
         - name: JUICEFS_CSI_WEB_PORT
           value: "{{ .Values.node.metricsPort }}"
         {{- end }}
+        {{- if .Values.driverName }}
+        - name: DRIVER_NAME
+          value: "{{ .Values.driverName }}"
+        {{- end }}
         {{- if .Values.node.envs }}
 {{ toYaml .Values.node.envs | trim | indent 8 }}
         {{- end }}
@@ -185,7 +189,7 @@ spec:
         - name: ADDRESS
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
-          value: {{ .Values.kubeletDir }}/csi-plugins/csi.juicefs.com/csi.sock
+          value: {{ .Values.kubeletDir }}/csi-plugins/{{ .Values.driverName }}/csi.sock
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
@@ -237,7 +241,7 @@ spec:
           type: Directory
         name: kubelet-dir
       - hostPath:
-          path: {{ .Values.kubeletDir }}/csi-plugins/csi.juicefs.com/
+          path: {{ .Values.kubeletDir }}/csi-plugins/{{ .Values.driverName }}/
           type: DirectoryOrCreate
         name: plugin-dir
       - hostPath:
