@@ -112,6 +112,7 @@ rules:
   - juicefs.io
   resources:
   - cachegroups
+  - cronsyncs
   - syncs
   - warmups
   verbs:
@@ -126,6 +127,7 @@ rules:
   - juicefs.io
   resources:
   - cachegroups/finalizers
+  - cronsyncs/finalizers
   - syncs/finalizers
   - warmups/finalizers
   verbs:
@@ -134,6 +136,7 @@ rules:
   - juicefs.io
   resources:
   - cachegroups/status
+  - cronsyncs/status
   - syncs/status
   - warmups/status
   verbs:

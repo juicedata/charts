@@ -38,6 +38,20 @@ spec:
           command:
             - /manager
             - controller
+          env:
+            - name: OPERATOR_POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: OPERATOR_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+          {{- if .Values.env }}
+            {{- toYaml .Values.env | nindent 12 }}
+          {{- end }}
           args:
             - --metrics-bind-address=:8443
             - --health-probe-bind-address=:8081
