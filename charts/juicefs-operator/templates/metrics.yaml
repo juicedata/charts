@@ -1,0 +1,46 @@
+{{- if .Values.metrics.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "juicefs-operator.fullname" . }}-metrics
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: metrics
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.metrics.port }}
+      targetPort: {{ .Values.metrics.port }}
+      protocol: TCP
+      name: metrics
+  selector:
+    {{- include "juicefs-operator.selectorLabels" . | nindent 6 }}
+{{- if .Values.metrics.serviceMonitor.enabled }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "juicefs-operator.fullname" . }}-metrics
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/component: metrics
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+    {{- with .Values.metrics.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.metrics.serviceMonitor.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: metrics
+      {{- include "juicefs-operator.labels" . | nindent 6 }}
+  endpoints:
+    - port: metrics
+      interval: {{ .Values.metrics.serviceMonitor.interval | quote }}
+{{- end }}
+{{- end }}

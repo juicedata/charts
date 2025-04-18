@@ -52,11 +52,20 @@ spec:
           {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
           {{- end }}
+          {{- if .Values.metrics.enabled }}
+          ports:
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+              protocol: TCP
+          {{- end }}
           args:
-            - --metrics-bind-address=:8443
             - --health-probe-bind-address=:8081
             - --zap-log-level={{ .Values.logLevel }}
             - --zap-encoder={{ .Values.logEncoder }}
+            {{- if  .Values.metrics.enabled }}
+            - --metrics-bind-address=:{{ .Values.metrics.port }}
+            - --metrics-secure=false
+            {{- end }}
             {{- if (semverCompare ">0.4.1" $.Values.image.tag)}}
             - --max-sync-concurrent-reconciles={{ .Values.options.maxSyncConcurrentReconciles }}
             - --k8s-client-qps={{ .Values.options.k8sClientQPS }}

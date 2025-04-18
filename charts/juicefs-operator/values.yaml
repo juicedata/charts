@@ -53,6 +53,17 @@ securityContext:
     drop:
       - ALL
 
+metrics:
+  enabled: true
+  port: 8080
+  # required prometheus operator
+  # ref: https://prometheus-operator.dev/docs/api-reference/api/#monitoring.coreos.com/v1.ServiceMonitor
+  serviceMonitor:
+    created: false
+    interval: 30s
+    annotations: {}
+    labels: {}
+  
 # Configure the options for controller manager.
 # only available in image tag > v0.4.1
 options:
