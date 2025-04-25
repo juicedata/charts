@@ -22,6 +22,8 @@ metadata:
   namespace: {{ .Release.Namespace | quote }}
 spec:
   replicas: {{ .Values.dashboard.replicas }}
+  strategy:
+    {{- toYaml .Values.dashboard.updateStrategy | nindent 4 }}
   selector:
     matchLabels:
       app: juicefs-csi-dashboard
@@ -39,6 +41,12 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
+      {{- if .Values.dashboard.hostAliases }}
+      hostAliases: {{ toYaml .Values.dashboard.hostAliases | nindent 6 }}
+      {{- end }}
+      {{- if .Values.dashboard.podSecurityContext }}
+      securityContext: {{ toYaml .Values.dashboard.podSecurityContext | nindent 8 }}
+      {{- end }}    
       serviceAccountName: {{ include "juicefs-csi.dashboard.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -46,6 +54,10 @@ spec:
       {{- end }}
       containers:
         - name: dashboard
+          {{- if .Values.dashboard.securityContext }}
+          securityContext:
+          {{- toYaml .Values.dashboard.securityContext | nindent 12 }}        
+          {{- end }}
           image: {{ .Values.dashboardImage.repository }}:{{ .Values.dashboardImage.tag }}
           {{- if .Values.dashboardImage.pullPolicy }}
           imagePullPolicy: {{ .Values.dashboardImage.pullPolicy }}
