@@ -1,7 +1,7 @@
 apiVersion: {{ ternary "storage.k8s.io/v1" "storage.k8s.io/v1beta1" (semverCompare ">=1.18.0-0" .Capabilities.KubeVersion.Version) }}
 kind: CSIDriver
 metadata:
-  name: csi.juicefs.com
+  name: {{ .Values.driverName }}
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade
     "helm.sh/hook-delete-policy": before-hook-creation
