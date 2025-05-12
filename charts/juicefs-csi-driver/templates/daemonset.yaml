@@ -189,7 +189,7 @@ spec:
         - name: ADDRESS
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
-          value: {{ .Values.kubeletDir }}/csi-plugins/{{ .Values.driverName }}/csi.sock
+          value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
@@ -241,7 +241,7 @@ spec:
           type: Directory
         name: kubelet-dir
       - hostPath:
-          path: {{ .Values.kubeletDir }}/csi-plugins/{{ .Values.driverName }}/
+          path: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/
           type: DirectoryOrCreate
         name: plugin-dir
       - hostPath:

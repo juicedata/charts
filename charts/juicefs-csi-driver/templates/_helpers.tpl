@@ -100,3 +100,10 @@ secret fullname
 {{- define "juicefs-csi.secretFullname" -}}
 {{ include "juicefs-csi.fullname" . }}-secret
 {{- end }}
+
+{{/*
+driverName
+*/}}
+{{- define "driverName" -}}
+{{- default "csi.juicefs.com" .Values.driverName }}
+{{- end }}

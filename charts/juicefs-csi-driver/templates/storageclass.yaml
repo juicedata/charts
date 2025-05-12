@@ -1,4 +1,5 @@
 {{ $namespace := .Release.Namespace | quote }}
+{{ $driverName := include "driverName" . }}
 {{- range $_, $sc := .Values.storageClasses }}
 
 {{- if and ($sc.enabled) (not $sc.existingSecret) }}
@@ -107,7 +108,7 @@ parameters:
   juicefs/mount-annotations: {{ toJson .annotations | quote }}
   {{- end }}
   {{- end }}
-provisioner: {{ .Values.driverName }}
+provisioner: {{ $driverName }}
 reclaimPolicy: {{ $sc.reclaimPolicy }}
 volumeBindingMode: Immediate
 {{- end }}
