@@ -189,7 +189,7 @@ spec:
         - name: DRIVER_REG_SOCK_PATH
           value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
         securityContext:
-          privileged: {{ .Values.node.registrarPrivileged }}
+          privileged: {{ .Values.node.sidecarPrivileged }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
@@ -212,7 +212,7 @@ spec:
         - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
           protocol: TCP
         securityContext:
-          privileged: {{ .Values.node.registrarPrivileged }}
+          privileged: {{ .Values.node.sidecarPrivileged }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
