@@ -211,6 +211,8 @@ spec:
         ports:
         - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
           protocol: TCP
+        securityContext:
+          privileged: {{ .Values.node.registrarPrivileged }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
