@@ -135,8 +135,6 @@ spec:
         resources:
           {{- toYaml .Values.node.resources | nindent 10 }}
         ports:
-        - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
-          protocol: TCP
         - containerPort: {{ .Values.node.metricsPort }}
           name: metrics
           protocol: TCP
@@ -181,7 +179,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthz
-            port: healthz
+            port: 9809
           initialDelaySeconds: 5
           timeoutSeconds: 5
        {{- end }}
@@ -210,6 +208,9 @@ spec:
           value: /csi/csi.sock
         - name: HEALTH_PORT
           value: "{{ .Values.node.livenessProbe.httpGet.port }}"
+        ports:
+        - containerPort: {{ .Values.node.livenessProbe.httpGet.port }}
+          protocol: TCP
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
