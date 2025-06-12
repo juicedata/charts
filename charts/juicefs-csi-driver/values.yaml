@@ -215,6 +215,8 @@ node:
   # Enable verbose logging
   debug: false
   hostNetwork: false
+  # Set to true to run node-driver-registrar sidecar in privileged mode
+  registrarPrivileged: false
   resources:
     limits:
       cpu: 1000m

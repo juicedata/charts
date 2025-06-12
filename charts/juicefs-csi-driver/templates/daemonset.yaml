@@ -190,6 +190,8 @@ spec:
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
           value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
+        securityContext:
+          privileged: {{ .Values.node.registrarPrivileged }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
