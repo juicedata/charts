@@ -190,6 +190,8 @@ spec:
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
           value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
+        securityContext:
+          privileged: {{ .Values.node.sidecarPrivileged }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
@@ -208,6 +210,8 @@ spec:
           value: /csi/csi.sock
         - name: HEALTH_PORT
           value: "{{ .Values.node.livenessProbe.httpGet.port }}"
+        securityContext:
+          privileged: {{ .Values.node.sidecarPrivileged }}
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir

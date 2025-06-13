@@ -215,6 +215,8 @@ node:
   # Enable verbose logging
   debug: false
   hostNetwork: false
+  # Set to true to run node-driver-registrar and liveness-probe sidecar in privileged mode (e.g. for SELinux systems)
+  sidecarPrivileged: false
   resources:
     limits:
       cpu: 1000m
