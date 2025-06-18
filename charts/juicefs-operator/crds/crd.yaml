@@ -86,6 +86,10 @@ spec:
                   overwrite:
                     items:
                       properties:
+                        annotations:
+                          additionalProperties:
+                            type: string
+                          type: object
                         cacheDirs:
                           items:
                             properties:
@@ -183,6 +187,10 @@ spec:
                             type: object
                             x-kubernetes-map-type: atomic
                           type: array
+                        labels:
+                          additionalProperties:
+                            type: string
+                          type: object
                         lifecycle:
                           properties:
                             postStart:
@@ -1522,6 +1530,10 @@ spec:
                     type: array
                   template:
                     properties:
+                      annotations:
+                        additionalProperties:
+                          type: string
+                        type: object
                       cacheDirs:
                         items:
                           properties:
@@ -1619,6 +1631,10 @@ spec:
                           type: object
                           x-kubernetes-map-type: atomic
                         type: array
+                      labels:
+                        additionalProperties:
+                          type: string
+                        type: object
                       lifecycle:
                         properties:
                           postStart:
@@ -2951,6 +2967,8 @@ spec:
                           type: object
                         type: array
                     type: object
+                required:
+                - template
                 type: object
             type: object
           status:
