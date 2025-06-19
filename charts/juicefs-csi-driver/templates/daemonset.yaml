@@ -44,6 +44,26 @@ spec:
       hostAliases:
       {{- toYaml .Values.hostAliases | nindent 6 }}
     {{- end }}
+  {{- if .Values.node.tuneTransparentHugePage }}
+      initContainers:
+      - name: setup-thp
+        image: busybox:latest
+        command:
+        - /bin/sh
+        - -c
+        - |
+          if [ -f /host-sys/kernel/mm/transparent_hugepage/defrag ]; then
+            echo "Setting transparent hugepage defrag to defer"
+            echo defer > /host-sys/kernel/mm/transparent_hugepage/defrag 2>/dev/null || echo "Failed to set THP defrag"
+          else
+            echo "Transparent hugepage defrag file not found, skipping"
+          fi
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: host-sys
+          mountPath: /host-sys
+  {{- end }}
       containers:
       - name: juicefs-plugin
         image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -274,5 +294,11 @@ spec:
       - name: juicefs-config
         configMap:
           name: {{ include "juicefs-csi.fullname" . }}-config
+      {{- end }}
+      {{- if .Values.node.tuneTransparentHugePage }}
+      - hostPath:
+          path: /sys
+          type: Directory
+        name: host-sys
       {{- end }}
 {{- end }}
