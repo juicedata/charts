@@ -217,6 +217,9 @@ node:
   hostNetwork: false
   # Set to true to run node-driver-registrar and liveness-probe sidecar in privileged mode (e.g. for SELinux systems)
   sidecarPrivileged: false
+  # Enable transparent hugepage tuning
+  # Set to true to configure transparent hugepage defrag to 'defer' mode
+  tuneTransparentHugePage: false
   resources:
     limits:
       cpu: 1000m
