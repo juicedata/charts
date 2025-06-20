@@ -47,7 +47,10 @@ spec:
   {{- if .Values.node.tuneTransparentHugePage }}
       initContainers:
       - name: setup-thp
-        image: busybox:latest
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        {{- if .Values.image.pullPolicy }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        {{- end }}
         command:
         - /bin/sh
         - -c
