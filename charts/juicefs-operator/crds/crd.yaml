@@ -3607,6 +3607,43 @@ spec:
                                         x-kubernetes-map-type: atomic
                                     type: object
                                 type: object
+                              extraVolumes:
+                                items:
+                                  properties:
+                                    configMap:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        name:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - name
+                                      type: object
+                                    hostPath:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        path:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - path
+                                      type: object
+                                    secret:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        name:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - name
+                                      type: object
+                                  type: object
+                                type: array
                               filesFrom:
                                 properties:
                                   configMap:
@@ -3774,6 +3811,18 @@ spec:
                                       required:
                                       - mountPath
                                       - name
+                                      type: object
+                                    hostPath:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        path:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - path
                                       type: object
                                     secret:
                                       properties:
@@ -3951,6 +4000,18 @@ spec:
                                       required:
                                       - mountPath
                                       - name
+                                      type: object
+                                    hostPath:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        path:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - path
                                       type: object
                                     secret:
                                       properties:
@@ -4191,6 +4252,43 @@ spec:
                                         x-kubernetes-map-type: atomic
                                     type: object
                                 type: object
+                              extraVolumes:
+                                items:
+                                  properties:
+                                    configMap:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        name:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - name
+                                      type: object
+                                    hostPath:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        path:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - path
+                                      type: object
+                                    secret:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        name:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - name
+                                      type: object
+                                  type: object
+                                type: array
                               filesFrom:
                                 properties:
                                   configMap:
@@ -4358,6 +4456,18 @@ spec:
                                       required:
                                       - mountPath
                                       - name
+                                      type: object
+                                    hostPath:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        path:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - path
                                       type: object
                                     secret:
                                       properties:
@@ -4535,6 +4645,18 @@ spec:
                                       required:
                                       - mountPath
                                       - name
+                                      type: object
+                                    hostPath:
+                                      properties:
+                                        mountPath:
+                                          type: string
+                                        path:
+                                          type: string
+                                        type:
+                                          type: string
+                                      required:
+                                      - mountPath
+                                      - path
                                       type: object
                                     secret:
                                       properties:
@@ -5245,6 +5367,43 @@ spec:
                                 x-kubernetes-map-type: atomic
                             type: object
                         type: object
+                      extraVolumes:
+                        items:
+                          properties:
+                            configMap:
+                              properties:
+                                mountPath:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                              - mountPath
+                              - name
+                              type: object
+                            hostPath:
+                              properties:
+                                mountPath:
+                                  type: string
+                                path:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - mountPath
+                              - path
+                              type: object
+                            secret:
+                              properties:
+                                mountPath:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                              - mountPath
+                              - name
+                              type: object
+                          type: object
+                        type: array
                       filesFrom:
                         properties:
                           configMap:
@@ -5412,6 +5571,18 @@ spec:
                               required:
                               - mountPath
                               - name
+                              type: object
+                            hostPath:
+                              properties:
+                                mountPath:
+                                  type: string
+                                path:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - mountPath
+                              - path
                               type: object
                             secret:
                               properties:
@@ -5589,6 +5760,18 @@ spec:
                               required:
                               - mountPath
                               - name
+                              type: object
+                            hostPath:
+                              properties:
+                                mountPath:
+                                  type: string
+                                path:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - mountPath
+                              - path
                               type: object
                             secret:
                               properties:
@@ -5829,6 +6012,43 @@ spec:
                                 x-kubernetes-map-type: atomic
                             type: object
                         type: object
+                      extraVolumes:
+                        items:
+                          properties:
+                            configMap:
+                              properties:
+                                mountPath:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                              - mountPath
+                              - name
+                              type: object
+                            hostPath:
+                              properties:
+                                mountPath:
+                                  type: string
+                                path:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - mountPath
+                              - path
+                              type: object
+                            secret:
+                              properties:
+                                mountPath:
+                                  type: string
+                                name:
+                                  type: string
+                              required:
+                              - mountPath
+                              - name
+                              type: object
+                          type: object
+                        type: array
                       filesFrom:
                         properties:
                           configMap:
@@ -5996,6 +6216,18 @@ spec:
                               required:
                               - mountPath
                               - name
+                              type: object
+                            hostPath:
+                              properties:
+                                mountPath:
+                                  type: string
+                                path:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - mountPath
+                              - path
                               type: object
                             secret:
                               properties:
@@ -6173,6 +6405,18 @@ spec:
                               required:
                               - mountPath
                               - name
+                              type: object
+                            hostPath:
+                              properties:
+                                mountPath:
+                                  type: string
+                                path:
+                                  type: string
+                                type:
+                                  type: string
+                              required:
+                              - mountPath
+                              - path
                               type: object
                             secret:
                               properties:
