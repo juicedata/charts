@@ -62,7 +62,7 @@ globalConfig:
 
   # Set to true to schedule mount pod to node with via nodeSelector, rather than nodeName
   enableNodeSelector: false
-  
+
   # The mountPodPatch section defines the mount pod spec
   # Each item will be recursively merged into PVC settings according to its pvcSelector
   # If pvcSelector isn't set, the patch will be applied to all PVCs
@@ -74,13 +74,13 @@ globalConfig:
     #     matchLabels:
     #       disable-host-network: "true"
     #   hostNetwork: false
-  
+
     # - pvcSelector:
     #     matchLabels:
     #       apply-labels: "true"
     #   labels:
     #     custom-labels: "asasasa"
-  
+
     # - pvcSelector:
     #     matchLabels:
     #       custom-resources: "true"
@@ -94,7 +94,7 @@ globalConfig:
     #       custom-image: "true"
     #   eeMountImage: "juicedata/mount:ee-5.0.17-0c63dc5"
     #   ceMountImage: "juicedata/mount:ce-v1.2.0"
-  
+
     # - pvcSelector:
     #     matchLabels:
     #       custom-liveness: "true"
@@ -263,6 +263,15 @@ node:
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 3
+  # extraVolumes and extraVolumeMounts can be useful to mount in ca certificates for databases
+  extraVolumes: []
+  #  - name: db-ca
+  #    secret:
+  #      secretName: ca-bundle
+  extraVolumeMounts: []
+  #  - name: db-ca
+  #    mountPath: /db-ca
+  #    readOnly: true
 
 # Expose CSI Driver metrics
 metrics:
@@ -342,7 +351,7 @@ dashboard:
     rollingUpdate:
       maxUnavailable: 1
       maxSurge: 25%
-      
+
   # Configure the pod level securityContext.
   podSecurityContext: {}
 
@@ -354,7 +363,7 @@ dashboard:
       drop:
         - ALL
     readOnlyRootFilesystem: true
-  
+
   hostAliases: []
   # - ip: "127.0.0.1"
   #   hostnames:
