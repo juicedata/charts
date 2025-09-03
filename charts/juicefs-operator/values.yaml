@@ -8,7 +8,7 @@ image:
   repository: juicedata/juicefs-operator
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.6.4"
+  tag: "v0.6.5"
 
 dashboardImage:
   repository: juicedata/csi-dashboard
@@ -56,9 +56,12 @@ securityContext:
 # Configure the options for controller manager.
 # only available in image tag > v0.4.1
 options:
-  # maximum number of concurrent Reconciles which can be run for sync
+  # maximum number of concurrent Reconciles which can be run for sync/Cg/Warmup controller
   # NOTE: If increase this value, please modify the resource same time.
+
   maxSyncConcurrentReconciles: 10
+  maxWarmupConcurrentReconciles: 10
+  maxCgConcurrentReconciles: 10
 
   # QPS indicates the maximum QPS to the master from this client.
   # Setting this to a negative value will disable client-side ratelimiting
@@ -66,6 +69,9 @@ options:
 
   # Maximum burst for throttle.
   k8sClientBurst: 20
+
+  # If warmup supports progress, configure how often to update it.
+  updateWarmupStatsInterval: 3s
 
 resources:
   limits:
