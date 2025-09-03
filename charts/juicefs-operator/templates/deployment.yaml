@@ -62,7 +62,7 @@ spec:
             - --k8s-client-qps={{ .Values.options.k8sClientQPS }}
             - --k8s-client-burst={{.Values.options.k8sClientBurst }}
             {{- end }}
-            {{- if (semverCompare ">0.6.5" $.Values.image.tag)}}
+            {{- if (semverCompare ">0.6.4" $.Values.image.tag)}}
             - --max-warmup-concurrent-reconciles={{ .Values.options.maxWarmupConcurrentReconciles }}
             - --max-cg-concurrent-reconciles={{ .Values.options.maxCgConcurrentReconciles }}
             - --update-warmup-stats-interval={{ .Values.options.updateWarmupStatsInterval }}
