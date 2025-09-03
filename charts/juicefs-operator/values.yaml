@@ -8,7 +8,7 @@ image:
   repository: juicedata/juicefs-operator
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.6.3"
+  tag: "v0.6.4"
 
 dashboardImage:
   repository: juicedata/csi-dashboard
