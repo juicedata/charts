@@ -73,6 +73,11 @@ options:
   # If warmup supports progress, configure how often to update it.
   updateWarmupStatsInterval: 3s
 
+  # The namespace to watch for changes. If unspecified, the controller watches for changes across all namespaces.
+  # When set, the operator only watches resources in the specified namespace.
+  # watchNamespaces: "namespace1,namespace2"
+  watchNamespaces: ""
+
 resources:
   limits:
     cpu: 500m
