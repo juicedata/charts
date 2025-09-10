@@ -121,6 +121,10 @@ spec:
         - name: STORAGE_CLASS_SHARE_MOUNT
           value: "true"
         {{- end }}
+        {{- if .Values.node.fsShareMount }}
+        - name: FS_SHARE_MOUNT
+          value: "true"
+        {{- end }}
         {{- if .Values.node.mountPodNonPreempting }}
         - name: JUICEFS_MOUNT_PRIORITY_NAME
           value: "juicefs-mount-priority-nonpreempting"
@@ -186,9 +190,6 @@ spec:
         {{- if .Values.globalConfig.enabled }}
         - name: juicefs-config
           mountPath: /etc/config
-        {{- end }}
-        {{- with .Values.node.extraVolumeMounts }}
-        {{- toYaml . | nindent 8 }}
         {{- end }}
       - name: node-driver-registrar
         image: {{ printf "%s:%s" .Values.sidecars.nodeDriverRegistrarImage.repository .Values.sidecars.nodeDriverRegistrarImage.tag }}
@@ -306,8 +307,5 @@ spec:
           path: /sys
           type: Directory
         name: host-sys
-      {{- end }}
-      {{- with .Values.node.extraVolumes }}
-      {{- toYaml . | nindent 6 }}
       {{- end }}
 {{- end }}

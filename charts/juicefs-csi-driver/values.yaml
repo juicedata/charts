@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.29.2"
+  tag: "v0.30.0"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.29.2"
+  tag: "v0.30.0"
   pullPolicy: ""
 
 sidecars:
@@ -229,6 +229,8 @@ node:
       memory: 512Mi
   # When set true, enable application pods using same sc share the same mount pod
   storageClassShareMount: false
+  # When set true, enable application pods using same filesystem share the same mount pod
+  fsShareMount: false
   # When set true, disable mount pods preempt application pods when in resource pressure
   mountPodNonPreempting: false
   # Grace period to allow the CSI Node Service pods to shutdown before it is killed

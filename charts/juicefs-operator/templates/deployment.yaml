@@ -36,7 +36,11 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
-            - /manager
+            {{- if (semverCompare ">=0.7.0" $.Values.image.tag)}}
+            - /juicefs-operator
+            {{- else }}
+            - ./manager
+            {{- end }}
             - controller
           env:
             - name: OPERATOR_POD_NAME
@@ -69,6 +73,15 @@ spec:
             {{- end }}
             {{- if .Values.leaderElection.enabled }}
             - --leader-elect
+            {{- end }}
+            {{- if (semverCompare ">=0.7.0" $.Values.image.tag)}}
+            {{- if .Values.options.watchNamespaces }}
+            {{- range $namespace := splitList "," .Values.options.watchNamespaces }}
+            {{- if $namespace }}
+            - --watch-namespaces={{ trim $namespace }}
+            {{- end }}
+            {{- end }}
+            {{- end }}
             {{- end }}
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
