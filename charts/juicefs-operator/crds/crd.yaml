@@ -52,6 +52,8 @@ spec:
                 type: string
               cleanCache:
                 type: boolean
+              enableScheduling:
+                type: boolean
               replicas:
                 format: int32
                 type: integer
@@ -4882,6 +4884,16 @@ spec:
                                       - mountPath
                                       - path
                                       type: object
+                                    pvc:
+                                      properties:
+                                        claimName:
+                                          type: string
+                                        mountPath:
+                                          type: string
+                                      required:
+                                      - claimName
+                                      - mountPath
+                                      type: object
                                     secret:
                                       properties:
                                         mountPath:
@@ -5074,6 +5086,16 @@ spec:
                                       - mountPath
                                       - path
                                       type: object
+                                    pvc:
+                                      properties:
+                                        claimName:
+                                          type: string
+                                        mountPath:
+                                          type: string
+                                      required:
+                                      - claimName
+                                      - mountPath
+                                      type: object
                                     secret:
                                       properties:
                                         mountPath:
@@ -5263,6 +5285,16 @@ spec:
                                       - mountPath
                                       - path
                                       type: object
+                                    pvc:
+                                      properties:
+                                        claimName:
+                                          type: string
+                                        mountPath:
+                                          type: string
+                                      required:
+                                      - claimName
+                                      - mountPath
+                                      type: object
                                     secret:
                                       properties:
                                         mountPath:
@@ -5363,16 +5395,6 @@ spec:
                                 type: string
                             required:
                             - metaURL
-                            type: object
-                          pvc:
-                            properties:
-                              name:
-                                type: string
-                              namespace:
-                                type: string
-                            required:
-                            - name
-                            - namespace
                             type: object
                         type: object
                       image:
@@ -5527,6 +5549,16 @@ spec:
                                       - mountPath
                                       - path
                                       type: object
+                                    pvc:
+                                      properties:
+                                        claimName:
+                                          type: string
+                                        mountPath:
+                                          type: string
+                                      required:
+                                      - claimName
+                                      - mountPath
+                                      type: object
                                     secret:
                                       properties:
                                         mountPath:
@@ -5719,6 +5751,16 @@ spec:
                                       - mountPath
                                       - path
                                       type: object
+                                    pvc:
+                                      properties:
+                                        claimName:
+                                          type: string
+                                        mountPath:
+                                          type: string
+                                      required:
+                                      - claimName
+                                      - mountPath
+                                      type: object
                                     secret:
                                       properties:
                                         mountPath:
@@ -5908,6 +5950,16 @@ spec:
                                       - mountPath
                                       - path
                                       type: object
+                                    pvc:
+                                      properties:
+                                        claimName:
+                                          type: string
+                                        mountPath:
+                                          type: string
+                                      required:
+                                      - claimName
+                                      - mountPath
+                                      type: object
                                     secret:
                                       properties:
                                         mountPath:
@@ -6008,16 +6060,6 @@ spec:
                                 type: string
                             required:
                             - metaURL
-                            type: object
-                          pvc:
-                            properties:
-                              name:
-                                type: string
-                              namespace:
-                                type: string
-                            required:
-                            - name
-                            - namespace
                             type: object
                         type: object
                       tolerations:
@@ -6642,6 +6684,16 @@ spec:
                               - mountPath
                               - path
                               type: object
+                            pvc:
+                              properties:
+                                claimName:
+                                  type: string
+                                mountPath:
+                                  type: string
+                              required:
+                              - claimName
+                              - mountPath
+                              type: object
                             secret:
                               properties:
                                 mountPath:
@@ -6834,6 +6886,16 @@ spec:
                               - mountPath
                               - path
                               type: object
+                            pvc:
+                              properties:
+                                claimName:
+                                  type: string
+                                mountPath:
+                                  type: string
+                              required:
+                              - claimName
+                              - mountPath
+                              type: object
                             secret:
                               properties:
                                 mountPath:
@@ -7023,6 +7085,16 @@ spec:
                               - mountPath
                               - path
                               type: object
+                            pvc:
+                              properties:
+                                claimName:
+                                  type: string
+                                mountPath:
+                                  type: string
+                              required:
+                              - claimName
+                              - mountPath
+                              type: object
                             secret:
                               properties:
                                 mountPath:
@@ -7123,16 +7195,6 @@ spec:
                         type: string
                     required:
                     - metaURL
-                    type: object
-                  pvc:
-                    properties:
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                    required:
-                    - name
-                    - namespace
                     type: object
                 type: object
               image:
@@ -7287,6 +7349,16 @@ spec:
                               - mountPath
                               - path
                               type: object
+                            pvc:
+                              properties:
+                                claimName:
+                                  type: string
+                                mountPath:
+                                  type: string
+                              required:
+                              - claimName
+                              - mountPath
+                              type: object
                             secret:
                               properties:
                                 mountPath:
@@ -7479,6 +7551,16 @@ spec:
                               - mountPath
                               - path
                               type: object
+                            pvc:
+                              properties:
+                                claimName:
+                                  type: string
+                                mountPath:
+                                  type: string
+                              required:
+                              - claimName
+                              - mountPath
+                              type: object
                             secret:
                               properties:
                                 mountPath:
@@ -7668,6 +7750,16 @@ spec:
                               - mountPath
                               - path
                               type: object
+                            pvc:
+                              properties:
+                                claimName:
+                                  type: string
+                                mountPath:
+                                  type: string
+                              required:
+                              - claimName
+                              - mountPath
+                              type: object
                             secret:
                               properties:
                                 mountPath:
@@ -7768,16 +7860,6 @@ spec:
                         type: string
                     required:
                     - metaURL
-                    type: object
-                  pvc:
-                    properties:
-                      name:
-                        type: string
-                      namespace:
-                        type: string
-                    required:
-                    - name
-                    - namespace
                     type: object
                 type: object
               tolerations:
