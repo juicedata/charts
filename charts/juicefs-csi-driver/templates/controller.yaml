@@ -244,8 +244,8 @@ spec:
         volumeMounts:
         - mountPath: /csi
           name: socket-dir
-      securityContext:
-        runAsNonRoot: false
+        securityContext:
+          runAsNonRoot: false
       priorityClassName: {{ .Values.controller.priorityClassName }}
       serviceAccount: {{ include "juicefs-csi.controller.serviceAccountName" . }}
       {{- with .Values.controller.affinity }}
