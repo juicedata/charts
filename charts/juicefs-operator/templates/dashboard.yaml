@@ -86,6 +86,8 @@ spec:
             {{- end }}
           ports:
             - containerPort: 8088
+          securityContext:
+            runAsNonRoot: false
           resources:
             {{- toYaml .Values.dashboard.resources | nindent 12 }}
       {{- with .Values.dashboard.nodeSelector }}
