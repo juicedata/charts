@@ -62,6 +62,7 @@ spec:
             echo "Transparent hugepage defrag file not found, skipping"
           fi
         securityContext:
+          allowPrivilegeEscalation: true
           privileged: true
         volumeMounts:
         - name: host-sys
@@ -168,6 +169,7 @@ spec:
           name: metrics
           protocol: TCP
         securityContext:
+          allowPrivilegeEscalation: true
           privileged: true
         volumeMounts:
         - mountPath: {{ .Values.kubeletDir }}

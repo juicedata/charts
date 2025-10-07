@@ -154,6 +154,7 @@ spec:
             add:
             - SYS_ADMIN
           {{- if ne .Values.mountMode "serverless" }}
+          allowPrivilegeEscalation: true
           privileged: true
           {{- end }}
         volumeMounts:
