@@ -223,6 +223,7 @@ spec:
           value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
         securityContext:
           privileged: {{ .Values.node.sidecarPrivileged }}
+          runAsNonRoot: false
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
@@ -243,6 +244,7 @@ spec:
           value: "{{ .Values.node.livenessProbe.httpGet.port }}"
         securityContext:
           privileged: {{ .Values.node.sidecarPrivileged }}
+          runAsNonRoot: false
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
