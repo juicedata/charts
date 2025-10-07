@@ -64,6 +64,7 @@ spec:
         securityContext:
           allowPrivilegeEscalation: true
           privileged: true
+          runAsNonRoot: false
         volumeMounts:
         - name: host-sys
           mountPath: /host-sys
@@ -171,6 +172,7 @@ spec:
         securityContext:
           allowPrivilegeEscalation: true
           privileged: true
+          runAsNonRoot: false
         volumeMounts:
         - mountPath: {{ .Values.kubeletDir }}
           mountPropagation: Bidirectional

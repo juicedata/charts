@@ -156,6 +156,7 @@ spec:
           {{- if ne .Values.mountMode "serverless" }}
           allowPrivilegeEscalation: true
           privileged: true
+          runAsNonRoot: false
           {{- end }}
         volumeMounts:
         - mountPath: /var/lib/csi/sockets/pluginproxy/
