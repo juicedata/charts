@@ -220,6 +220,8 @@ spec:
         env:
           - name: ADDRESS
             value: /var/lib/csi/sockets/pluginproxy/csi.sock
+        securityContext:
+          runAsNonRoot: false
         image: {{ printf "%s:%s" .Values.sidecars.csiResizerImage.repository .Values.sidecars.csiResizerImage.tag }}
         {{- if .Values.sidecars.csiResizerImage.pullPolicy }}
         imagePullPolicy: {{ .Values.sidecars.csiResizerImage.pullPolicy }}
