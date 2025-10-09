@@ -365,6 +365,7 @@ dashboard:
       drop:
         - ALL
     readOnlyRootFilesystem: true
+    runAsNonRoot: false
 
   hostAliases: []
   # - ip: "127.0.0.1"

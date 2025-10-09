@@ -62,7 +62,9 @@ spec:
             echo "Transparent hugepage defrag file not found, skipping"
           fi
         securityContext:
+          allowPrivilegeEscalation: true
           privileged: true
+          runAsNonRoot: false
         volumeMounts:
         - name: host-sys
           mountPath: /host-sys
@@ -168,7 +170,9 @@ spec:
           name: metrics
           protocol: TCP
         securityContext:
+          allowPrivilegeEscalation: true
           privileged: true
+          runAsNonRoot: false
         volumeMounts:
         - mountPath: {{ .Values.kubeletDir }}
           mountPropagation: Bidirectional
@@ -219,6 +223,7 @@ spec:
           value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
         securityContext:
           privileged: {{ .Values.node.sidecarPrivileged }}
+          runAsNonRoot: false
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
@@ -239,6 +244,7 @@ spec:
           value: "{{ .Values.node.livenessProbe.httpGet.port }}"
         securityContext:
           privileged: {{ .Values.node.sidecarPrivileged }}
+          runAsNonRoot: false
         volumeMounts:
         - mountPath: /csi
           name: plugin-dir
