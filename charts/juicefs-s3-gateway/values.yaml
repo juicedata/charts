@@ -15,6 +15,11 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+serviceAccount:
+  # -- The name of the service account to use for the gateway pods.
+  # If not set, no service account will be specified in the pod spec
+  name: ""
+
 podAnnotations: {}
 
 service:
@@ -88,6 +93,12 @@ secret:
   # CE Ref: https://juicefs.com/docs/community/how_to_setup_object_storage
   # EE Ref (see --bucket): https://juicefs.com/docs/cloud/reference/command_reference/#auth
   bucket: ""
+  # -- Use environment credentials for backend authentication in init container.
+  # When true, --access-key and --secret-key will NOT be passed to juicefs auth/format commands,
+  # allowing JuiceFS to discover credentials from environment variables (e.g., AWS_ACCESS_KEY_ID, 
+  # AWS_SECRET_ACCESS_KEY).
+  # MINIO_ROOT_USER and MINIO_ROOT_PASSWORD will still be set from accessKey/secretKey.
+  useEnvForInit: false
   # -- Encryption settings
   # JFS_RSA_PASSPHRASE: xxx
   # encrypt_rsa_key: |
