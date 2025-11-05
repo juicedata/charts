@@ -42,6 +42,8 @@ imagePullSecrets: []
 # - sidecar: run JuiceFS Client as a sidecar container in the same pod with application
 # - process: run JuiceFS Client as a process in the JuiceFS CSI node service
 # - serverless: a special "sidecar" mode that requires no privilege, creates no hostPath volumes, to allow full serverless deployment
+# - "mountpod|serverless": support both mountpod and serverless modes
+# - "mountpod|sidecar": support both mountpod and sidecar modes
 # Ref: https://juicefs.com/docs/csi/introduction/
 mountMode: mountpod
 
@@ -396,6 +398,18 @@ webhook:
   # FailurePolicy defines how unrecognized errors and timeout errors from the admission webhook are handled
   # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#failure-policy
   FailurePolicy: Fail
+  # For serverless & sidecar mountMode, configure webhook selectors
+  # default namespace selector
+  # - for sidecar mode: juicefs.com/enable-injection: "true"
+  # - for serverless mode: juicefs.com/enable-serverless-injection: "true"
+  # Example configuration:
+  #   namespaceSelector:
+  #     matchLabels:
+  #       juicefs.com/enable-injection: "true"
+  #   objectSelector:
+  #     matchLabels:
+  #       juicefs.com/enable-injection: "true"
+  selector: {}
 
 validatingWebhook:
   enabled: false

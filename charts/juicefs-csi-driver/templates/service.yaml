@@ -21,7 +21,7 @@ spec:
     {{- include "juicefs-csi.selectorLabels" . | nindent 4 }}
 {{- end }}
 
-{{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) (eq .Values.mountMode "serverless") }}
+{{- if or (contains "sidecar" .Values.mountMode) (.Values.validatingWebhook.enabled) (contains "serverless" .Values.mountMode) }}
 ---
 apiVersion: v1
 kind: Service

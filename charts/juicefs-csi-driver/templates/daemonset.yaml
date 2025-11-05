@@ -82,7 +82,7 @@ spec:
         {{- if .Values.node.debug }}
         - --v=1
         {{- end }}
-        {{- if eq .Values.mountMode "mountpod" }}
+        {{- if contains "mountpod" .Values.mountMode }}
         - --enable-manager=true
         {{- end }}
         {{- if eq .Values.mountMode "process" }}
