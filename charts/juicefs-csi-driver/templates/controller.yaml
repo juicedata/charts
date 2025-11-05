@@ -163,12 +163,12 @@ spec:
           name: socket-dir
         {{- if ne .Values.mountMode "process" }}
         - mountPath: /jfs
-          {{- if ne .Values.mountMode "serverless" }}
+          {{- if not (contains "serverless" .Values.mountMode) }}
           mountPropagation: Bidirectional
           {{- end }}
           name: jfs-dir
         - mountPath: /root/.juicefs
-          {{- if ne .Values.mountMode "serverless" }}
+          {{- if not (contains "serverless" .Values.mountMode) }}
           mountPropagation: Bidirectional
           {{- end }}
           name: jfs-root-dir
