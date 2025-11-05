@@ -70,7 +70,7 @@ spec:
         {{- if hasKey .Values.controller "cacheClientConf" }}
         - --cache-client-conf={{ .Values.controller.cacheClientConf }}
         {{- end }}
-        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled)  (eq .Values.mountMode "serverless") }}
+        {{- if or (contains "sidecar" .Values.mountMode) (.Values.validatingWebhook.enabled)  (contains "serverless" .Values.mountMode) }}
         - --webhook=true
         {{- end }}
         {{- if .Values.validatingWebhook.enabled }}
@@ -154,7 +154,7 @@ spec:
             add:
             - SYS_ADMIN
           runAsNonRoot: false
-          {{- if ne .Values.mountMode "serverless" }}
+          {{- if not (contains "serverless" .Values.mountMode) }}
           allowPrivilegeEscalation: true
           privileged: true
           {{- end }}
@@ -173,7 +173,7 @@ spec:
           {{- end }}
           name: jfs-root-dir
         {{- end }}
-        {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled) (eq .Values.mountMode "serverless") }}
+        {{- if or (contains "sidecar" .Values.mountMode) (.Values.validatingWebhook.enabled) (contains "serverless" .Values.mountMode) }}
         - name: webhook-certs
           mountPath: /etc/webhook/certs
           readOnly: true
@@ -274,13 +274,13 @@ spec:
           path: {{ .Values.jfsConfigDir }}
           type: DirectoryOrCreate
         name: jfs-root-dir
-      {{- else if eq .Values.mountMode "serverless" }}
+      {{- else if contains "serverless" .Values.mountMode }}
       - emptyDir: {}
         name: jfs-dir
       - emptyDir: {}
         name: jfs-root-dir
       {{- end }}
-      {{- if or (eq .Values.mountMode "sidecar") (.Values.validatingWebhook.enabled)  (eq .Values.mountMode "serverless")}}
+      {{- if or (contains "sidecar" .Values.mountMode) (.Values.validatingWebhook.enabled)  (contains "serverless" .Values.mountMode) }}
       - name: webhook-certs
         secret:
           secretName: {{ template "juicefs-csi.webhook.secret" . }}
