@@ -8,6 +8,9 @@ metadata:
     "helm.sh/hook-delete-policy": before-hook-creation
     {{- end }}
     "helm.sh/resource-policy": keep
+    {{- with .Values.csidriver.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   attachRequired: false
   podInfoOnMount: true

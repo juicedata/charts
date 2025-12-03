@@ -53,7 +53,9 @@ driverName: "csi.juicefs.com"
 # CSIDriver resource configuration
 csidriver:
   # Disable Helm hooks on CSIDriver resource. Set to true to prevent CSIDriver deletion/recreation during Helm upgrades. This is useful for ArgoCD and GitOps workflows where hook behavior can cause the CSIDriver resource to randomly go missing during sync operations.
-  disableHooks: false
+  disableHooks: true
+  # Additional annotations 
+  annotations: {}
 
 # This file contains the configuration options for the JuiceFS CSI driver
 # Ref: https://juicefs.com/docs/zh/csi/guide/configurations#configmap
