@@ -195,6 +195,9 @@ spec:
         - name: juicefs-config
           mountPath: /etc/config
         {{- end }}
+        {{- with .Values.node.extraVolumeMounts }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}        
       - name: node-driver-registrar
         image: {{ printf "%s:%s" .Values.sidecars.nodeDriverRegistrarImage.repository .Values.sidecars.nodeDriverRegistrarImage.tag }}
         {{- if .Values.sidecars.nodeDriverRegistrarImage.pullPolicy }}
@@ -313,5 +316,8 @@ spec:
           path: /sys
           type: Directory
         name: host-sys
+      {{- end }}
+      {{- with .Values.node.extraVolumes }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}
 {{- end }}
