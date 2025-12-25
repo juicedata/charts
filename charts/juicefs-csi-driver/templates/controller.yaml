@@ -230,6 +230,25 @@ spec:
         volumeMounts:
           - mountPath: /var/lib/csi/sockets/pluginproxy/
             name: socket-dir
+      {{- if .Values.snapshot.enabled }}
+      - name: csi-snapshotter
+        image: {{ printf "%s:%s" .Values.sidecars.csiSnapshotterImage.repository .Values.sidecars.csiSnapshotterImage.tag }}
+        {{- if .Values.sidecars.csiSnapshotterImage.pullPolicy }}
+        imagePullPolicy: {{ .Values.sidecars.csiSnapshotterImage.pullPolicy }}
+        {{- end }}
+        args:
+        - --csi-address=$(ADDRESS)
+        - --leader-election
+        - --v=2
+        env:
+        - name: ADDRESS
+          value: /var/lib/csi/sockets/pluginproxy/csi.sock
+        securityContext:
+          runAsNonRoot: false
+        volumeMounts:
+        - mountPath: /var/lib/csi/sockets/pluginproxy/
+          name: socket-dir
+      {{- end }}
       - name: liveness-probe
         image: {{ printf "%s:%s" .Values.sidecars.livenessProbeImage.repository .Values.sidecars.livenessProbeImage.tag }}
         {{- if .Values.sidecars.livenessProbeImage.pullPolicy }}

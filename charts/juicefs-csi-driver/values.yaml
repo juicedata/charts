@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.30.4"
+  tag: "v0.31.0"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.30.4"
+  tag: "v0.31.0"
   pullPolicy: ""
 
 sidecars:
@@ -33,6 +33,10 @@ sidecars:
   csiResizerImage:
     repository: registry.k8s.io/sig-storage/csi-resizer
     tag: "v1.9.0"
+    pullPolicy: ""
+  csiSnapshotterImage:
+    repository: registry.k8s.io/sig-storage/csi-snapshotter
+    tag: "v8.4.0"
     pullPolicy: ""
 
 imagePullSecrets: []
@@ -57,6 +61,11 @@ csidriver:
   disableHooks: false
   # Additional annotations 
   annotations: {}
+
+# Enable snapshot support
+# Ref: https://juicefs.com/docs/csi/guide/snapshot/
+snapshot:
+  enabled: false
 
 # This file contains the configuration options for the JuiceFS CSI driver
 # Ref: https://juicefs.com/docs/zh/csi/guide/configurations#configmap
