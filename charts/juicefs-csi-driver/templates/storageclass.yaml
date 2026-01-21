@@ -59,6 +59,9 @@ kind: StorageClass
 metadata:
   labels:
     {{- include "juicefs-csi.labels" $ | nindent 4 }}
+    {{- with $sc.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
   name: {{ $sc.name }}
   {{- if $sc.annotations }}
   annotations:
