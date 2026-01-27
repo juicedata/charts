@@ -8,7 +8,7 @@ image:
   repository: juicedata/juicefs-operator
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.7.5"
+  tag: "v0.8.0"
 
 dashboardImage:
   repository: juicedata/csi-dashboard
@@ -26,6 +26,15 @@ logEncoder: "console"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+metrics:
+  enabled: true
+  port: 8080
+  secure: false
+
+pprof:
+  enabled: true
+  port: 6060
 
 serviceAccount:
   # Specifies whether a service account should be created

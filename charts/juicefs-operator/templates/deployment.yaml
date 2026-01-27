@@ -56,8 +56,19 @@ spec:
           {{- if .Values.env }}
             {{- toYaml .Values.env | nindent 12 }}
           {{- end }}
+          {{- if .Values.metrics.enabled }}
+          ports:
+            - name: metrics
+              containerPort: {{ .Values.metrics.port }}
+          {{- end }}
           args:
-            - --metrics-bind-address=:8443
+            {{- if .Values.metrics.enabled }}
+            - --metrics-bind-address=:{{ .Values.metrics.port }}
+            - --metrics-secure={{ .Values.metrics.secure }}
+            {{- end }}
+            {{- if and (semverCompare ">=0.8.0" $.Values.image.tag) (.Values.pprof.enabled) }}
+            - --pprof-bind-address=:{{ .Values.pprof.port }}
+            {{- end }}
             - --health-probe-bind-address=:8081
             - --zap-log-level={{ .Values.logLevel }}
             - --zap-encoder={{ .Values.logEncoder }}
