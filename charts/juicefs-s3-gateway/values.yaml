@@ -46,6 +46,7 @@ resources:
 
 hostNetwork: false
 nodeSelector: {}
+priorityClassName: ""
 tolerations: []
 affinity: {}
 
