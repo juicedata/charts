@@ -2524,6 +2524,27 @@ entries:
   juicefs-s3-gateway:
   - apiVersion: v2
     appVersion: 1.6.0
+    created: "2026-02-05T15:46:21.96828248Z"
+    description: A Helm chart for JuiceFS S3 Gateway
+    digest: af9b7a8e076e92f0b94c3887217bf58dfb7b600b6ffe1540b4138c1440f9d536
+    home: https://github.com/juicedata/juicefs
+    icon: https://s.juicefs.com/static/jfs/logo.svg
+    keywords:
+    - juicefs
+    - s3 gateway
+    maintainers:
+    - email: team@juicedata.io
+      name: Juicedata Inc.
+      url: https://juicefs.com
+    name: juicefs-s3-gateway
+    sources:
+    - https://github.com/juicedata/juicefs
+    type: application
+    urls:
+    - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.11.4/juicefs-s3-gateway-0.11.4.tgz
+    version: 0.11.4
+  - apiVersion: v2
+    appVersion: 1.6.0
     created: "2025-03-04T06:14:06.814496236Z"
     description: A Helm chart for JuiceFS S3 Gateway
     digest: 197f70275a466f3414d2306915638e688b885c7c99865cafda3b7d1d5a12388f
@@ -2916,4 +2937,4 @@ entries:
     urls:
     - https://github.com/juicedata/charts/releases/download/helm-chart-juicefs-s3-gateway-0.2.0/juicefs-s3-gateway-0.2.0.tgz
     version: 0.2.0
-generated: "2026-01-27T06:58:18.604567269Z"
+generated: "2026-02-05T15:46:21.968615817Z"
