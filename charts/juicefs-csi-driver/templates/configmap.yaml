@@ -9,9 +9,7 @@ metadata:
     app.kubernetes.io/component: config
     {{- include "juicefs-csi.labels" . | nindent 4 }}
   annotations:
-{{- if not .Values.globalConfig.manageByHelm }}
     helm.sh/resource-policy: keep
-{{- end }}
 data:
   config.yaml: |-
     {{- $val := omit .Values.globalConfig "enabled" "manageByHelm"  }}
