@@ -82,6 +82,22 @@ globalConfig:
 
   # Set to true to schedule mount pod to node with via nodeSelector, rather than nodeName
   enableNodeSelector: false
+  # enable set quota in controller (CreateVolume/Provisioner)
+  # if enabled, SetQuota will be called in controller
+  # if disabled, SetQuota will be called in node (NodePublishVolume)
+  # the default is true.
+  enableControllerSetQuota: true
+  # enable auto remove request resources when pod has resources error
+  # the default is true
+  enableAutoRemoveRequestResources: true
+  # enable auto abort stuck mount pod after timeout
+  # the default is true
+  enableAutoAbortStuckMountPod: true
+  # use kubelet API to list mount pods on the node
+  # if enabled, the driver will try to use kubelet API to list mount pods on the node, and fall back to request api-server if kubelet API fails
+  # Kubelet synchronization of pods may have delays, which in high-concurrency scenarios could lead to mountpods not being reused.
+  # ref: https://juicefs.com/docs/csi/administration/going-production/#large-scale
+  enableKubeletListMountPod: false
 
   # The mountPodPatch section defines the mount pod spec
   # Each item will be recursively merged into PVC settings according to its pvcSelector
@@ -194,6 +210,8 @@ controller:
   # Enable provisioner of controller service, must be set to true when pathPattern is used
   # Ref: https://juicefs.com/docs/csi/guide/pv/#using-path-pattern
   provisioner: true
+  # Number of provisioner worker threads, in other words nr. of simultaneous CSI calls
+  provisionWorkerThreads: 100
   # Cache client auth config file in user's secret, only applicable to JuiceFS EE
   cacheClientConf: true
   replicas: 2

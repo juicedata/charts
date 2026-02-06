@@ -102,6 +102,8 @@ spec:
           value: {{ .Values.jfsMountDir }}
         - name: JUICEFS_CONFIG_PATH
           value: {{ .Values.jfsConfigDir }}
+        - name: PROVISION_WORKER_THREADS
+          value: "{{ .Values.controller.provisionWorkerThreads }}"
         {{- if .Values.defaultMountImage.ce }}
         - name: JUICEFS_CE_MOUNT_IMAGE
           value: {{ .Values.defaultMountImage.ce }}
