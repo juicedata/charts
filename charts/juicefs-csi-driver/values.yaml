@@ -68,6 +68,7 @@ snapshot:
   enabled: false
 
 # This file contains the configuration options for the JuiceFS CSI driver
+# NOTE: A configmap named juicefs-csi-global-config will be created and will not be deleted during helm uninstall.
 # Ref: https://juicefs.com/docs/zh/csi/guide/configurations#configmap
 globalConfig:
   # Set to false to disable global config
