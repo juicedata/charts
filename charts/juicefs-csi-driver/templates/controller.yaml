@@ -129,8 +129,6 @@ spec:
         - name: DRIVER_NAME
           value: "{{ .Values.driverName }}"
         {{- end }}
-        - name: PROVISION_WORKER_THREADS
-          value: "{{ .Values.controller.provisionWorkerThreads }}"
         {{- if .Values.controller.envs }}
 {{ toYaml .Values.controller.envs | trim | indent 8 }}
         {{- end }}

@@ -369,6 +369,21 @@ dashboard:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+  # Configure a Gateway API HTTPRoute for the dashboard instead of (or in addition to) Ingress.
+  httpRoute:
+    enabled: false
+    # References to parent Gateway resources that this HTTPRoute should attach to.
+    parentRefs: []
+    #  - name: my-gateway
+    #    namespace: my-gateway-namespace
+    # When true, reuse host and path settings from the ingress section above to build the HTTPRoute.
+    # When false, configure hostnames and extraPaths explicitly below.
+    reuseIngressConfiguration: false
+    # List of hostnames to match for this HTTPRoute (used when not reusing ingress configuration).
+    hostnames: []
+    # Additional HTTPRoute rules/paths (similar in purpose to ingress.hosts[].paths).
+    # Use this to define custom matches, filters, or backends for the dashboard HTTPRoute.
+    extraRules: []
   priorityClassName: system-node-critical
   envs: []
 
