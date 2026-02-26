@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.31.1"
+  tag: "v0.31.2"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.31.1"
+  tag: "v0.31.2"
   pullPolicy: ""
 
 sidecars:
@@ -194,6 +194,10 @@ controller:
   # Enable provisioner of controller service, must be set to true when pathPattern is used
   # Ref: https://juicefs.com/docs/csi/guide/pv/#using-path-pattern
   provisioner: true
+  # The number of worker threads used by the provisioner, which will process the PV creation requests in parallel. 
+  # This can be tuned to achieve better performance when there are a large number of PVs being created at the same time.
+  # Ref: https://juicefs.com/docs/zh/csi/guide/configurations/#provision-worker-threads
+  provisionWorkerThreads: 1000
   # Cache client auth config file in user's secret, only applicable to JuiceFS EE
   cacheClientConf: true
   replicas: 2
