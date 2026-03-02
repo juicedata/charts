@@ -13,7 +13,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ include "juicefs-csi.fullname" . }}
+  name: {{ include "juicefs-csi.fullname" . }}-dashboard
   namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "juicefs-csi.labels" . | nindent 4 }}
