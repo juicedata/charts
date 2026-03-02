@@ -197,7 +197,7 @@ controller:
   # The number of worker threads used by the provisioner, which will process the PV creation requests in parallel. 
   # This can be tuned to achieve better performance when there are a large number of PVs being created at the same time.
   # Ref: https://juicefs.com/docs/zh/csi/guide/configurations/#provision-worker-threads
-  provisionWorkerThreads: 1000
+  provisionWorkerThreads: 100
   # Cache client auth config file in user's secret, only applicable to JuiceFS EE
   cacheClientConf: true
   replicas: 2
