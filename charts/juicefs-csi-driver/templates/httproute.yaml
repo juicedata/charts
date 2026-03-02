@@ -1,15 +1,4 @@
 {{- if .Values.dashboard.httpRoute.enabled }}
-{{- $root := . }}
-{{- $hostnames := (list) }}
-{{- if .Values.dashboard.httpRoute.reuseIngressConfiguration }}
-  {{- range .Values.dashboard.ingress.hosts }}
-    {{- if .host }}
-      {{- $hostnames = append $hostnames .host }}
-    {{- end }}
-  {{- end }}
-{{- else }}
-  {{- $hostnames = default (list) .Values.dashboard.httpRoute.hostnames }}
-{{- end }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -23,7 +12,7 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   hostnames:
-  {{- range $hostnames }}
+  {{- range .Values.dashboard.httpRoute.hostnames }}
     - {{ . | quote }}
   {{- end }}
   rules:
@@ -32,5 +21,5 @@ spec:
 {{- end }}
   - backendRefs:
     - name: juicefs-csi-dashboard
-      port: {{ $root.Values.dashboard.service.port }}
+      port: {{ .Values.dashboard.service.port }}
 {{- end }}
