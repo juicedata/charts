@@ -206,7 +206,7 @@ spec:
         args:
         - --csi-address=$(ADDRESS)
         - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
-        - --v=5
+        - --v={{ index .Values.node "node-driver-registrar" "logLevel" }}
         {{- if gt .Values.sidecars.nodeDriverRegistrarImage.tag "v2.4.0" }}
         - --health-port=9809
         ports:
