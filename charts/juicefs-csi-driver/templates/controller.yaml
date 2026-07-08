@@ -286,7 +286,7 @@ spec:
       volumes:
       - emptyDir: {}
         name: socket-dir
-      {{- if or (eq .Values.mountMode "mountpod") (eq .Values.mountMode "sidecar") }}
+      {{- if or (eq .Values.mountMode "mountpod") (eq .Values.mountMode "sidecar") (eq .Values.mountMode "mountpod|sidecar") }}
       - hostPath:
           path: {{ .Values.jfsMountDir }}
           type: DirectoryOrCreate
