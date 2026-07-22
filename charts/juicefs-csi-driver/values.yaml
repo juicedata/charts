@@ -232,6 +232,15 @@ controller:
   #  - name: ENABLE_APISERVER_LIST_CACHE
   #    value: "true"
   envs: []
+  # extraVolumes and extraVolumeMounts can be useful to mount in ca certificates for databases
+  extraVolumes: []
+  #  - name: db-ca
+  #    secret:
+  #      secretName: ca-bundle
+  extraVolumeMounts: []
+  #  - name: db-ca
+  #    mountPath: /db-ca
+  #    readOnly: true
 
 node:
   # CSI Node Service will be deployed in every node
