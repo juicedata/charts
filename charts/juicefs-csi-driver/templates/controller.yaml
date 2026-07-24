@@ -184,6 +184,9 @@ spec:
         - name: juicefs-config
           mountPath: /etc/config
         {{- end }}
+        {{- with .Values.controller.extraVolumeMounts }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- if or (not .Values.controller.provisioner) (eq .Values.mountMode "process") }}
       - name: csi-provisioner
         image: {{ printf "%s:%s" .Values.sidecars.csiProvisionerImage.repository .Values.sidecars.csiProvisionerImage.tag }}
@@ -310,5 +313,8 @@ spec:
       - name: juicefs-config
         configMap:
           name: {{ include "juicefs-csi.fullname" . }}-config
+      {{- end }}
+      {{- with .Values.controller.extraVolumes }}
+      {{- toYaml . | nindent 6 }}
       {{- end }}
 {{- end }}
