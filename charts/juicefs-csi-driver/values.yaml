@@ -241,6 +241,22 @@ controller:
   #  - name: db-ca
   #    mountPath: /db-ca
   #    readOnly: true
+  # csiProvisioner:
+  #   resources:
+  #     limits:
+  #       cpu: 100m
+  #       memory: 256Gi
+  #     requests:
+  #       cpu: 100m
+  #       memory: 256Gi
+  # csiResizer:
+  #   resources:
+  #     limits:
+  #       cpu: 100m
+  #       memory: 256Gi
+  #     requests:
+  #       cpu: 100m
+  #       memory: 256Gi
 
 node:
   # CSI Node Service will be deployed in every node
