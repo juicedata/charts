@@ -537,6 +537,8 @@ spec:
                         cacheDirs:
                           items:
                             properties:
+                              format:
+                                type: boolean
                               hostPathType:
                                 enum:
                                 - Directory
@@ -733,7 +735,32 @@ spec:
                                         type: string
                                     type: object
                                 type: object
+                              volumeMode:
+                                enum:
+                                - Filesystem
+                                - Block
+                                type: string
+                            required:
+                            - type
                             type: object
+                            x-kubernetes-validations:
+                            - message: path is required when type is HostPath
+                              rule: self.type != 'HostPath' || (has(self.path) &&
+                                self.path.size() > 0)
+                            - message: name is required when type is PVC
+                              rule: self.type != 'PVC' || (has(self.name) && self.name.size()
+                                > 0)
+                            - message: volumeClaimTemplate is required when type is
+                                VolumeClaimTemplates
+                              rule: self.type != 'VolumeClaimTemplates' || has(self.volumeClaimTemplate)
+                            - message: volumeMode is only valid for PVC type
+                              rule: '!has(self.volumeMode) || self.type == ''PVC'''
+                            - message: format is only valid for Block volume mode
+                              rule: '!has(self.format) || (self.type == ''PVC'' &&
+                                has(self.volumeMode) && self.volumeMode == ''Block'')
+                                || (self.type == ''VolumeClaimTemplates'' && has(self.volumeClaimTemplate)
+                                && has(self.volumeClaimTemplate.spec) && has(self.volumeClaimTemplate.spec.volumeMode)
+                                && self.volumeClaimTemplate.spec.volumeMode == ''Block'')'
                           type: array
                         dnsPolicy:
                           type: string
@@ -2609,6 +2636,8 @@ spec:
                       cacheDirs:
                         items:
                           properties:
+                            format:
+                              type: boolean
                             hostPathType:
                               enum:
                               - Directory
@@ -2805,7 +2834,32 @@ spec:
                                       type: string
                                   type: object
                               type: object
+                            volumeMode:
+                              enum:
+                              - Filesystem
+                              - Block
+                              type: string
+                          required:
+                          - type
                           type: object
+                          x-kubernetes-validations:
+                          - message: path is required when type is HostPath
+                            rule: self.type != 'HostPath' || (has(self.path) && self.path.size()
+                              > 0)
+                          - message: name is required when type is PVC
+                            rule: self.type != 'PVC' || (has(self.name) && self.name.size()
+                              > 0)
+                          - message: volumeClaimTemplate is required when type is
+                              VolumeClaimTemplates
+                            rule: self.type != 'VolumeClaimTemplates' || has(self.volumeClaimTemplate)
+                          - message: volumeMode is only valid for PVC type
+                            rule: '!has(self.volumeMode) || self.type == ''PVC'''
+                          - message: format is only valid for Block volume mode
+                            rule: '!has(self.format) || (self.type == ''PVC'' && has(self.volumeMode)
+                              && self.volumeMode == ''Block'') || (self.type == ''VolumeClaimTemplates''
+                              && has(self.volumeClaimTemplate) && has(self.volumeClaimTemplate.spec)
+                              && has(self.volumeClaimTemplate.spec.volumeMode) &&
+                              self.volumeClaimTemplate.spec.volumeMode == ''Block'')'
                         type: array
                       dnsPolicy:
                         type: string
