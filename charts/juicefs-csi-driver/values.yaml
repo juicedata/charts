@@ -326,7 +326,7 @@ node:
   #  - name: db-ca
   #    mountPath: /db-ca
   #    readOnly: true
-  # nodeDriverRegistrar:
+  # node-driver-registrar:
   #   resources:
   #     limits:
   #       cpu: 100m
