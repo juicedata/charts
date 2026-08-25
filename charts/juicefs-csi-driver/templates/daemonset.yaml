@@ -224,6 +224,12 @@ spec:
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
           value: {{ .Values.kubeletDir }}/csi-plugins/{{ include "driverName" . }}/csi.sock
+        {{- with .Values.node.node-driver-registrar }}
+          {{- with .resources }}
+        resources:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
         securityContext:
           privileged: {{ .Values.node.sidecarPrivileged }}
           runAsNonRoot: false
@@ -245,6 +251,12 @@ spec:
           value: /csi/csi.sock
         - name: HEALTH_PORT
           value: "{{ .Values.node.livenessProbe.httpGet.port }}"
+        {{- with .Values.node.livenessProbeContainer }}
+          {{- with .resources }}
+        resources:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
         securityContext:
           privileged: {{ .Values.node.sidecarPrivileged }}
           runAsNonRoot: false
