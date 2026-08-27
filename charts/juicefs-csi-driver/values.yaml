@@ -213,6 +213,7 @@ controller:
   labels: {}
   annotations: {}
   metricsPort: "9567"
+  healthPort: 9909
   # Affinity for CSI Controller pod
   affinity: {}
   # Node selector for CSI Controller pod
@@ -250,6 +251,7 @@ node:
   node-driver-registrar:
     # Log verbosity passed to node-driver-registrar (--v)
     logLevel: 5
+    healthPort: 9809
   hostNetwork: false
   # Set to true to run node-driver-registrar and liveness-probe sidecar in privileged mode (e.g. for SELinux systems)
   sidecarPrivileged: false
