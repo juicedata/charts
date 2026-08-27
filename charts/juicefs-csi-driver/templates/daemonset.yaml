@@ -208,9 +208,9 @@ spec:
         - --kubelet-registration-path=$(DRIVER_REG_SOCK_PATH)
         - --v={{ index .Values.node "node-driver-registrar" "logLevel" }}
         {{- if gt .Values.sidecars.nodeDriverRegistrarImage.tag "v2.4.0" }}
-        - --health-port=9809
+        - --health-port={{ index .Values.node "node-driver-registrar" "healthPort" }}
         ports:
-          - containerPort: 9809
+          - containerPort: {{ index .Values.node "node-driver-registrar" "healthPort" }}
             name: healthz
         livenessProbe:
           httpGet:
