@@ -23,6 +23,9 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.serviceAccount.name }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      {{- end }}
       initContainers:
         - name: format
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -33,14 +36,15 @@ spec:
             - sh
             - -c
             {{- if .Values.secret.token }}
-            - juicefs auth ${name} --token=${token} {{ if .Values.secret.bucket }}--bucket=${bucket}{{ end }} --access-key=${accesskey} --secret-key=${secretkey}
+            - juicefs auth ${name} --token=${token} {{ if .Values.secret.bucket }}--bucket=${bucket}{{ end }}{{ if not .Values.secret.useEnvForInit }} --access-key=${accesskey} --secret-key=${secretkey}{{ end }}
             {{- else }}
-            - juicefs format ${metaurl} ${name} --storage=${storage} --bucket=${bucket} --access-key=${accesskey} --secret-key=${secretkey} {{ .Values.formatOptions }}
+            - juicefs format ${metaurl} ${name} --storage=${storage} --bucket=${bucket}{{ if not .Values.secret.useEnvForInit }} --access-key=${accesskey} --secret-key=${secretkey}{{ end }} {{ .Values.formatOptions }}
             {{- end }}
           envFrom:
             - secretRef:
                 name: juicefs-secret
           env:
+            {{- if not .Values.secret.useEnvForInit }}
             - name: accesskey
               valueFrom:
                 secretKeyRef:
@@ -51,6 +55,7 @@ spec:
                 secretKeyRef:
                   name: juicefs-secret
                   key: secret-key
+            {{- end }}
             {{- if .Values.initEnvs }}
 {{ toYaml .Values.initEnvs | indent 12 }}
             {{- end }}
