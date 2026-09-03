@@ -137,6 +137,7 @@ hostAliases: []
 
 # The kubelet working directory, can be set using --root-dir when starting kubelet
 kubeletDir: /var/lib/kubelet
+pluginDir: csi-plugins
 
 # JuiceFS mount directory
 jfsMountDir: /var/lib/juicefs/volume
