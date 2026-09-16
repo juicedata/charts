@@ -145,7 +145,7 @@ spec:
         resources:
           {{- toYaml .Values.controller.resources | nindent 10 }}
         ports:
-        - containerPort: 9909
+        - containerPort: {{ .Values.controller.healthPort }}
           name: healthz
           protocol: TCP
         - containerPort: {{ .Values.controller.metricsPort }}
@@ -266,7 +266,7 @@ spec:
         - name: ADDRESS
           value: /csi/csi.sock
         - name: HEALTH_PORT
-          value: "9909"
+          value: "{{ .Values.controller.healthPort }}"
         volumeMounts:
         - mountPath: /csi
           name: socket-dir
