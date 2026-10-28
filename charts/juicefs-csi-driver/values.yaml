@@ -304,6 +304,14 @@ node:
     initialDelaySeconds: 10
     periodSeconds: 10
     timeoutSeconds: 3
+  # Startup probe of the CSI Node plugin, it uses the httpGet of livenessProbe above unless a handler is set here.
+  # The liveness probe only runs after it succeeds. On startup the plugin retries getting its own pod
+  # for up to about 2m20s when the API server is unreachable, 30 x 10s leaves room for that.
+  # Only rendered on Kubernetes 1.18 and later. Set to null to disable.
+  startupProbe:
+    failureThreshold: 30
+    periodSeconds: 10
+    timeoutSeconds: 3
   # extraVolumes and extraVolumeMounts can be useful to mount in ca certificates for databases
   extraVolumes: []
   #  - name: db-ca
