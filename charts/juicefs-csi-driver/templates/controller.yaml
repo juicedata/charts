@@ -213,6 +213,12 @@ spec:
         env:
         - name: ADDRESS
           value: /var/lib/csi/sockets/pluginproxy/csi.sock
+        {{- with .Values.controller.csiProvisioner }}
+          {{- with .resources }}
+        resources:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
         volumeMounts:
         - mountPath: /var/lib/csi/sockets/pluginproxy/
           name: socket-dir
@@ -232,6 +238,12 @@ spec:
         imagePullPolicy: {{ .Values.sidecars.csiResizerImage.pullPolicy }}
         {{- end }}
         name: csi-resizer
+        {{- with .Values.controller.csiResizer }}
+          {{- with .resources }}
+        resources:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- end }}
         volumeMounts:
           - mountPath: /var/lib/csi/sockets/pluginproxy/
             name: socket-dir
