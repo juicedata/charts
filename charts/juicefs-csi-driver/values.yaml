@@ -260,6 +260,23 @@ controller:
   #       cpu: 100m
   #       memory: 256Gi
 
+  # csiSnapshotter:
+  #   resources:
+  #     limits:
+  #       cpu: 100m
+  #       memory: 256Mi
+  #     requests:
+  #       cpu: 100m
+  #       memory: 256Mi
+  # livenessProbeContainer:
+  #   resources:
+  #     limits:
+  #       cpu: 100m
+  #       memory: 256Mi
+  #     requests:
+  #       cpu: 100m
+  #       memory: 256Mi
+
 node:
   # CSI Node Service will be deployed in every node
   enabled: true

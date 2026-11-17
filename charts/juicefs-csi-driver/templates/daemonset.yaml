@@ -224,7 +224,7 @@ spec:
           value: /csi/csi.sock
         - name: DRIVER_REG_SOCK_PATH
           value: {{ .Values.kubeletDir }}/{{ .Values.pluginDir}}/{{ include "driverName" . }}/csi.sock
-        {{- with .Values.node.node-driver-registrar }}
+        {{- with index .Values.node "node-driver-registrar" }}
           {{- with .resources }}
         resources:
             {{- toYaml . | nindent 10 }}
