@@ -161,6 +161,15 @@ spec:
         livenessProbe:
           {{- toYaml . | nindent 10 }}
         {{- end }}
+        {{- if and .Values.node.startupProbe (semverCompare ">=1.18.0-0" .Capabilities.KubeVersion.Version) }}
+        startupProbe:
+          {{- $startupProbe := .Values.node.startupProbe }}
+          {{- if not (or $startupProbe.httpGet $startupProbe.exec $startupProbe.tcpSocket $startupProbe.grpc) }}
+          httpGet:
+            {{- toYaml .Values.node.livenessProbe.httpGet | nindent 12 }}
+          {{- end }}
+          {{- toYaml $startupProbe | nindent 10 }}
+        {{- end }}
         resources:
           {{- toYaml .Values.node.resources | nindent 10 }}
         ports:
