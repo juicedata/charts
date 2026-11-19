@@ -81,6 +81,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: ENABLE_SECRET_MANAGEMENT
+              value: {{ dig "secretManagement" "enabled" true .Values.dashboard | quote }}
             {{- if .Values.dashboard.envs }}
 {{ toYaml .Values.dashboard.envs | indent 12 }}
             {{- end }}
@@ -98,6 +100,10 @@ spec:
             {{- end }}
             - name: JUICEFS_CONFIG_NAME
               value: {{ include "juicefs-csi.fullname" . }}-config
+            - name: JUICEFS_CSI_DASHBOARD_SA
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
             - name: DASHBOARD_IMAGE
               value: {{ .Values.dashboardImage.repository }}:{{ .Values.dashboardImage.tag }}
             {{- if .Values.driverName }}

@@ -346,6 +346,12 @@ dashboard:
   # If disabled, directly obtain resources from the k8s API server when the user accesses the dashboard, which will reduce the pressure on the API server under large-scale clusters.
   enableManager: true
 
+  # Manage JuiceFS volume secrets (list / view / create / edit / delete) in the dashboard.
+  # When enabled, the dashboard can read secret values over HTTP and is granted create/update/delete on secrets cluster-wide,
+  # so it is strongly recommended to also enable dashboard auth.
+  secretManagement:
+    enabled: true
+
   # Basic auth for dashboard
   auth:
     enabled: true

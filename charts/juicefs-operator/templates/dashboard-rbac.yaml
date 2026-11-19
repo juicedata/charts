@@ -1,0 +1,238 @@
+{{- if .Values.dashboard.enabled }}
+{{- if dig "create" true (.Values.dashboard.serviceAccount | default dict) }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "juicefs-operator.dashboardServiceAccountName" . }}
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+{{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+  name: {{ include "juicefs-operator.fullname" . }}-dashboard-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims/status
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+    - ""
+  resources:
+    - pods
+  verbs:
+    - get
+    - list
+    - watch
+    - update
+    - patch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - update
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - update
+  - patch
+  - create
+  - delete
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - list
+  - get
+  - watch
+  {{- if dig "secretManagement" "enabled" true .Values.dashboard }}
+  - create
+  - update
+  - delete
+  {{- end }}
+- apiGroups:
+  - juicefs.io
+  resources:
+  - cachegroups
+  verbs:
+  - get
+  - list
+  - update
+  - patch
+  - create
+  - delete
+  - watch
+- apiGroups:
+  - juicefs.io
+  resources:
+  - warmups
+  - syncs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - patch
+  - update
+  - list
+  - watch
+{{- if .Values.dashboard.leaderElection.enabled }}
+- apiGroups:
+    - coordination.k8s.io
+  resources:
+    - leases
+  verbs:
+    - get
+    - watch
+    - list
+    - delete
+    - update
+    - create
+- apiGroups:
+    - ""
+  resources:
+    - configmaps
+  verbs:
+    - get
+    - watch
+    - list
+    - delete
+    - update
+    - create
+    - patch
+{{- end }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+  name: {{ include "juicefs-operator.fullname" . }}-dashboard-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "juicefs-operator.fullname" . }}-dashboard-role
+subjects:
+- kind: ServiceAccount
+  name: {{ include "juicefs-operator.dashboardServiceAccountName" . }}
+  namespace: {{ .Release.Namespace | quote }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "juicefs-operator.fullname" . }}-dashboard-upgrade
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+rules:
+- apiGroups: ["batch"]
+  resources: ["jobs/finalizers"]
+  verbs: ["update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "juicefs-operator.fullname" . }}-dashboard-upgrade
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "juicefs-operator.labels" . | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "juicefs-operator.fullname" . }}-dashboard-upgrade
+subjects:
+- kind: ServiceAccount
+  name: {{ include "juicefs-operator.dashboardServiceAccountName" . }}
+  namespace: {{ .Release.Namespace | quote }}
+{{- end }}

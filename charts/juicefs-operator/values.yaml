@@ -122,6 +122,12 @@ affinity: {}
 
 dashboard:
   enabled: false
+  serviceAccount:
+    create: true
+    name: ""
+  # Allow the dashboard to create, update and delete Secrets.
+  secretManagement:
+    enabled: true
 
   # Enable manager for dashboard
   # If enabled, the dashboard will watch and cache k8s resources in the dashboard, which is used to achieve better performance and more features.
