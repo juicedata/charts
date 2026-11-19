@@ -128,3 +128,9 @@ spec:
 {{- else }}
 {{- template "all_sc" . }}
 {{- end }}
+{{ if and .Values.dashboard.enabled .Values.dashboard.auth.enabled }}
+Dashboard Basic Auth is enabled. Read the login credentials from the Secret in the release namespace:
+
+  kubectl -n {{ .Release.Namespace }} get secret {{ default "juicefs-dashboard-secret" .Values.dashboard.auth.existingSecret }} -o go-template='{{ `{{.data.username | base64decode}}{{"\n"}}` }}'
+  kubectl -n {{ .Release.Namespace }} get secret {{ default "juicefs-dashboard-secret" .Values.dashboard.auth.existingSecret }} -o go-template='{{ `{{.data.password | base64decode}}{{"\n"}}` }}'
+{{- end }}
