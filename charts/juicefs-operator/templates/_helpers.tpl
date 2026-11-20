@@ -60,3 +60,12 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{- define "juicefs-operator.dashboardServiceAccountName" -}}
+{{- $account := .Values.dashboard.serviceAccount | default dict }}
+{{- if dig "create" true $account }}
+{{- default (printf "%s-dashboard" (include "juicefs-operator.fullname" .)) $account.name }}
+{{- else }}
+{{- required "dashboard.serviceAccount.name is required when dashboard.serviceAccount.create is false" $account.name }}
+{{- end }}
+{{- end }}

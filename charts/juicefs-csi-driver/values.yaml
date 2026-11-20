@@ -9,12 +9,12 @@
 
 image:
   repository: juicedata/juicefs-csi-driver
-  tag: "v0.33.3"
+  tag: "v0.34.0"
   pullPolicy: ""
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.33.3"
+  tag: "v0.34.0"
   pullPolicy: ""
 
 sidecars:
@@ -346,13 +346,20 @@ dashboard:
   # If disabled, directly obtain resources from the k8s API server when the user accesses the dashboard, which will reduce the pressure on the API server under large-scale clusters.
   enableManager: true
 
+  # Manage JuiceFS volume secrets (list / view / create / edit / delete) in the dashboard.
+  # When enabled, the dashboard can read secret values over HTTP and is granted create/update/delete on secrets cluster-wide,
+  # so it is strongly recommended to also enable dashboard auth.
+  secretManagement:
+    enabled: true
+
   # Basic auth for dashboard
   auth:
-    enabled: false
-    # Set existingSecret to indicate whether to use an existing secret. If it is empty, a corresponding secret will be created according to the plain text configuration.
+    enabled: true
+    # Use an existing Secret with username and password keys.
     existingSecret: ""
     username: admin
-    password: admin
+    # Leave empty to generate a password on install and reuse it on upgrade.
+    password: ""
 
   replicas: 1
   leaderElection:

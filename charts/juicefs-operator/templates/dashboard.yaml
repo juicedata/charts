@@ -39,7 +39,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
     spec:
-      serviceAccountName: {{ include "juicefs-operator.serviceAccountName" . }}
+      serviceAccountName: {{ include "juicefs-operator.dashboardServiceAccountName" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -69,6 +69,14 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.namespace
+            - name: DASHBOARD_IMAGE
+              value: {{ .Values.dashboardImage.repository }}:{{ .Values.dashboardImage.tag }}
+            - name: JUICEFS_CSI_DASHBOARD_SA
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.serviceAccountName
+            - name: ENABLE_SECRET_MANAGEMENT
+              value: {{ dig "secretManagement" "enabled" true .Values.dashboard | quote }}
             {{- if .Values.dashboard.envs }}
 {{ toYaml .Values.dashboard.envs | indent 12 }}
             {{- end }}

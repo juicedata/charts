@@ -8,11 +8,11 @@ image:
   repository: juicedata/juicefs-operator
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v0.9.1"
+  tag: "v0.10.0"
 
 dashboardImage:
   repository: juicedata/csi-dashboard
-  tag: "v0.26.1"
+  tag: "v0.34.0"
   pullPolicy: ""
 
 # Configure the verbosity of logging. 
@@ -122,6 +122,12 @@ affinity: {}
 
 dashboard:
   enabled: false
+  serviceAccount:
+    create: true
+    name: ""
+  # Allow the dashboard to create, update and delete Secrets.
+  secretManagement:
+    enabled: true
 
   # Enable manager for dashboard
   # If enabled, the dashboard will watch and cache k8s resources in the dashboard, which is used to achieve better performance and more features.
@@ -130,11 +136,12 @@ dashboard:
 
   # Basic auth for dashboard
   auth:
-    enabled: false
-    # Set existingSecret to indicate whether to use an existing secret. If it is empty, a corresponding secret will be created according to the plain text configuration.
+    enabled: true
+    # Use an existing Secret with username and password keys.
     existingSecret: ""
     username: admin
-    password: admin
+    # Leave empty to generate a password on install and reuse it on upgrade.
+    password: ""
 
   replicas: 1
   leaderElection:

@@ -48,6 +48,13 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - ""
+  resources:
   - nodes
   verbs:
   - get
@@ -75,6 +82,7 @@ rules:
   - deletecollection
   - get
   - list
+  - patch
   - watch
 - apiGroups:
   - ""
@@ -82,6 +90,7 @@ rules:
   - pods/exec
   verbs:
   - create
+  - get
 - apiGroups:
   - ""
   resources:
@@ -144,56 +153,6 @@ rules:
   - get
   - patch
   - update
-{{- if .Values.dashboard.enabled }}
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - watch
-  - list
-  - delete
-  - update
-  - create
-  - patch
-- apiGroups:
-  - ""
-  resources:
-  - pods/log
-  verbs:
-  - get
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - list
-  - watch
-  - create
-  - update
-  - patch
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumes
-  - persistentvolumeclaims
-  - persistentvolumeclaims/status
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - nodes
-  verbs:
-  - get
-  - patch
-  - update
-  - list
-  - watch
-{{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
